@@ -220,6 +220,11 @@ void SimulationLoop(int EventNumbers)
 
 int main (int argc, char ** argv)
 {
+	// print initial robot packages
+	
+	GenerateRobotPackage();
+	PrintRobotPackages();
+
 	int EventNumbers;
 	printf ("Starting... \n");
 	CheckArguments(argc, argv);
