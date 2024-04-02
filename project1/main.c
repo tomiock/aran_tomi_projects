@@ -70,7 +70,7 @@ void PrintRobotPackages()
 	struct RobotPackage *current = RobotPackagesHead;
     while (current != NULL)
     {
-        printf("\nSupplier: %c\nID: %c\nYear: %d\n", current->supplier, current->id, current->year);
+        printf("\nSupplier: %s\nID: %s\nYear: %d\n", current->supplier, current->id, current->year);
         current = current->next;
     }
     printf ("\n");
