@@ -79,8 +79,9 @@ void PrintRobotPackages()
 
 // function to search for a RobotPackage
 struct RobotPackage * SearchRobotPackage(/*...*/)
+// used to order the packages, we need to search by provider
 {
-
+	// use string compare
 }
 
 // function to simulate an insertion of RobotPackages in a ordered way (sorted by supplier)
