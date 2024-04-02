@@ -68,12 +68,13 @@ void PrintRobotPackages()
 		return;
 	}	
 	struct RobotPackage *current = RobotPackagesHead;
-    while (current != NULL)
-    {
-        printf("\nSupplier: %s\nID: %s\nYear: %d\n", current->supplier, current->id, current->year);
-        current = current->next;
-    }
-    printf ("\n");
+
+	while (current != NULL)
+	    {
+		printf("\nSupplier: %s\nID: %s\nYear: %d\n", current->supplier, current->id, current->year);
+		current = current->next;
+	    }
+	    printf ("\n");
 }
 
 // function to search for a RobotPackage
@@ -221,8 +222,7 @@ void SimulationLoop(int EventNumbers)
 int main (int argc, char ** argv)
 {
 	// print initial robot packages
-	
-	GenerateRobotPackage();
+	RobotPackagesHead = GenerateRobotPackage();
 	PrintRobotPackages();
 
 	int EventNumbers;
