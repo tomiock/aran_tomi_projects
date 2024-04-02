@@ -59,10 +59,10 @@ struct RobotPackage * GenerateRobotPackage()
 // function to print a list of RobotPackages
 void PrintRobotPackages()
 {
-	struct RobotPackage *current = ls->head;
+	struct RobotPackage *current = RobotPackagesHead;
     while (current != NULL)
     {
-        printf("%d=>", current->value);
+        printf("%d=>", current->next);
         current = current->next;
     }
     printf ("\n");
