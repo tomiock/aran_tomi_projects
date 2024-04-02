@@ -68,12 +68,12 @@ void PrintRobotPackages()
 		return;
 	}	
 	struct RobotPackage *current = RobotPackagesHead;
-	while (current != NULL)
-	    {
-		printf("%p=>", current->next);
-		current = current->next;
-	    }
-	    printf ("\n");
+    while (current != NULL)
+    {
+        printf("\nSupplier: %c\nID: %c\nYear: %d\n", current->supplier, current->id, current->year);
+        current = current->next;
+    }
+    printf ("\n");
 }
 
 // function to search for a RobotPackage
