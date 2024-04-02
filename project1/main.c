@@ -67,6 +67,13 @@ void PrintRobotPackages()
 		printf("The list of RobotPackages is empty\n");
 		return;
 	}	
+	struct RobotPackage *current = RobotPackagesHead;
+	while (current != NULL)
+	    {
+		printf("%p=>", current->next);
+		current = current->next;
+	    }
+	    printf ("\n");
 }
 
 // function to search for a RobotPackage
