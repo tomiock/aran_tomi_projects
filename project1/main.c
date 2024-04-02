@@ -4,10 +4,15 @@ Subject: Fundamentals of Programming 2
 Practical project: 1
 
 Simulator - main program
+
+Authors:
+    Name: Ockier Poblet, Tomas      NIU: 1707185
+    Name: Oliveras Sanchez, Aran    NIU: 1708069
 */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 
 #include "project1.h" // header with all data structures
 
@@ -18,9 +23,22 @@ enum EventType GenerateEventType()
 	return rand()%3;
 }
 
-void CheckArguments (int argc, char ** argv)
+void CheckArguments (int argc, char **argv)
 {
 	// check the input introduced by the user
+	/* there needs to be only one argument that is an int*/
+	
+	if (argc != 2)
+	{
+		printf("\033[0;31m" "One arguments needed, no more no less. Execution finished.\n");
+	 	exit(1);
+	}
+
+	if ((!isdigit(*argv[1])) && (argv[1] > 0))
+	{
+		printf("\033[0;31m" "The argument must be a positive integer.\n");
+		exit(1);
+	}
 }
 
 //----------------------------------------------------------RobotPackages -> Sorted list
@@ -168,6 +186,8 @@ void SimulationLoop(int EventNumbers)
 	
 	for (int i=0; i<EventNumbers; i++)    
 	{
+		// TODO: use a switch
+
 		// generate event type
 		// depending on the generated event type:
 		// event type 0: 
@@ -195,4 +215,3 @@ int main (int argc, char ** argv)
 	SimulationLoop(EventNumbers);
 	return 0;
 }
-
