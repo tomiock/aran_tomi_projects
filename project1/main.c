@@ -56,16 +56,17 @@ struct RobotPackage * GenerateRobotPackage()
 	return RobotPackage;
 }
 
+// a pointer to the head of the RobotPackage list
+struct RobotPackage * RobotPackagesHead=NULL;
+
 // function to print a list of RobotPackages
 void PrintRobotPackages()
 {
-	struct RobotPackage *current = ls->head;
-    while (current != NULL)
-    {
-        printf("%d=>", current->value);
-        current = current->next;
-    }
-    printf ("\n");
+	if (RobotPackagesHead==NULL)
+	{
+		printf("The list of RobotPackages is empty\n");
+		return;
+	}	
 }
 
 // function to search for a RobotPackage

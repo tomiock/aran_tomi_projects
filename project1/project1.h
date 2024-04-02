@@ -18,16 +18,13 @@ enum EventType { robotPackage=0, package=1, shopping=2 };
 //-----------------------------------------------------------------------Sorting packages: RobotPackages struct
 // predefined suppliers of RobotPackages; there are 8 RobotPackages
 char suppliers[8][20]={{"Philips"}, {"CISCO"}, {"DELL"}, {"SONY"},
-{"IBM"}, {"Intel"}, {"Samsung"}, {"Lenovo"}
+   {"IBM"}, {"Intel"}, {"Samsung"}, {"Lenovo"}
 };
 
 // predefined ids of RobotPackages; there are 8 RobotPackages
 char ids[8][20]={{"PHI-TS-BLU-SM"}, {"CIS-X1-GRE-ME"}, {"DEL-DX-PLA-LAR"}, {"SON-XR-BRO-SM"},
-{"IBM-OX-PLA-LA"}, {"INT-EX-ORA-ME"}, {"SAM-VK-DBL-LA"}, {"LEN-IN-SIL-LA"}
+   {"IBM-OX-PLA-LA"}, {"INT-EX-ORA-ME"}, {"SAM-VK-DBL-LA"}, {"LEN-IN-SIL-LA"}
 };
-
-// a pointer to the head of the RobotPackage list
-struct RobotPackage * RobotPackagesHead=NULL;
 
 struct RobotPackage
 {
