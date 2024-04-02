@@ -59,7 +59,13 @@ struct RobotPackage * GenerateRobotPackage()
 // function to print a list of RobotPackages
 void PrintRobotPackages()
 {
-	
+	struct RobotPackage *current = ls->head;
+    while (current != NULL)
+    {
+        printf("%d=>", current->value);
+        current = current->next;
+    }
+    printf ("\n");
 }
 
 // function to search for a RobotPackage
@@ -186,7 +192,7 @@ void SimulationLoop(int EventNumbers)
 	
 	for (int i=0; i<EventNumbers; i++)    
 	{
-		// TODO: use a switch
+		// TODO: use a switch here
 
 		// generate event type
 		// depending on the generated event type:
