@@ -1,12 +1,16 @@
----
-# Delivery 3
-
-Tomas Ockier Poblet - 
-Aran Oliveras - 
----
-
+```
+Degree: Artificial Intelligence
+Subject: Fundamentals of Programming 2
+```
+# Delivery: 3
+```
+Authors:
+    Name: Ockier Poblet, Tomas      NIU: 1707185
+    Name: Oliveras Sanchez, Aran    NIU: 1708069
+```
 
 ## Exercise 1
+The complexity of the program is $O(2n)$ because the program has two bucles.
 
 ## Exercise 2
 
