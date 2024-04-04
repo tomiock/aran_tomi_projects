@@ -97,7 +97,7 @@ struct RobotPackage * SearchRobotPackage(struct RobotPackage *RobotPackage)
 }
 
 // function to simulate an insertion of RobotPackages in a ordered way (sorted by supplier)
-void SimulateManagingRobotPackages(struct RobotPackage * RobotPackage) //two arguments???
+void SimulateManagingRobotPackages(struct RobotPackage * RobotPackage)
 {
 	if (RobotPackagesHead==NULL)
 	{
