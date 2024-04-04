@@ -44,6 +44,7 @@ void CheckArguments (int argc, char **argv)
 //----------------------------------------------------------RobotPackages -> Sorted list
 // WARNING: do not change this function
 struct RobotPackage * GenerateRobotPackage()
+// only defines a single package, another function is used to generate a list of packages
 {
 	// reserve memory for a RobotPackage
 	struct RobotPackage * RobotPackage=malloc(sizeof(struct RobotPackage));
@@ -108,7 +109,6 @@ void SimulateManagingRobotPackages(struct RobotPackage * RobotPackage) //two arg
 		RobotPackage->next = SearchRobotPackage(RobotPackage)->next;
 		SearchRobotPackage(RobotPackage)->next=RobotPackage;
 	}
-
 }
 
 // function to remove all the RobotPackages from the list at the end of the program
