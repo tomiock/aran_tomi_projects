@@ -103,9 +103,32 @@ Therefore the time complexity is $O(N^2)$.
 
 #### Part 5
 ##### Question 3
-The key fact that we have to notice is that the arrays are created using pivots 
+The key fact that we have to notice is that the arrays are created using pivots that are in the middle of the array. From this pivot, two subarrays are defined from which we divide the original array. The two array are called `a` and `aux`, the algorithm works with this arrays just as addresses in memory, just redefining how large they are or how many elements they have.
+
+We can see that the arrays are only dealed with inside of for loops.
 
 The following lines implement the "divide part":
 ```c
-
+for (k = i; k <= j; k++) {
+    if (pointer_left == mid + 1) {      // left pointer has reached the limit
+        aux[k] = a[pointer_right];
+        pointer_right++;
+    } else if (pointer_right == j + 1) {        // right pointer has reached the limit
+        aux[k] = a[pointer_left];
+        pointer_left++;
+    } else if (a[pointer_left] < a[pointer_right]) {        // pointer left points to smaller element
+        aux[k] = a[pointer_left];
+        pointer_left++;
+    } else {        // pointer right points to smaller element
+        aux[k] = a[pointer_right];
+        pointer_right++;
+    }
+}
 ```
+The following lines implement the "conquer part":
+```c
+for (k = i; k <= j; k++) {
+    a[k] = aux[k];
+}
+```
+Which corresponds to the other for loop on the program.
