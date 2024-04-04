@@ -33,7 +33,12 @@ gcc -o app *.c
 ```
 Where the star is there to represent any C file in the current directory.
 
-There is no error compiling.
+There is no error compiling. However, if we have done the first exercise first, then there is an extra C file called `search.c` that if its in the same directory as the other ones, the above command will give error in compile time. This is because there are two `main` functions provided one in `sort.c` and the other in `search.c`.
+
+To overcome this issue we need to change the directory of the `search.c` file or run the following command, that specifies the files that we want to compile:
+```bash
+gcc -o app bubble.c merge.c sort.c
+```
 
 
 #### Part 3
@@ -98,6 +103,7 @@ Therefore the time complexity is $O(N^2)$.
 
 #### Part 5
 ##### Question 3
+The key fact that we have to notice is that the arrays are created using pivots 
 
 The following lines implement the "divide part":
 ```c
