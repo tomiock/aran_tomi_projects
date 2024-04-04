@@ -99,7 +99,7 @@ int main(int argc, char ** argv)
     int size=atoi(argv[2]);
     int * array = initArray(size);
     printArray(array, -1, size);
-    int first_time = cp_Wtime_micro();
+    long int first_time = cp_Wtime_micro();
     if (type==0)
         bubbleSort(array, size);
     else //if (type==1)
@@ -108,10 +108,10 @@ int main(int argc, char ** argv)
         mergeSort(0, size-1, array, arrayAux);
         freeArray(arrayAux);
     }
-    int second_time = cp_Wtime_micro();
+    long int second_time = cp_Wtime_micro();
     printArray(array, type, size);
     freeArray(array);
-    printf("First time: %d and second time: %d\n", first_time, second_time);
-    printf("It has take %d microseconds.\n", second_time-first_time);
+    printf("First time: %ld and second time: %ld\n", first_time, second_time);
+    printf("It has take %ld microseconds.\n", second_time-first_time);
     return 0;
 }

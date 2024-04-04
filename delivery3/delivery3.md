@@ -132,3 +132,26 @@ for (k = i; k <= j; k++) {
 }
 ```
 Which corresponds to the other for loop on the program.
+#### Part 6
+##### Question 4
+
+The first function provided `cp_Wtime_sec_micro()`, returns the seconds and the microseconds.
+
+
+```
+int first_time = cp_Wtime_micro();
+if (type==0)
+    bubbleSort(array, size);
+else //if (type==1)
+{
+    int * arrayAux=malloc(sizeof(int)*size);
+    mergeSort(0, size-1, array, arrayAux);
+    freeArray(arrayAux);
+}
+int second_time = cp_Wtime_micro();
+printArray(array, type, size);
+freeArray(array);
+printf("First time: %d and second time: %d\n", first_time, second_time);
+printf("It has take %d microseconds.\n", second_time-first_time);
+
+``` 
