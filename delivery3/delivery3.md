@@ -135,7 +135,11 @@ Which corresponds to the other for loop on the program.
 #### Part 6
 ##### Question 4
 
-The first function provided `cp_Wtime_sec_micro()`, returns the seconds and the microseconds.
+The first function provided, `cp_Wtime_sec_micro()`, returns the seconds and the microseconds.
+
+The second function, `cp_Wtime_micro()`, returns only the microseconds.
+
+The third one, `cp_Wtime_sec()`, returns the seconds.
 
 
 ```
