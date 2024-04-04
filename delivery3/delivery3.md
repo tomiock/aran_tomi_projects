@@ -82,7 +82,7 @@ void swap_int(int *xp, int *yp)
 }
 ```
 
-##### Question 5
+##### Question 2
 The complexity of bubble sort is O(n^2) in the worst case, as it uses two loops to complete the sorting.
 
 The number of comparisons for a natural number $N$ that is the size of the array to sort is:
@@ -93,7 +93,7 @@ Therefore the time complexity is $O(N^2)$.
 > TODO: Explain why the number of comparisons is $N(N-1)/2$.
 
 #### Part 5
-##### Question 6
+##### Question 3
 
 The following lines implement the "divide part":
 ```c
