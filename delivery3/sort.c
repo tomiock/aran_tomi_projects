@@ -98,7 +98,7 @@ int main(int argc, char ** argv)
     enum sortType type=atoi(argv[1]);
     int size=atoi(argv[2]);
     int * array = initArray(size);
-    printArray(array, -1, size);
+    //printArray(array, -1, size);
     long int first_time = cp_Wtime_micro();
     if (type==0)
         bubbleSort(array, size);
@@ -109,7 +109,7 @@ int main(int argc, char ** argv)
         freeArray(arrayAux);
     }
     long int second_time = cp_Wtime_micro();
-    printArray(array, type, size);
+    //printArray(array, type, size);
     freeArray(array);
     printf("First time: %ld and second time: %ld\n", first_time, second_time);
     printf("It has take %ld microseconds.\n", second_time-first_time);
