@@ -34,6 +34,9 @@ struct RobotPackage
    struct RobotPackage *next;
 };
 
+// a pointer to the head of the RobotPackage list
+struct RobotPackage * RobotPackagesHead=NULL;
+
 //---------------------------------------------------------------------Classifying packages: Packages struct
 
 #define NUMBER_OF_STACK 3

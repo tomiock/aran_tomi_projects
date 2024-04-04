@@ -56,8 +56,6 @@ struct RobotPackage * GenerateRobotPackage()
 	return RobotPackage;
 }
 
-// a pointer to the head of the RobotPackage list
-struct RobotPackage * RobotPackagesHead=NULL;
 
 // function to print a list of RobotPackages
 void PrintRobotPackages()
@@ -78,22 +76,54 @@ void PrintRobotPackages()
 }
 
 // function to search for a RobotPackage
-struct RobotPackage * SearchRobotPackage(/*...*/)
+struct RobotPackage * SearchRobotPackage(struct RobotPackage *RobotPackage)
 // used to order the packages, we need to search by provider
 {
-	// use string compare
+	
+	struct RobotPackage *current = RobotPackagesHead;
+	while(1)
+	{
+		if (strcmp(current->supplier, RobotPackage->supplier) == 0)
+		{
+			return current;
+		}
+		if (current->next==NULL)
+		{
+			return current;
+		}
+		current=current->next;
+	}
 }
 
 // function to simulate an insertion of RobotPackages in a ordered way (sorted by supplier)
-void SimulateManagingRobotPackages(struct RobotPackage * RobotPackage)
+void SimulateManagingRobotPackages(struct RobotPackage * RobotPackage) //two arguments???
 {
+	if (RobotPackagesHead==NULL)
+	{
+		RobotPackagesHead = RobotPackage;
+		RobotPackage->next = NULL;
+	}
+	else
+	{
+		RobotPackage->next = SearchRobotPackage(RobotPackage)->next;
+		SearchRobotPackage(RobotPackage)->next=RobotPackage;
+	}
 
 }
 
 // function to remove all the RobotPackages from the list at the end of the program
 void RemoveAllRobotPackages()
 {
-
+	struct RobotPackage *current;
+	struct RobotPackage *next;
+	current = RobotPackagesHead;
+	RobotPackagesHead = NULL;
+	while(current != NULL)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
 }
 
 //----------------------------------------------------------Packages -> different Stacks
@@ -221,15 +251,18 @@ void SimulationLoop(int EventNumbers)
 }
 
 int main (int argc, char ** argv)
-{
-	// print initial robot packages
-	RobotPackagesHead = GenerateRobotPackage();
-	PrintRobotPackages();
-
-	int EventNumbers;
+{	int EventNumbers;
 	printf ("Starting... \n");
 	CheckArguments(argc, argv);
 	
+	// print initial robot packages
+	for(int i=0;i<30;i++)
+	{
+		SimulateManagingRobotPackages(GenerateRobotPackage());
+	};
+	printf("\n____\n");
+	PrintRobotPackages();
+	RemoveAllRobotPackages();
 	// initialize EventNumbers 
 
 	SimulationLoop(EventNumbers);
