@@ -17,6 +17,9 @@ Authors:
 
 #include "project1.h" // header with all data structures
 
+#define NUMBER_OF_STACK 3
+#define MAX_CAPACITY 3
+
 //----------------------------------------------------------General
 // WARNING: do not change this function
 enum EventType GenerateEventType()
@@ -147,34 +150,96 @@ struct Package * GeneratePackage()
 	return Package;
 }
 
+struct PackageStack {
+	struct Package *top;
+	int size;
+};
+
 // function to initialize all stacks of Packages 
 void InitStacks()
 {
+	// stacks are initialized empty, therefore must point to NULL
+	Top_ofPackageStacks[0] = NULL;
+	Top_ofPackageStacks[1] = NULL;
+	Top_ofPackageStacks[2] = NULL;
 
+	// initialize the number of packages in each stack
+	CurrentState[0] = 0;
+	CurrentState[1] = 0;
+	CurrentState[2] = 0;
+
+	struct PackageStack *stack1 = malloc(sizeof(struct PackageStack));
+	stack1->top = Top_ofPackageStacks[0];
+	stack1->size = CurrentState[0];
+
+	struct PackageStack *stack2 = malloc(sizeof(struct PackageStack));
+	stack2->top = Top_ofPackageStacks[1];
+	stack2->size = CurrentState[1];
+
+	struct PackageStack *stack3 = malloc(sizeof(struct PackageStack));
+	stack3->top = Top_ofPackageStacks[2];
+	stack3->size = CurrentState[2];
+
+	if (stack1 == NULL || stack2 == NULL || stack3 == NULL)
+	{
+		printf("Memory allocation failed\n");
+		exit(1);
+	}	
 }
 
 // function to print all stacks with all Packages
 void PrintPackages()
 {
-
+	for (int i=0; i<3; i++)
+	{
+		printf("Stack %d\n", i);
+		struct Package *current = Top_ofPackageStacks[i];
+		while(current != NULL)
+		{
+			printf("Type: %d\nColor: %d\n", current->type, current->color);
+			current = current->next;
+		}
+	}
 }
 
 // function to remove all packages from a given stack when its MAX_CAPACITY is reached
-void RemoveStack(/*...*/)
+void RemoveStack(struct PackageStack *stack)
 {
-
+	if (stack->size == MAX_CAPACITY)
+	{
+		struct Package *current;
+		struct Package *next;
+		current = stack->top;
+		stack->top = NULL;
+		while(current != NULL)
+		{
+			next = current->next;
+			free(current);
+			current = next;
+		}
+	free(current); // possible bug or memory leak - T
+	}
 }
 
 // function to simulate putting a generated Package to a corresponding stack depending on the type (size)
 void SimulateClassifyPackage(struct Package * Package)
 {
-
 }
 
 // function to clean all stacks before the end of the program
 void CleanPackageStacks()
 {
-
+	for (int idx=0; idx<3; idx++)
+	{
+	    struct Package* top_stack = Top_ofPackageStacks[idx];
+		struct Package* next = (struct Package *)malloc(sizeof(struct Package));
+		while (next != NULL)
+	    {
+			next = top_stack->next;		
+			free(top_stack);
+		}
+		free(next);
+	}			
 }
 
 //----------------------------------------------------------Shopping -> Queue
@@ -246,9 +311,16 @@ void SimulateGoForShopping(struct Shopping * shopping)
 }
 
 // function to clean shopping queue before the end of the program
-void CleanShoppingQueue(/*...*/)
+void CleanShoppingQueue(struct Shopping * last)
 {
+	if (last == NULL)
+	{
+		// already empty
+		return;
+	}
 
+	free(last);
+	CleanShoppingQueue(last->next); // recursive call!!!
 }
 
 //----------------------------------------------------------main
@@ -259,7 +331,16 @@ void SimulationLoop(int EventNumbers)
 	// declare and initialize necessary variables
 
 	InitStacks();
-	
+
+	// idk if this there - T
+	for(int i=0;i<10;i++)
+	{
+		AddToQueue(GenerateShopping());
+	};
+	printf("\n____\n");
+	PrintShopping();
+
+	//RemoveAllRobotPackages();
 	for (int i=0; i<EventNumbers; i++)    
 	{
 		enum EventType event = GenerateEventType();
@@ -300,18 +381,9 @@ int main (int argc, char ** argv)
 {	int EventNumbers;
 	printf ("Starting... \n");
 	CheckArguments(argc, argv);
+
 	printf("%d\n", atoi(argv[1]));
 	EventNumbers = atoi(argv[1]);
-	/*
-	for(int i=0;i<10;i++)
-	{
-		AddToQueue(GenerateShopping());
-	};
-	printf("\n____\n");
-	PrintShopping();
-	*/
-	//RemoveAllRobotPackages();
-	// initialize EventNumbers 
 
 	SimulationLoop(EventNumbers);
 	return 0;
