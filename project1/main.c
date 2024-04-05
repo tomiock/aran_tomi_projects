@@ -255,23 +255,24 @@ void SimulationLoop(int EventNumbers)
 	
 	for (int i=0; i<EventNumbers; i++)    
 	{
-		// TODO: use a switch here
-
-		// generate event type
 		enum EventType event = GenerateEventType();
 		// depending on the generated event type:
 		switch (event)
 		{
-		case 1:
-			SimulateManagingRobotPackages(GenerateRobotPackage());
-			break;
-		
-		case 2:
-			printf("\nA type 2 maneging here\n");
-			break;
-		
-		case 3:
-			SimulateGoForShopping(GenerateShopping());
+			case robotPackage:
+				SimulateManagingRobotPackages(GenerateRobotPackage());
+				break;
+
+			case package:
+				printf("\nA type 2 managing here\n");
+				break;
+
+			case shopping:
+				SimulateGoForShopping(GenerateShopping());
+
+			default:
+				// error handling
+				break;
 		}
 
 		// event type 0: 
