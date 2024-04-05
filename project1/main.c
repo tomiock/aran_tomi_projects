@@ -187,20 +187,43 @@ struct Shopping * GenerateShopping()
 // function to print a list of robots in a shopping queue
 void PrintShopping()
 {
-
+	if (queueFirst==NULL)
+	{
+		printf("The list of RobotPackages is empty\n");
+		return;
+	}	
+	struct Shopping *current = queueFirst;
+	while(current!=NULL)
+	{
+		printf("Robot ID: %d\nNumber of things to buy: %d\n", current->robot_id, current->numberThingsToBuy);
+		current = current->next;
+	}
 }
 
 // function to add a robot to a shopping queue
 void AddToQueue(struct Shopping * shopping)
 {
-
+	if (queueLast==NULL)
+	{
+		queueFirst = shopping;
+		queueLast = shopping;
+	}
+	else
+	{
+		queueLast->next = shopping;
+		queueLast = shopping;
+	}
 }
 
 // function to remove a robot from the queue and serve it
 // it may return the number of things to buy to simulate the time
 int Dequeue ()
 {
-
+	int number_things = queueFirst->numberThingsToBuy;
+	struct Shopping *temp_shopping = queueFirst;
+	queueFirst = queueFirst->next;
+	free(temp_shopping);
+	return number_things;
 }
 
 // function to simulate the time the robot is in the queue
@@ -235,7 +258,22 @@ void SimulationLoop(int EventNumbers)
 		// TODO: use a switch here
 
 		// generate event type
+		enum EventType event = GenerateEventType();
 		// depending on the generated event type:
+		switch (event)
+		{
+		case 1:
+			SimulateManagingRobotPackages(GenerateRobotPackage());
+			break;
+		
+		case 2:
+			printf("\nA type 2 maneging here\n");
+			break;
+		
+		case 3:
+			SimulateGoForShopping(GenerateShopping());
+		}
+
 		// event type 0: 
 			// generate RobotPackage 
 			// Simulate managing RobotPackages (sorting)
@@ -254,15 +292,17 @@ int main (int argc, char ** argv)
 {	int EventNumbers;
 	printf ("Starting... \n");
 	CheckArguments(argc, argv);
-	
-	// print initial robot packages
-	for(int i=0;i<30;i++)
+	printf("%d\n", atoi(argv[1]));
+	EventNumbers = atoi(argv[1]);
+/*
+	for(int i=0;i<10;i++)
 	{
-		SimulateManagingRobotPackages(GenerateRobotPackage());
+		AddToQueue(GenerateShopping());
 	};
 	printf("\n____\n");
-	PrintRobotPackages();
-	RemoveAllRobotPackages();
+	PrintShopping();
+	*/
+	//RemoveAllRobotPackages();
 	// initialize EventNumbers 
 
 	SimulationLoop(EventNumbers);
