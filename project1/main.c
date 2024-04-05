@@ -150,6 +150,8 @@ struct Package * GeneratePackage()
 	return Package;
 }
 
+// A struct is created for the stacks in order to organize better the variables
+// as one function requires an stack to be given as input
 struct PackageStack {
 	struct Package *top;
 	int size;
@@ -182,6 +184,7 @@ void InitStacks()
 
 	if (stack1 == NULL || stack2 == NULL || stack3 == NULL)
 	{
+		// error CleanPackageStacks();
 		printf("Memory allocation failed\n");
 		exit(1);
 	}	
@@ -190,11 +193,11 @@ void InitStacks()
 // function to print all stacks with all Packages
 void PrintPackages()
 {
-	for (int i=0; i<3; i++)
+	for (int i=0; i<3; i++) // loop through the 3 stacks
 	{
 		printf("Stack %d\n", i);
 		struct Package *current = Top_ofPackageStacks[i];
-		while(current != NULL)
+		while(current != NULL) // loop through the whole stack
 		{
 			printf("Type: %d\nColor: %d\n", current->type, current->color);
 			current = current->next;
@@ -207,12 +210,16 @@ void RemoveStack(struct PackageStack *stack)
 {
 	if (stack->size == MAX_CAPACITY)
 	{
+		// two pointers to iterate through the stack
 		struct Package *current;
 		struct Package *next;
+		// malloc not needed bacause pointer are just re-referenced - T
+
 		current = stack->top;
 		stack->top = NULL;
 		while(current != NULL)
 		{
+			// free the packages one by one
 			next = current->next;
 			free(current);
 			current = next;
@@ -233,12 +240,13 @@ void CleanPackageStacks()
 	{
 	    struct Package* top_stack = Top_ofPackageStacks[idx];
 		struct Package* next = (struct Package *)malloc(sizeof(struct Package));
+
 		while (next != NULL)
 	    {
 			next = top_stack->next;		
 			free(top_stack);
 		}
-		free(next);
+		free(next); // possible bug or memory leak - T
 	}			
 }
 
@@ -320,7 +328,7 @@ void CleanShoppingQueue(struct Shopping * last)
 	}
 
 	free(last);
-	CleanShoppingQueue(last->next); // recursive call!!!
+	CleanShoppingQueue(last->next); // recursive call ! - T
 }
 
 //----------------------------------------------------------main
@@ -333,6 +341,7 @@ void SimulationLoop(int EventNumbers)
 	InitStacks();
 
 	// idk if this there - T
+	// needs general revision
 	for(int i=0;i<10;i++)
 	{
 		AddToQueue(GenerateShopping());
@@ -340,7 +349,7 @@ void SimulationLoop(int EventNumbers)
 	printf("\n____\n");
 	PrintShopping();
 
-	//RemoveAllRobotPackages();
+	//RemoveAllRobotPackages(); // not needed here? - T
 	for (int i=0; i<EventNumbers; i++)    
 	{
 		enum EventType event = GenerateEventType();
@@ -349,17 +358,15 @@ void SimulationLoop(int EventNumbers)
 		{
 			case robotPackage:
 				SimulateManagingRobotPackages(GenerateRobotPackage());
-				break;
 
 			case package:
 				printf("\nA type 2 managing here\n");
-				break;
 
 			case shopping:
 				SimulateGoForShopping(GenerateShopping());
 
 			default:
-				// error handling
+				printf("Error: event type not recognized. Exiting the main loop.\n");
 				break;
 		}
 
@@ -375,6 +382,9 @@ void SimulationLoop(int EventNumbers)
 		// UpdateShopping
 	}
 	// CLEANING THE SIMULATION
+	CleanPackageStacks();
+	CleanShoppingQueue(queueLast);
+	RemoveAllRobotPackages();
 }
 
 int main (int argc, char ** argv)
