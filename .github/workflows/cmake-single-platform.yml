@@ -5,8 +5,13 @@ name: CMake Project1
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - project1/**
+
   pull_request:
     branches: [ "main" ]
+    paths:
+      - project1/**
 
 jobs:
   build:
