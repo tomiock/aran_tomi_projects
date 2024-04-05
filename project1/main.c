@@ -13,6 +13,7 @@ Authors:
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <limits.h>
 
 #include "project1.h" // header with all data structures
 
@@ -23,20 +24,28 @@ enum EventType GenerateEventType()
 	return rand()%3;
 }
 
-void CheckArguments (int argc, char **argv)
+void CheckArguments (int argc, char *argv[])
 {
 	// check the input introduced by the user
 	/* there needs to be only one argument that is an int*/
-	
+
 	if (argc != 2)
 	{
 		printf("\033[0;31m" "One arguments needed, no more no less. Execution finished.\n");
 	 	exit(1);
 	}
 
-	if ((!isdigit(*argv[1])) && (argv[1] > 0))
+	unsigned int argument = atoi(argv[1]);
+
+	if ((!isdigit(argv[1])) || (argument <= 0) || (argument == 0))
 	{
-		printf("\033[0;31m" "The argument must be a positive integer.\n");
+		printf("\033[0;31m" "The argument must be a positive integer. Execution finished.\n");
+		exit(1);
+	}
+
+	if (argument > INT_MAX)
+	{
+		printf("\033[0;31m" "Too large of a number, does not fit in type `int`. Execution finished.\n");
 		exit(1);
 	}
 }
@@ -295,7 +304,7 @@ int main (int argc, char ** argv)
 	CheckArguments(argc, argv);
 	printf("%d\n", atoi(argv[1]));
 	EventNumbers = atoi(argv[1]);
-/*
+	/*
 	for(int i=0;i<10;i++)
 	{
 		AddToQueue(GenerateShopping());
