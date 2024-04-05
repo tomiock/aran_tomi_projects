@@ -395,9 +395,11 @@ void SimulationLoop(int EventNumbers)
 			break;
 	}
 	// CLEANING THE SIMULATION
-	CleanPackageStacks();
-	CleanShoppingQueue(queueLast);
+	// CleanPackageStacks();
+	// CleanShoppingQueue(queueLast);
 	RemoveAllRobotPackages();
+	//
+	// ERROR: the two functions are broken (SEGFAULT) - T
 }
 
 int main (int argc, char ** argv)
