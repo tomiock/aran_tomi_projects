@@ -14,6 +14,7 @@ Authors:
 #include <stdlib.h>
 #include <ctype.h>
 #include <limits.h>
+#include <stdbool.h>
 
 #include "project1.h" // header with all data structures
 
@@ -337,6 +338,7 @@ void CleanShoppingQueue(struct Shopping * last)
 void SimulationLoop(int EventNumbers)
 {
 	// declare and initialize necessary variables
+	bool BREAK_FLAG = false;
 
 	InitStacks();
 
@@ -352,23 +354,31 @@ void SimulationLoop(int EventNumbers)
 	//RemoveAllRobotPackages(); // not needed here? - T
 	for (int i=0; i<EventNumbers; i++)    
 	{
+		printf("Event number %d\n", i);
 		enum EventType event = GenerateEventType();
 		// depending on the generated event type:
+		event = 0;
 		switch (event)
 		{
-			case robotPackage:
+			case 0:
 				SimulateManagingRobotPackages(GenerateRobotPackage());
+				printf("Succesfully runned part 1\n");
+				break;
 
-			case package:
-				printf("\nA type 2 managing here\n");
+			case 1:
+				printf("Part 2 (package classification here)\n");
+				break;
 
-			case shopping:
+			case 2:
 				SimulateGoForShopping(GenerateShopping());
+				printf("Succesfully runned part 3\n");
+				break;
 
 			default:
 				printf("Error: event type not recognized. Exiting the main loop.\n");
-				break;
+				BREAK_FLAG = true;
 		}
+		printf("\n____\n");
 
 		// event type 0: 
 			// generate RobotPackage 
@@ -380,6 +390,9 @@ void SimulationLoop(int EventNumbers)
 			// generate shopping
 			// Simulate go for shopping 
 		// UpdateShopping
+
+		if (BREAK_FLAG) // if an error occurred, exit for loop and clean the simulation
+			break;
 	}
 	// CLEANING THE SIMULATION
 	CleanPackageStacks();
