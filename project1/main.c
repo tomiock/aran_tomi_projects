@@ -232,19 +232,26 @@ void SimulationLoop(int EventNumbers)
 	
 	for (int i=0; i<EventNumbers; i++)    
 	{
-		// TODO: use a switch here
-
 		// generate event type
-		// depending on the generated event type:
-		// event type 0: 
-			// generate RobotPackage 
-			// Simulate managing RobotPackages (sorting)
-		// event type 1:
-			// generate Package
-			// Simulate classifying Packages (putting to a corresponding stack)
-		// event type 2:
-			// generate shopping
-			// Simulate go for shopping 
+		int EventType = GenerateEventType();
+		switch (EventType) {
+			case 0:
+				// generate RobotPackage 
+				// Simulate managing RobotPackages (sorting)
+				break;
+			case 1:
+				// generate Package
+				// Simulate classifying Packages (putting to a corresponding stack)
+				break;
+			case 2:
+				// generate shopping
+				// Simulate go for shopping 
+				break;
+			default:
+				// error Handling
+				break;
+		
+		}
 		// UpdateShopping
 	}
 	// CLEANING THE SIMULATION
