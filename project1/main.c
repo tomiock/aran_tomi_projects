@@ -35,18 +35,15 @@ void CheckArguments (int argc, char *argv[])
 	 	exit(1);
 	}
 
+	if (atol(argv[1]) > INT_MAX)
+	{
+		printf("\033[0;31m" "Too large of a number, does not fit in type `int`. Execution finished.\n");
+		exit(1);
+	}
 
 	if ((atoi(argv[1]) < 1) || !isdigit(*argv[1]))
 	{
 		printf("\033[0;31m" "The argument must be a positive integer. Execution finished.\n");
-		exit(1);
-	}
-
-	unsigned int argument = atoi(argv[1]);
-
-	if (argument > INT_MAX)
-	{
-		printf("\033[0;31m" "Too large of a number, does not fit in type `int`. Execution finished.\n");
 		exit(1);
 	}
 }
