@@ -6,8 +6,8 @@ Practical project: 1
 Simulator - main program
 
 Authors:
-    Name: Ockier Poblet, Tomas      NIU: 1707185
-    Name: Oliveras Sanchez, Aran    NIU: 1708069
+	Name: Ockier Poblet, Tomas      NIU: 1707185
+	Name: Oliveras Sanchez, Aran    NIU: 1708069
 */
 
 #include <stdio.h>
@@ -36,7 +36,7 @@ void CheckArguments (int argc, char *argv[])
 	if (argc != 2)
 	{
 		printf("\033[0;31m" "One arguments needed, no more no less. Execution finished.\n");
-	 	exit(1);
+		exit(1);
 	}
 
 	if (atol(argv[1]) > INT_MAX)
@@ -80,18 +80,18 @@ void PrintRobotPackages()
 	struct RobotPackage *current = RobotPackagesHead;
 
 	while (current != NULL)
-	    {
+	{
 		printf("\nSupplier: %s\nID: %s\nYear: %d\n", current->supplier, current->id, current->year);
 		current = current->next;
-	    }
-	    printf ("\n");
+	}
+	printf("\n");
 }
 
 // function to search for a RobotPackage
 struct RobotPackage * SearchRobotPackage(struct RobotPackage *RobotPackage)
 // used to order the packages, we need to search by provider
 {
-	
+
 	struct RobotPackage *current = RobotPackagesHead;
 	while(1)
 	{
@@ -239,11 +239,11 @@ void CleanPackageStacks()
 {
 	for (int idx=0; idx<3; idx++)
 	{
-	    struct Package* top_stack = Top_ofPackageStacks[idx];
+		struct Package* top_stack = Top_ofPackageStacks[idx];
 		struct Package* next = (struct Package *)malloc(sizeof(struct Package));
 
 		while (next->next != NULL)
-	    {
+		{
 			next = top_stack->next;		
 			free(top_stack);
 		}
@@ -352,21 +352,20 @@ void SimulationLoop(int EventNumbers)
 		AddToQueue(GenerateShopping());
 	};
 	printf("\n____\n");
-	PrintShopping();
+	// PrintShopping();
 
-	//RemoveAllRobotPackages(); // not needed here? - T
 	for (int i=0; i<EventNumbers; i++)    
 	{
-		printf("Event number %d\n", i); // debugging/testing purposes
+		// printf("Event number %d\n", i); // debugging/testing purposes
 		enum EventType event = GenerateEventType();
 		printf("EventType %d\n", event); // debugging/testing purposes
-		// depending on the generated event type:
+
 		switch (event)
 		{
 			case robotPackage:
 				SimulateManagingRobotPackages(GenerateRobotPackage());
 				printf("Succesfully runned part 1\n");
-				break;
+			break;
 
 			case package:
 				printf("Part 2 (package classification here)\n");
@@ -375,7 +374,7 @@ void SimulationLoop(int EventNumbers)
 			case shopping:
 				SimulateGoForShopping(GenerateShopping());
 				printf("Succesfully runned part 3\n");
-				break;
+			break;
 
 			default:
 				printf("Error: event type not recognized. Exiting the main loop.\n");
@@ -383,19 +382,8 @@ void SimulationLoop(int EventNumbers)
 		}
 		printf("\n____\n");
 
-		// event type 0: 
-			// generate RobotPackage 
-			// Simulate managing RobotPackages (sorting)
-		// event type 1:
-			// generate Package
-			// Simulate classifying Packages (putting to a corresponding stack)
-		// event type 2:
-			// generate shopping
-			// Simulate go for shopping 
-		// UpdateShopping
-
 		if (BREAK_FLAG) // if an error occurred, exit for loop and clean the simulation
-			break;
+		break;
 	}
 	// CLEANING THE SIMULATION
 	CleanPackageStacks();
