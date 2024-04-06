@@ -356,20 +356,20 @@ void SimulationLoop(int EventNumbers)
 	{
 		printf("Event number %d\n", i);
 		enum EventType event = GenerateEventType();
+		printf("EventType %d\n", event);
 		// depending on the generated event type:
-		event = 0;
 		switch (event)
 		{
-			case 0:
+			case robotPackage:
 				SimulateManagingRobotPackages(GenerateRobotPackage());
 				printf("Succesfully runned part 1\n");
 				break;
 
-			case 1:
+			case package:
 				printf("Part 2 (package classification here)\n");
 				break;
 
-			case 2:
+			case shopping:
 				SimulateGoForShopping(GenerateShopping());
 				printf("Succesfully runned part 3\n");
 				break;
