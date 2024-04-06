@@ -320,16 +320,19 @@ void SimulateGoForShopping(struct Shopping * shopping)
 }
 
 // function to clean shopping queue before the end of the program
-void CleanShoppingQueue(struct Shopping * last)
+void CleanShoppingQueue() // on the template file this function has parameters into it - T
 {
-	if (last == NULL)
-	{
-		// already empty
-		return;
-	}
+	struct Shopping *current;
+	struct Shopping *next; // here next is used as a temporal pointer in order to reassing current
+	current = queueFirst;
+	queueFirst = NULL;
 
-	free(last);
-	CleanShoppingQueue(last->next); // recursive call ! - T
+	while(current != NULL)
+	{
+		next = current->next;
+		free(current);
+		current = next;
+	}
 }
 
 //----------------------------------------------------------main
@@ -396,10 +399,8 @@ void SimulationLoop(int EventNumbers)
 	}
 	// CLEANING THE SIMULATION
 	CleanPackageStacks();
-	// CleanShoppingQueue(queueLast);
+	CleanShoppingQueue(); // no input into here? - T
 	RemoveAllRobotPackages();
-	//
-	// ERROR: the two functions are broken (SEGFAULT) - T
 }
 
 int main (int argc, char ** argv)
