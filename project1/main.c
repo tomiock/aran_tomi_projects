@@ -344,12 +344,14 @@ void SimulationLoop(int EventNumbers)
 
 	// idk if this there - T
 	// needs general revision
+	/*
 	for(int i=0;i<10;i++)
 	{
 		AddToQueue(GenerateShopping());
 	};
 	printf("\n____\n");
 	PrintShopping();
+	*/
 
 	//RemoveAllRobotPackages(); // not needed here? - T
 	for (int i=0; i<EventNumbers; i++)    
@@ -380,16 +382,6 @@ void SimulationLoop(int EventNumbers)
 		}
 		printf("\n____\n");
 
-		// event type 0: 
-			// generate RobotPackage 
-			// Simulate managing RobotPackages (sorting)
-		// event type 1:
-			// generate Package
-			// Simulate classifying Packages (putting to a corresponding stack)
-		// event type 2:
-			// generate shopping
-			// Simulate go for shopping 
-		// UpdateShopping
 
 		if (BREAK_FLAG) // if an error occurred, exit for loop and clean the simulation
 			break;
@@ -398,6 +390,9 @@ void SimulationLoop(int EventNumbers)
 	CleanPackageStacks();
 	// CleanShoppingQueue(queueLast);
 	RemoveAllRobotPackages();
+	//CleanPackageStacks();
+	CleanShoppingQueue(queueLast);
+	
 	//
 	// ERROR: the two functions are broken (SEGFAULT) - T
 }
