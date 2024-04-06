@@ -242,7 +242,7 @@ void CleanPackageStacks()
 	    struct Package* top_stack = Top_ofPackageStacks[idx];
 		struct Package* next = (struct Package *)malloc(sizeof(struct Package));
 
-		while (next != NULL)
+		while (next->next != NULL)
 	    {
 			next = top_stack->next;		
 			free(top_stack);
@@ -354,9 +354,9 @@ void SimulationLoop(int EventNumbers)
 	//RemoveAllRobotPackages(); // not needed here? - T
 	for (int i=0; i<EventNumbers; i++)    
 	{
-		printf("Event number %d\n", i);
+		printf("Event number %d\n", i); // debugging/testing purposes
 		enum EventType event = GenerateEventType();
-		printf("EventType %d\n", event);
+		printf("EventType %d\n", event); // debugging/testing purposes
 		// depending on the generated event type:
 		switch (event)
 		{
@@ -395,7 +395,7 @@ void SimulationLoop(int EventNumbers)
 			break;
 	}
 	// CLEANING THE SIMULATION
-	// CleanPackageStacks();
+	CleanPackageStacks();
 	// CleanShoppingQueue(queueLast);
 	RemoveAllRobotPackages();
 	//
