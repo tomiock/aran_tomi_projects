@@ -65,6 +65,7 @@ void checkArguments(int argc, char ** argv)
 int * initArray(int size)
 {
     int * array=malloc(sizeof(int)*size);
+    
     for (int i = 0; i < size; i++)
         array[i]=rand()%(2*size);
     return array;
