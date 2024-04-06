@@ -151,13 +151,6 @@ struct Package * GeneratePackage()
 	return Package;
 }
 
-// A struct is created for the stacks in order to organize better the variables
-// as one function requires an stack to be given as input
-struct PackageStack {
-	struct Package *top;
-	int size;
-};
-
 // function to initialize all stacks of Packages 
 void InitStacks()
 {
@@ -170,25 +163,6 @@ void InitStacks()
 	CurrentState[0] = 0;
 	CurrentState[1] = 0;
 	CurrentState[2] = 0;
-
-	struct PackageStack *stack1 = malloc(sizeof(struct PackageStack));
-	stack1->top = Top_ofPackageStacks[0];
-	stack1->size = CurrentState[0];
-
-	struct PackageStack *stack2 = malloc(sizeof(struct PackageStack));
-	stack2->top = Top_ofPackageStacks[1];
-	stack2->size = CurrentState[1];
-
-	struct PackageStack *stack3 = malloc(sizeof(struct PackageStack));
-	stack3->top = Top_ofPackageStacks[2];
-	stack3->size = CurrentState[2];
-
-	if (stack1 == NULL || stack2 == NULL || stack3 == NULL)
-	{
-		// error CleanPackageStacks();
-		printf("Memory allocation failed\n");
-		exit(1);
-	}	
 }
 
 // function to print all stacks with all Packages
@@ -207,31 +181,43 @@ void PrintPackages()
 }
 
 // function to remove all packages from a given stack when its MAX_CAPACITY is reached
-void RemoveStack(struct PackageStack *stack)
+void RemoveStack(struct Package *head)
 {
-	if (stack->size == MAX_CAPACITY)
-	{
-		// two pointers to iterate through the stack
-		struct Package *current;
-		struct Package *next;
-		// malloc not needed bacause pointer are just re-referenced - T
+	struct Package * next = malloc(sizeof(struct Package));
 
-		current = stack->top;
-		stack->top = NULL;
-		while(current != NULL)
-		{
-			// free the packages one by one
-			next = current->next;
-			free(current);
-			current = next;
-		}
-	free(current); // possible bug or memory leak - T
+	while(head != NULL)
+	{
+		// free the packages one by one
+		next = head->next;
+		free(head);
+		head = next;
 	}
+	// maybe free(next) here - T
 }
 
 // function to simulate putting a generated Package to a corresponding stack depending on the type (size)
 void SimulateClassifyPackage(struct Package * Package)
 {
+	switch (Package->type) {
+		case small:
+			Package->next = Top_ofPackageStacks[0];
+			Top_ofPackageStacks[0] = Package;
+		break;
+
+		case medium:
+			Package->next = Top_ofPackageStacks[1];
+			Top_ofPackageStacks[1] = Package;
+		break;
+
+		case large:
+			Package->next = Top_ofPackageStacks[2];
+			Top_ofPackageStacks[2] = Package;
+		break;
+
+		default:
+			printf("Type of Package not expected %d. Exeting execution.\n", Package->type);
+		return;
+	}
 }
 
 // function to clean all stacks before the end of the program
@@ -248,6 +234,8 @@ void CleanPackageStacks()
 			free(top_stack);
 		}
 		free(next); // possible bug or memory leak - T
+		// another way to do this?
+		// this free fells a bit weird
 	}			
 }
 
@@ -368,8 +356,18 @@ void SimulationLoop(int EventNumbers)
 			break;
 
 			case package:
-				printf("Part 2 (package classification here)\n");
-				break;
+				SimulateClassifyPackage(GeneratePackage());
+				printf("Succesfully runned part 2\n");
+
+				// loop over all stacks to see if they are at MAX_CAPACITY
+				for (int idx=0; i<3; i++)
+				{
+					if (CurrentState[idx] == MAX_CAPACITY)
+					{
+						RemoveStack(Top_ofPackageStacks[idx]);
+					}
+				}
+			break;
 
 			case shopping:
 				SimulateGoForShopping(GenerateShopping());
