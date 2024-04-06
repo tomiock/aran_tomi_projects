@@ -4,6 +4,7 @@ project(Project1)
 
 enable_language(C)
 enable_testing()
+include(CTest)
 
 add_test(NAME UsageArgumentsEmpty COMMAND app)
 set_tests_properties(UsageArgumentsEmpty
