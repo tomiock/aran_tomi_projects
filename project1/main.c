@@ -284,7 +284,7 @@ void AddToQueue(struct Shopping * shopping)
 	}
 	else
 	{
-		queueLast->next = shopping;
+		shopping->next = queueLast;
 		queueLast = shopping;
 	}
 }
@@ -317,15 +317,17 @@ void SimulateGoForShopping(struct Shopping * shopping)
 void CleanShoppingQueue() // on the template file this function has parameters into it - T
 {
 	struct Shopping *current;
-	struct Shopping *next; // here next is used as a temporal pointer in order to reassing current
-	current = queueFirst;
-	queueFirst = NULL;
+	struct Shopping *next_robot; // here next is used as a temporal pointer in order to reassing current
 
-	while(current != NULL)
+	next_robot = NULL;
+
+	current = queueLast;
+
+	while(current->next != NULL)
 	{
-		next = current->next;
+		next_robot = current->next;
 		free(current);
-		current = next;
+		current = next_robot;
 	}
 }
 
