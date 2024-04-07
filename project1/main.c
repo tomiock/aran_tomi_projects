@@ -234,9 +234,7 @@ void CleanPackageStacks()
 			next = top_stack->next;		
 			free(top_stack);
 		}
-		//free(next); // possible bug or memory leak - T
-		// another way to do this?
-		// this free fells a bit weird
+		free(next);
 	}			
 }
 
@@ -329,6 +327,7 @@ void CleanShoppingQueue() // on the template file this function has parameters i
 		free(current);
 		current = next_robot;
 	}
+	free(current);
 }
 
 //----------------------------------------------------------main
