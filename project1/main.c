@@ -291,7 +291,7 @@ void AddToQueue(struct Shopping * shopping)
 
 // function to remove a robot from the queue and serve it
 // it may return the number of things to buy to simulate the time
-int Dequeue ()
+int Dequeue()
 {
 	int number_things = queueFirst->numberThingsToBuy;
 	struct Shopping *temp_shopping = queueFirst;
@@ -301,7 +301,7 @@ int Dequeue ()
 }
 
 // function to simulate the time the robot is in the queue
-void UpdateShoppingQueue (/*...*/)
+void UpdateShoppingQueue(/*...*/)
 {
 
 }
@@ -357,13 +357,13 @@ void SimulationLoop(int EventNumbers)
 		switch (event)
 		{
 			case robotPackage:
+				printf("Running part 1\n");
 				SimulateManagingRobotPackages(GenerateRobotPackage());
-				printf("Succesfully runned part 1\n");
 			break;
 
 			case package:
+				printf("Running part 2\n");
 				SimulateClassifyPackage(GeneratePackage());
-				printf("Succesfully runned part 2\n");
 
 				// loop over all stacks to see if they are at MAX_CAPACITY
 				for (int idx=0; i<3; i++)
@@ -376,8 +376,8 @@ void SimulationLoop(int EventNumbers)
 			break;
 
 			case shopping:
+				printf("Running part 3\n");
 				SimulateGoForShopping(GenerateShopping());
-				printf("Succesfully runned part 3\n");
 			break;
 
 			default:
@@ -386,8 +386,7 @@ void SimulationLoop(int EventNumbers)
 		}
 		printf("\n____\n");
 
-		if (BREAK_FLAG) // if an error occurred, exit for loop and clean the simulation
-		break;
+		if (BREAK_FLAG) break; // if an error occurred, exit for loop and clean the simulation
 	}
 	// CLEANING THE SIMULATION
 	CleanPackageStacks();
@@ -397,7 +396,7 @@ void SimulationLoop(int EventNumbers)
 
 int main (int argc, char ** argv)
 {	int EventNumbers;
-	printf ("Starting... \n");
+	printf("Starting... \n");
 	CheckArguments(argc, argv);
 
 	printf("%d\n", atoi(argv[1]));
