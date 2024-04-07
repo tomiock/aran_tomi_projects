@@ -227,13 +227,14 @@ void CleanPackageStacks()
 	{
 		struct Package* top_stack = Top_ofPackageStacks[idx];
 		struct Package* next = (struct Package *)malloc(sizeof(struct Package));
+		next->next = NULL; // DO NOT FORGET AGAIN!!!
 
 		while (next->next != NULL)
 		{
 			next = top_stack->next;		
 			free(top_stack);
 		}
-		free(next); // possible bug or memory leak - T
+		//free(next); // possible bug or memory leak - T
 		// another way to do this?
 		// this free fells a bit weird
 	}			
@@ -245,6 +246,10 @@ struct Shopping * GenerateShopping()
 {
 	// reserve memory for a Shopping
 	struct Shopping * shopping=malloc(sizeof(struct Shopping));
+	shopping->next = NULL; // initializing at NULL or zero so the pointer has reference
+	shopping->numberThingsToBuy = 0;
+	shopping->robot_id = 0;
+
 	// initialize the shopping's fields
 	int n=rand()%5+1;
 	shopping->numberThingsToBuy = n;
@@ -304,7 +309,8 @@ void UpdateShoppingQueue (/*...*/)
 // function to simulate a robot going for shopping - add to the queue
 void SimulateGoForShopping(struct Shopping * shopping)
 {
-
+	free(shopping); // free the memory of the shopping, needed always - T
+	// always at the end of the funcion
 }
 
 // function to clean shopping queue before the end of the program
