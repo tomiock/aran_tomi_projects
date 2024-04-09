@@ -239,16 +239,17 @@ void CleanPackageStacks()
 	for (int idx=0; idx<3; idx++)
 	{
 		struct Package* top_stack = Top_ofPackageStacks[idx];
-		struct Package* next = (struct Package *)malloc(sizeof(struct Package));
-		next->next = NULL; // DO NOT FORGET AGAIN!!!
+		struct Package * next;
 
-		while (next->next != NULL)
+		while (top_stack != NULL)
 		{
 			next = top_stack->next;		
 			free(top_stack);
+			top_stack = next;
 			number++;
 		}
-		free(next);
+
+		free(top_stack);
 	}
 }
 
