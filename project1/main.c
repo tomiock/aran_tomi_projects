@@ -193,7 +193,7 @@ void RemoveStack(struct Package *head)
 		printf("The stack is empty or pointer is wrongly provided (NULL pointer)\n");
 	}
 
-	while(head != NULL)
+	while(head->next != NULL)
 	{
 		// free the packages one by one
 		next = head->next;
@@ -210,16 +210,19 @@ void SimulateClassifyPackage(struct Package * Package)
 		case small:
 			Package->next = Top_ofPackageStacks[0];
 			Top_ofPackageStacks[0] = Package;
+			CurrentState[0]++;
 		break;
 
 		case medium:
 			Package->next = Top_ofPackageStacks[1];
 			Top_ofPackageStacks[1] = Package;
+			CurrentState[1]++;
 		break;
 
 		case large:
 			Package->next = Top_ofPackageStacks[2];
 			Top_ofPackageStacks[2] = Package;
+			CurrentState[2]++;
 		break;
 
 		default:
