@@ -125,6 +125,7 @@ void SimulateManagingRobotPackages(struct RobotPackage * RobotPackage)
 // function to remove all the RobotPackages from the list at the end of the program
 void RemoveAllRobotPackages()
 {
+	int number = 0;
 	struct RobotPackage *current;
 	struct RobotPackage *next;
 	current = RobotPackagesHead;
@@ -134,7 +135,9 @@ void RemoveAllRobotPackages()
 		next = current->next;
 		free(current);
 		current = next;
+		number++;
 	}
+	printf("\t\t%d packages has been removed.\n", number);
 }
 
 //----------------------------------------------------------Packages -> different Stacks
@@ -223,6 +226,7 @@ void SimulateClassifyPackage(struct Package * Package)
 // function to clean all stacks before the end of the program
 void CleanPackageStacks()
 {
+	int number=0;
 	for (int idx=0; idx<3; idx++)
 	{
 		struct Package* top_stack = Top_ofPackageStacks[idx];
@@ -233,27 +237,24 @@ void CleanPackageStacks()
 		{
 			next = top_stack->next;		
 			free(top_stack);
+			number++;
 		}
 		free(next);
-	}			
+	}
+	printf("\t\t%d packages has been removed\n", number);			
 }
 
 //----------------------------------------------------------Shopping -> Queue
 // WARNING: do not change this function
-struct Shopping * GenerateShopping()
-{
-	// reserve memory for a Shopping
-	struct Shopping * shopping=malloc(sizeof(struct Shopping));
-	shopping->next = NULL; // initializing at NULL or zero so the pointer has reference
-	shopping->numberThingsToBuy = 0;
-	shopping->robot_id = 0;
-
-	// initialize the shopping's fields
-	int n=rand()%5+1;
-	shopping->numberThingsToBuy = n;
-	nextRobotID++;
-	shopping->robot_id=nextRobotID;
-	return shopping;
+struct Shopping *GenerateShopping() {
+    // reserve memory for a Shopping
+    struct Shopping *shopping = malloc(sizeof(struct Shopping));
+    // initialize the shopping's fields
+    int n = rand() % 5 + 1;
+    shopping->numberThingsToBuy = n;
+    shopping->robot_id = ++nextRobotID;
+    shopping->next = NULL; 
+    return shopping;
 }
 
 // function to print a list of robots in a shopping queue
@@ -261,7 +262,7 @@ void PrintShopping()
 {
 	if (queueFirst==NULL)
 	{
-		printf("The list of RobotPackages is empty\n");
+		printf("The list of Shopping Queue is empty\n");
 		return;
 	}	
 	struct Shopping *current = queueFirst;
@@ -282,7 +283,7 @@ void AddToQueue(struct Shopping * shopping)
 	}
 	else
 	{
-		shopping->next = queueLast;
+		queueLast->next = shopping;
 		queueLast = shopping;
 	}
 }
@@ -291,43 +292,66 @@ void AddToQueue(struct Shopping * shopping)
 // it may return the number of things to buy to simulate the time
 int Dequeue()
 {
+	if (queueFirst == NULL) {
+        printf("Queue empty\n");
+        return 0;
+    }
 	int number_things = queueFirst->numberThingsToBuy;
 	struct Shopping *temp_shopping = queueFirst;
 	queueFirst = queueFirst->next;
+	if(queueFirst == NULL)
+	{
+		queueLast = NULL;
+	}
 	free(temp_shopping);
 	return number_things;
 }
 
 // function to simulate the time the robot is in the queue
-void UpdateShoppingQueue(/*...*/)
+void UpdateShoppingQueue(int * numberThingsToBuy_Current_Served)
 {
-
+	if(*numberThingsToBuy_Current_Served == 0)
+	{
+		*numberThingsToBuy_Current_Served = Dequeue();
+		if(*numberThingsToBuy_Current_Served == 0)
+			return;
+		*numberThingsToBuy_Current_Served = *numberThingsToBuy_Current_Served - 1;
+		return;
+	}
+	printf("\nnumberThingsToBuy_Current_Served: %d\n", *numberThingsToBuy_Current_Served);
+	*numberThingsToBuy_Current_Served = *numberThingsToBuy_Current_Served - 1;
 }
 
 // function to simulate a robot going for shopping - add to the queue
 void SimulateGoForShopping(struct Shopping * shopping)
 {
-	free(shopping); // free the memory of the shopping, needed always - T
+	AddToQueue(shopping); // free the memory of the shopping, needed always - T
 	// always at the end of the funcion
 }
 
 // function to clean shopping queue before the end of the program
 void CleanShoppingQueue() // on the template file this function has parameters into it - T
 {
+	int number = 0;
+	if (queueFirst==NULL)
+	{
+		return;
+	}	
 	struct Shopping *current;
 	struct Shopping *next_robot; // here next is used as a temporal pointer in order to reassing current
 
 	next_robot = NULL;
 
-	current = queueLast;
+	current = queueFirst;
 
 	while(current->next != NULL)
 	{
 		next_robot = current->next;
-		free(current);
 		current = next_robot;
+		number++;
 	}
 	free(current);
+	printf("\t\t%d robots has been removed\n", number);	
 }
 
 //----------------------------------------------------------main
@@ -340,15 +364,12 @@ void SimulationLoop(int EventNumbers)
 
 	InitStacks();
 
-	// idk if this there - T
-	// needs general revision
-	for(int i=0;i<10;i++)
-	{
-		AddToQueue(GenerateShopping());
-	};
-	printf("\n____\n");
-	// PrintShopping();
-
+	//Create the shopping robot being served
+	int *numberThingsToBuy_Current_Served = malloc(sizeof(int)); // Allocate memory for the integer
+	if (numberThingsToBuy_Current_Served != NULL) {
+		*numberThingsToBuy_Current_Served = 0; // Assign a value to the allocated memory
+	}
+	
 	for (int i=0; i<EventNumbers; i++)    
 	{
 		// printf("Event number %d\n", i); // debugging/testing purposes
@@ -367,7 +388,7 @@ void SimulationLoop(int EventNumbers)
 				SimulateClassifyPackage(GeneratePackage());
 
 				// loop over all stacks to see if they are at MAX_CAPACITY
-				for (int idx=0; i<3; i++)
+				for (int idx=0; idx<3; idx++)
 				{
 					if (CurrentState[idx] == MAX_CAPACITY)
 					{
@@ -386,13 +407,19 @@ void SimulationLoop(int EventNumbers)
 				BREAK_FLAG = true;
 		}
 		printf("\n____\n");
+		UpdateShoppingQueue(numberThingsToBuy_Current_Served);
 
 		if (BREAK_FLAG) break; // if an error occurred, exit for loop and clean the simulation
 	}
 	// CLEANING THE SIMULATION
-	CleanPackageStacks();
-	CleanShoppingQueue(); // no input into here? - T
+	printf("STATISTICS WHEN CLEANING THE SIMULATION:\n");
+	printf("\tRemoving packages...\n");
 	RemoveAllRobotPackages();
+	printf("\tCleaning all stacks of packages...\n");
+	CleanPackageStacks();
+	printf("\tCleaning shopping queue...\n");
+	CleanShoppingQueue();
+	
 }
 
 int main (int argc, char ** argv)
@@ -400,7 +427,6 @@ int main (int argc, char ** argv)
 	printf("Starting... \n");
 	CheckArguments(argc, argv);
 
-	printf("%d\n", atoi(argv[1]));
 	EventNumbers = atoi(argv[1]);
 
 	SimulationLoop(EventNumbers);
