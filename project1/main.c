@@ -137,7 +137,6 @@ void RemoveAllRobotPackages()
 		current = next;
 		number++;
 	}
-	printf("\t\t%d packages has been removed.\n", number);
 }
 
 //----------------------------------------------------------Packages -> different Stacks
@@ -177,7 +176,7 @@ void PrintPackages()
 		struct Package *current = Top_ofPackageStacks[i];
 		while(current != NULL) // loop through the whole stack
 		{
-			printf("Type: %d\nColor: %d\n", current->type, current->color);
+			printf("Type: %d Color: %d\n", current->type, current->color);
 			current = current->next;
 		}
 	}
@@ -251,7 +250,6 @@ void CleanPackageStacks()
 		}
 		free(next);
 	}
-	printf("\t\t%d packages has been removed\n", number);			
 }
 
 //----------------------------------------------------------Shopping -> Queue
@@ -303,7 +301,6 @@ void AddToQueue(struct Shopping * shopping)
 int Dequeue()
 {
 	if (queueFirst == NULL) {
-        printf("Queue empty\n");
         return 0;
     }
 	int number_things = queueFirst->numberThingsToBuy;
@@ -328,7 +325,6 @@ void UpdateShoppingQueue(int * numberThingsToBuy_Current_Served)
 		*numberThingsToBuy_Current_Served = *numberThingsToBuy_Current_Served - 1;
 		return;
 	}
-	printf("\nnumberThingsToBuy_Current_Served: %d\n", *numberThingsToBuy_Current_Served);
 	*numberThingsToBuy_Current_Served = *numberThingsToBuy_Current_Served - 1;
 }
 
@@ -362,7 +358,6 @@ void CleanShoppingQueue() // on the template file this function has parameters i
 		number++;
 	}
 	free(current);
-	printf("\t\t%d robots has been removed\n", number);	
 }
 
 //----------------------------------------------------------main
@@ -385,17 +380,14 @@ void SimulationLoop(int EventNumbers)
 	{
 		// printf("Event number %d\n", i); // debugging/testing purposes
 		enum EventType event = GenerateEventType();
-		printf("EventType %d\n", event); // debugging/testing purposes
 
 		switch (event)
 		{
 			case robotPackage:
-				printf("Running part 1\n");
 				SimulateManagingRobotPackages(GenerateRobotPackage());
 			break;
 
 			case package:
-				printf("Running part 2\n");
 				SimulateClassifyPackage(GeneratePackage());
 
 				// loop over all stacks to see if they are at MAX_CAPACITY
@@ -403,7 +395,6 @@ void SimulationLoop(int EventNumbers)
 				{
 					if (CurrentState[idx_stack] == MAX_CAPACITY)
 					{
-						printf("\tStack %d is full. Removing all packages.\n", idx_stack);
 						RemoveStack(Top_ofPackageStacks[idx_stack], idx_stack);
 						CurrentState[idx_stack] = 0;
 					}
@@ -411,7 +402,6 @@ void SimulationLoop(int EventNumbers)
 			break;
 
 			case shopping:
-				printf("Running part 3\n");
 				SimulateGoForShopping(GenerateShopping());
 			break;
 
