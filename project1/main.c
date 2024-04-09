@@ -187,6 +187,11 @@ void PrintPackages()
 void RemoveStack(struct Package *head)
 {
 	struct Package * next = malloc(sizeof(struct Package));
+	
+	if (head == NULL)
+	{
+		printf("The stack is empty or pointer is wrongly provided (NULL pointer)\n");
+	}
 
 	while(head != NULL)
 	{
