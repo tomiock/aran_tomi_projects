@@ -410,7 +410,7 @@ void SimulationLoop(int EventNumbers)
 				printf("Error: event type not recognized. Exiting the main loop.\n");
 				BREAK_FLAG = true;
 		}
-		printf("\n____\n");
+
 		UpdateShoppingQueue(numberThingsToBuy_Current_Served);
 
 		if (BREAK_FLAG) break; // if an error occurred, exit for loop and clean the simulation
