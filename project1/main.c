@@ -184,23 +184,25 @@ void PrintPackages()
 }
 
 // function to remove all packages from a given stack when its MAX_CAPACITY is reached
-void RemoveStack(struct Package *head)
+void RemoveStack(struct Package *head, int idx)
 {
-	struct Package * next = malloc(sizeof(struct Package));
-	
+	struct Package * next;
+
 	if (head == NULL)
 	{
 		printf("The stack is empty or pointer is wrongly provided (NULL pointer)\n");
+		return;
 	}
 
-	while(head->next != NULL)
+	while(head != NULL)
 	{
 		// free the packages one by one
 		next = head->next;
 		free(head);
 		head = next;
 	}
-	// maybe free(next) here - T
+	
+	Top_ofPackageStacks[idx] = NULL;
 }
 
 // function to simulate putting a generated Package to a corresponding stack depending on the type (size)
@@ -396,11 +398,13 @@ void SimulationLoop(int EventNumbers)
 				SimulateClassifyPackage(GeneratePackage());
 
 				// loop over all stacks to see if they are at MAX_CAPACITY
-				for (int idx=0; idx<3; idx++)
+				for (int idx_stack=0; idx_stack<3; idx_stack++)
 				{
-					if (CurrentState[idx] == MAX_CAPACITY)
+					if (CurrentState[idx_stack] == MAX_CAPACITY)
 					{
-						RemoveStack(Top_ofPackageStacks[idx]);
+						printf("\tStack %d is full. Removing all packages.\n", idx_stack);
+						RemoveStack(Top_ofPackageStacks[idx_stack], idx_stack);
+						CurrentState[idx_stack] = 0;
 					}
 				}
 			break;
