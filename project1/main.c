@@ -6,8 +6,8 @@ Practical project: 1
 Simulator - main program
 
 Authors:
-    Name: Ockier Poblet, Tomas      NIU: 1707185
-    Name: Oliveras Sanchez, Aran    NIU: 1708069
+	Name: Ockier Poblet, Tomas      NIU: 1707185
+	Name: Oliveras Sanchez, Aran    NIU: 1708069
 */
 
 #include <stdio.h>
@@ -36,7 +36,7 @@ void CheckArguments (int argc, char *argv[])
 	if (argc != 2)
 	{
 		printf("\033[0;31m" "One arguments needed, no more no less. Execution finished.\n");
-	 	exit(1);
+		exit(1);
 	}
 
 	if (atol(argv[1]) > INT_MAX)
@@ -80,18 +80,18 @@ void PrintRobotPackages()
 	struct RobotPackage *current = RobotPackagesHead;
 
 	while (current != NULL)
-	    {
+	{
 		printf("\nSupplier: %s\nID: %s\nYear: %d\n", current->supplier, current->id, current->year);
 		current = current->next;
-	    }
-	    printf ("\n");
+	}
+	printf("\n");
 }
 
 // function to search for a RobotPackage
 struct RobotPackage * SearchRobotPackage(struct RobotPackage *RobotPackage)
 // used to order the packages, we need to search by provider
 {
-	
+
 	struct RobotPackage *current = RobotPackagesHead;
 	while(1)
 	{
@@ -151,13 +151,6 @@ struct Package * GeneratePackage()
 	return Package;
 }
 
-// A struct is created for the stacks in order to organize better the variables
-// as one function requires an stack to be given as input
-struct PackageStack {
-	struct Package *top;
-	int size;
-};
-
 // function to initialize all stacks of Packages 
 void InitStacks()
 {
@@ -170,25 +163,6 @@ void InitStacks()
 	CurrentState[0] = 0;
 	CurrentState[1] = 0;
 	CurrentState[2] = 0;
-
-	struct PackageStack *stack1 = malloc(sizeof(struct PackageStack));
-	stack1->top = Top_ofPackageStacks[0];
-	stack1->size = CurrentState[0];
-
-	struct PackageStack *stack2 = malloc(sizeof(struct PackageStack));
-	stack2->top = Top_ofPackageStacks[1];
-	stack2->size = CurrentState[1];
-
-	struct PackageStack *stack3 = malloc(sizeof(struct PackageStack));
-	stack3->top = Top_ofPackageStacks[2];
-	stack3->size = CurrentState[2];
-
-	if (stack1 == NULL || stack2 == NULL || stack3 == NULL)
-	{
-		// error CleanPackageStacks();
-		printf("Memory allocation failed\n");
-		exit(1);
-	}	
 }
 
 // function to print all stacks with all Packages
@@ -207,31 +181,43 @@ void PrintPackages()
 }
 
 // function to remove all packages from a given stack when its MAX_CAPACITY is reached
-void RemoveStack(struct PackageStack *stack)
+void RemoveStack(struct Package *head)
 {
-	if (stack->size == MAX_CAPACITY)
-	{
-		// two pointers to iterate through the stack
-		struct Package *current;
-		struct Package *next;
-		// malloc not needed bacause pointer are just re-referenced - T
+	struct Package * next = malloc(sizeof(struct Package));
 
-		current = stack->top;
-		stack->top = NULL;
-		while(current != NULL)
-		{
-			// free the packages one by one
-			next = current->next;
-			free(current);
-			current = next;
-		}
-	free(current); // possible bug or memory leak - T
+	while(head != NULL)
+	{
+		// free the packages one by one
+		next = head->next;
+		free(head);
+		head = next;
 	}
+	// maybe free(next) here - T
 }
 
 // function to simulate putting a generated Package to a corresponding stack depending on the type (size)
 void SimulateClassifyPackage(struct Package * Package)
 {
+	switch (Package->type) {
+		case small:
+			Package->next = Top_ofPackageStacks[0];
+			Top_ofPackageStacks[0] = Package;
+		break;
+
+		case medium:
+			Package->next = Top_ofPackageStacks[1];
+			Top_ofPackageStacks[1] = Package;
+		break;
+
+		case large:
+			Package->next = Top_ofPackageStacks[2];
+			Top_ofPackageStacks[2] = Package;
+		break;
+
+		default:
+			printf("Type of Package not expected %d. Exeting execution.\n", Package->type);
+		return;
+	}
 }
 
 // function to clean all stacks before the end of the program
@@ -239,15 +225,16 @@ void CleanPackageStacks()
 {
 	for (int idx=0; idx<3; idx++)
 	{
-	    struct Package* top_stack = Top_ofPackageStacks[idx];
+		struct Package* top_stack = Top_ofPackageStacks[idx];
 		struct Package* next = (struct Package *)malloc(sizeof(struct Package));
+		next->next = NULL; // DO NOT FORGET AGAIN!!!
 
 		while (next->next != NULL)
-	    {
+		{
 			next = top_stack->next;		
 			free(top_stack);
 		}
-		free(next); // possible bug or memory leak - T
+		free(next);
 	}			
 }
 
@@ -257,6 +244,10 @@ struct Shopping * GenerateShopping()
 {
 	// reserve memory for a Shopping
 	struct Shopping * shopping=malloc(sizeof(struct Shopping));
+	shopping->next = NULL; // initializing at NULL or zero so the pointer has reference
+	shopping->numberThingsToBuy = 0;
+	shopping->robot_id = 0;
+
 	// initialize the shopping's fields
 	int n=rand()%5+1;
 	shopping->numberThingsToBuy = n;
@@ -291,14 +282,14 @@ void AddToQueue(struct Shopping * shopping)
 	}
 	else
 	{
-		queueLast->next = shopping;
+		shopping->next = queueLast;
 		queueLast = shopping;
 	}
 }
 
 // function to remove a robot from the queue and serve it
 // it may return the number of things to buy to simulate the time
-int Dequeue ()
+int Dequeue()
 {
 	int number_things = queueFirst->numberThingsToBuy;
 	struct Shopping *temp_shopping = queueFirst;
@@ -308,7 +299,7 @@ int Dequeue ()
 }
 
 // function to simulate the time the robot is in the queue
-void UpdateShoppingQueue (/*...*/)
+void UpdateShoppingQueue(/*...*/)
 {
 
 }
@@ -316,23 +307,27 @@ void UpdateShoppingQueue (/*...*/)
 // function to simulate a robot going for shopping - add to the queue
 void SimulateGoForShopping(struct Shopping * shopping)
 {
-
+	free(shopping); // free the memory of the shopping, needed always - T
+	// always at the end of the funcion
 }
 
 // function to clean shopping queue before the end of the program
 void CleanShoppingQueue() // on the template file this function has parameters into it - T
 {
 	struct Shopping *current;
-	struct Shopping *next; // here next is used as a temporal pointer in order to reassing current
-	current = queueFirst;
-	queueFirst = NULL;
+	struct Shopping *next_robot; // here next is used as a temporal pointer in order to reassing current
 
-	while(current != NULL)
+	next_robot = NULL;
+
+	current = queueLast;
+
+	while(current->next != NULL)
 	{
-		next = current->next;
+		next_robot = current->next;
 		free(current);
-		current = next;
+		current = next_robot;
 	}
+	free(current);
 }
 
 //----------------------------------------------------------main
@@ -347,37 +342,44 @@ void SimulationLoop(int EventNumbers)
 
 	// idk if this there - T
 	// needs general revision
-	/*
 	for(int i=0;i<10;i++)
 	{
 		AddToQueue(GenerateShopping());
 	};
 	printf("\n____\n");
-	PrintShopping();
-	*/
+	// PrintShopping();
 
-	//RemoveAllRobotPackages(); // not needed here? - T
 	for (int i=0; i<EventNumbers; i++)    
 	{
-		printf("Event number %d\n", i); // debugging/testing purposes
+		// printf("Event number %d\n", i); // debugging/testing purposes
 		enum EventType event = GenerateEventType();
 		printf("EventType %d\n", event); // debugging/testing purposes
-		// depending on the generated event type:
+
 		switch (event)
 		{
 			case robotPackage:
+				printf("Running part 1\n");
 				SimulateManagingRobotPackages(GenerateRobotPackage());
-				printf("Succesfully runned part 1\n");
-				break;
+			break;
 
 			case package:
-				printf("Part 2 (package classification here)\n");
-				break;
+				printf("Running part 2\n");
+				SimulateClassifyPackage(GeneratePackage());
+
+				// loop over all stacks to see if they are at MAX_CAPACITY
+				for (int idx=0; i<3; i++)
+				{
+					if (CurrentState[idx] == MAX_CAPACITY)
+					{
+						RemoveStack(Top_ofPackageStacks[idx]);
+					}
+				}
+			break;
 
 			case shopping:
+				printf("Running part 3\n");
 				SimulateGoForShopping(GenerateShopping());
-				printf("Succesfully runned part 3\n");
-				break;
+			break;
 
 			default:
 				printf("Error: event type not recognized. Exiting the main loop.\n");
@@ -385,9 +387,7 @@ void SimulationLoop(int EventNumbers)
 		}
 		printf("\n____\n");
 
-
-		if (BREAK_FLAG) // if an error occurred, exit for loop and clean the simulation
-			break;
+		if (BREAK_FLAG) break; // if an error occurred, exit for loop and clean the simulation
 	}
 	// CLEANING THE SIMULATION
 	CleanPackageStacks();
@@ -397,7 +397,7 @@ void SimulationLoop(int EventNumbers)
 
 int main (int argc, char ** argv)
 {	int EventNumbers;
-	printf ("Starting... \n");
+	printf("Starting... \n");
 	CheckArguments(argc, argv);
 
 	printf("%d\n", atoi(argv[1]));
