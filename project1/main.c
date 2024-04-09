@@ -357,6 +357,7 @@ void CleanShoppingQueue() // on the template file this function has parameters i
 	while(current->next != NULL)
 	{
 		next_robot = current->next;
+		free(current);
 		current = next_robot;
 		number++;
 	}
