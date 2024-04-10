@@ -76,7 +76,7 @@ void PrintRobotPackages()
 	{
 		printf("The list of RobotPackages is empty\n");
 		return;
-	}	
+	}
 	struct RobotPackage *current = RobotPackagesHead;
 
 	while (current != NULL)
@@ -137,6 +137,7 @@ void RemoveAllRobotPackages()
 		current = next;
 		number++;
 	}
+	printf("\t\t%d packages has been removed.\n", number);
 }
 
 //----------------------------------------------------------Packages -> different Stacks
@@ -153,7 +154,7 @@ struct Package * GeneratePackage()
 	return Package;
 }
 
-// function to initialize all stacks of Packages 
+// function to initialize all stacks of Packages
 void InitStacks()
 {
 	// stacks are initialized empty, therefore must point to NULL
@@ -200,7 +201,7 @@ void RemoveStack(struct Package *head, int idx)
 		free(head);
 		head = next;
 	}
-	
+
 	Top_ofPackageStacks[idx] = NULL;
 }
 
@@ -243,7 +244,7 @@ void CleanPackageStacks()
 
 		while (top_stack != NULL)
 		{
-			next = top_stack->next;		
+			next = top_stack->next;
 			free(top_stack);
 			top_stack = next;
 			number++;
@@ -251,6 +252,7 @@ void CleanPackageStacks()
 
 		free(top_stack);
 	}
+	printf("\t\t%d packages has been removed\n", number);
 }
 
 //----------------------------------------------------------Shopping -> Queue
@@ -262,7 +264,7 @@ struct Shopping *GenerateShopping() {
     int n = rand() % 5 + 1;
     shopping->numberThingsToBuy = n;
     shopping->robot_id = ++nextRobotID;
-    shopping->next = NULL; 
+    shopping->next = NULL;
     return shopping;
 }
 
@@ -273,7 +275,7 @@ void PrintShopping()
 	{
 		printf("The list of Shopping Queue is empty\n");
 		return;
-	}	
+	}
 	struct Shopping *current = queueFirst;
 	while(current!=NULL)
 	{
@@ -343,7 +345,7 @@ void CleanShoppingQueue() // on the template file this function has parameters i
 	if (queueFirst==NULL)
 	{
 		return;
-	}	
+	}
 	struct Shopping *current;
 	struct Shopping *next_robot; // here next is used as a temporal pointer in order to reassing current
 
@@ -359,10 +361,11 @@ void CleanShoppingQueue() // on the template file this function has parameters i
 		number++;
 	}
 	free(current);
+	printf("\t\t%d robots has been removed\n", number);
 }
 
 //----------------------------------------------------------main
-// This is the main loop of the program. 
+// This is the main loop of the program.
 // It generates and consumes events.
 void SimulationLoop(int EventNumbers)
 {
@@ -376,8 +379,8 @@ void SimulationLoop(int EventNumbers)
 	if (numberThingsToBuy_Current_Served != NULL) {
 		*numberThingsToBuy_Current_Served = 0; // Assign a value to the allocated memory
 	}
-	
-	for (int i=0; i<EventNumbers; i++)    
+
+	for (int i=0; i<EventNumbers; i++)
 	{
 		// printf("Event number %d\n", i); // debugging/testing purposes
 		enum EventType event = GenerateEventType();
@@ -410,7 +413,6 @@ void SimulationLoop(int EventNumbers)
 				printf("Error: event type not recognized. Exiting the main loop.\n");
 				BREAK_FLAG = true;
 		}
-
 		UpdateShoppingQueue(numberThingsToBuy_Current_Served);
 
 		if (BREAK_FLAG) break; // if an error occurred, exit for loop and clean the simulation
