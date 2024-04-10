@@ -425,7 +425,8 @@ void SimulationLoop(int EventNumbers)
 	CleanPackageStacks();
 	printf("\tCleaning shopping queue...\n");
 	CleanShoppingQueue();
-	
+
+	free(numberThingsToBuy_Current_Served);
 }
 
 int main (int argc, char ** argv)
