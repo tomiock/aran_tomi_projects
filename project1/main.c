@@ -55,12 +55,11 @@ void CheckArguments (int argc, char *argv[])
 //----------------------------------------------------------RobotPackages -> Sorted list
 // WARNING: do not change this function
 struct RobotPackage * GenerateRobotPackage()
-// only defines a single package, another function is used to generate a list of packages
 {
-	// reserve memory for a RobotPackage
+	// Reserve memory for a RobotPackage
 	struct RobotPackage * RobotPackage=malloc(sizeof(struct RobotPackage));
 	int RobotPackageNum=rand()%8;
-	// initialize the RobotPackage's fields
+	// Initialize the RobotPackage's fields
 	strcpy (RobotPackage->supplier, suppliers[RobotPackageNum]);
 	strcpy (RobotPackage->id, ids[RobotPackageNum]);
 	int year=rand()%40+1980;
@@ -69,7 +68,7 @@ struct RobotPackage * GenerateRobotPackage()
 }
 
 
-// function to print a list of RobotPackages
+// Function to print a list of RobotPackages
 void PrintRobotPackages()
 {
 	if (RobotPackagesHead==NULL)
@@ -87,11 +86,10 @@ void PrintRobotPackages()
 	printf("\n");
 }
 
-// function to search for a RobotPackage
+// Function to search for a RobotPackage
 struct RobotPackage * SearchRobotPackage(struct RobotPackage *RobotPackage)
-// used to order the packages, we need to search by provider
 {
-
+    // Search for a RobotPackage by provider
 	struct RobotPackage *current = RobotPackagesHead;
 	while(1)
 	{
@@ -107,7 +105,7 @@ struct RobotPackage * SearchRobotPackage(struct RobotPackage *RobotPackage)
 	}
 }
 
-// function to simulate an insertion of RobotPackages in a ordered way (sorted by supplier)
+// Function to simulate inserting RobotPackages in an ordered way (sorted by supplier)
 void SimulateManagingRobotPackages(struct RobotPackage * RobotPackage)
 {
 	if (RobotPackagesHead==NULL)
@@ -122,7 +120,7 @@ void SimulateManagingRobotPackages(struct RobotPackage * RobotPackage)
 	}
 }
 
-// function to remove all the RobotPackages from the list at the end of the program
+// Function to remove all RobotPackages from the list at the end of the program
 void RemoveAllRobotPackages()
 {
 	int number = 0;
@@ -154,21 +152,21 @@ struct Package * GeneratePackage()
 	return Package;
 }
 
-// function to initialize all stacks of Packages
+// Function to initialize all stacks of Packages
 void InitStacks()
 {
-	// stacks are initialized empty, therefore must point to NULL
+    // Stacks are initialized empty, therefore must point to NULL
 	Top_ofPackageStacks[0] = NULL;
 	Top_ofPackageStacks[1] = NULL;
 	Top_ofPackageStacks[2] = NULL;
 
-	// initialize the number of packages in each stack
+    // Initialize the number of packages in each stack
 	CurrentState[0] = 0;
 	CurrentState[1] = 0;
 	CurrentState[2] = 0;
 }
 
-// function to print all stacks with all Packages
+// Function to print all stacks with all Packages
 void PrintPackages()
 {
 	for (int i=0; i<3; i++) // loop through the 3 stacks
@@ -388,10 +386,13 @@ void SimulationLoop(int EventNumbers)
 		switch (event)
 		{
 			case robotPackage:
+				printf("\nRunning part 1 robotPackage\n—————\n");
 				SimulateManagingRobotPackages(GenerateRobotPackage());
+				PrintRobotPackages();
 			break;
 
 			case package:
+				printf("\nRunning part 2 Packages\n—————\n");
 				SimulateClassifyPackage(GeneratePackage());
 
 				// loop over all stacks to see if they are at MAX_CAPACITY
@@ -403,10 +404,13 @@ void SimulationLoop(int EventNumbers)
 						CurrentState[idx_stack] = 0;
 					}
 				}
+				PrintPackages();
 			break;
 
 			case shopping:
+				printf("\nRunning part 3 Shopping\n—————\n");
 				SimulateGoForShopping(GenerateShopping());
+				PrintShopping();
 			break;
 
 			default:
@@ -418,7 +422,7 @@ void SimulationLoop(int EventNumbers)
 		if (BREAK_FLAG) break; // if an error occurred, exit for loop and clean the simulation
 	}
 	// CLEANING THE SIMULATION
-	printf("STATISTICS WHEN CLEANING THE SIMULATION:\n");
+	printf("\nSTATISTICS WHEN CLEANING THE SIMULATION:\n");
 	printf("\tRemoving packages...\n");
 	RemoveAllRobotPackages();
 	printf("\tCleaning all stacks of packages...\n");
