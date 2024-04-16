@@ -5,3 +5,6 @@
 - [ ] Final checking and test of `RobotPackage` generation, search, printing and removing 
 - [ ] Change basic tests. `Starting...` is displayed on any `CheckArguments` case.
 - [ ] Ask about intout into `CleanShoppingQueue`
+- [ ] Revise `CleanPackageStacks`
+- [ ] Check for removed `free` on `SimulateGoForShopping`
+- [ ] Verify implementation of `SimulateGoForShopping`
