@@ -32,7 +32,7 @@ int FooIt (int v[], int n)
 
 3. How many recursive calls are made to find the solution? How many iterations of the loop in the iterative version? Which solution seems more efficient to you? Why?
 
-There are 6 calls until we reach to the base case. In the iterative version there are also 6 iterations of the loop. Iterative is better in terms of velocity and memory.
+There are 6 calls until we reach to the base case. In the iterative version there are also 6 iterations of the loop. generally iterative is better in terms of velocity and memory, that is because we don't need to make a copy of the variables everytime, wich will make our stack to be full of memory.
 
 # Part B: Hashing
 
