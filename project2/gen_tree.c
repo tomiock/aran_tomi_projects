@@ -29,16 +29,12 @@ void Free_Tree(struct FamilyTreeNode *root){ //TODO
 
 void Def_Node(struct FamilyTreeNode *node, int city_n){
     node->city_id = 0;
-    node->fatherName = citiesInfo[city_n].father_name;
-    node->motherName = citiesInfo[city_n].mother_name;
+    strcpy(node->fatherName, citiesInfo[city_n].father_name);
+    strcpy(node->motherName, citiesInfo[city_n].mother_name);
 }
 
 int main(){
     struct FamilyTreeNode root;
-    root.city_id = 0;
-    root.fatherName = citiesInfo[]
-    
-
     Free_Tree(&root);
     return 0;
 }
