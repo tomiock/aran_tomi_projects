@@ -1,24 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-struct CivilRegistry
-{
-    int city_id;
-    char city_name[20];
-    char mother_name[10];
-    char father_name[10];
-    int mother_parents_city_id;
-    int father_parents_city_id;
-};
-
-
-typedef struct TreeNode{
-    char mother_name[10];
-    char father_name[10];
-    int city_id;
-    struct TreeNode *mother_parents;
-    struct TreeNode *father_parents;
-}TreeNode;
+#include "small.h"
 
 // DFS:
 
@@ -27,6 +9,36 @@ typedef struct TreeNode{
 // BFS:
 
 
+
+// GENERAL:
+
+void New_Nodes(struct FamilyTreeNode *prev_node){
+    struct FamilyTreeNode *new_fat, *new_mot;
+    new_fat = malloc(sizeof(struct FamilyTreeNode));
+    new_mot = malloc(sizeof(struct FamilyTreeNode));
+    prev_node->father_parents = new_fat;
+    prev_node->mother_parents = new_mot;
+}
+
+void Free_Tree(struct FamilyTreeNode *root){ //TODO
+    struct FamilyTreeNode *current = root, *next;
+    while(current!=NULL){
+
+    }
+}
+
+void Def_Node(struct FamilyTreeNode *node, int city_n){
+    node->city_id = 0;
+    node->fatherName = citiesInfo[city_n].father_name;
+    node->motherName = citiesInfo[city_n].mother_name;
+}
+
 int main(){
+    struct FamilyTreeNode root;
+    root.city_id = 0;
+    root.fatherName = citiesInfo[]
+    
+
+    Free_Tree(&root);
     return 0;
 }
