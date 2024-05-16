@@ -12,6 +12,9 @@ We've already declared and initialized both data structures:
 - cities info that contains information about civil registry for each city
 */
 
+#ifndef SMALL_H
+#define SMALL_H
+
 #define NUMBER_CITIES 10
 #define MAX_NAME 10
 #define MAX_CITY_NAME 20
@@ -69,3 +72,5 @@ struct RoadMap
     int total_cost;
     struct RoadMap * next;
 };
+
+#endif // SMALL_H
