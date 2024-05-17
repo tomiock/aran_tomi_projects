@@ -1,1 +1,0 @@
-/usr/bin/cc CMakeFiles/app.dir/gen_tree.c.o -o ../app  -Wl,-rpath,/mnt/c/Users/arano/OneDrive/Documents/GitHub/aran_tomi_projects/project2/Aran/build libstack.so 
