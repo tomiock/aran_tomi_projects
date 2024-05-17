@@ -57,3 +57,9 @@ project2/aran_proves.c
 project2/tree_creating.pptx
 project2/Aran/aran_proves
 project2/Aran/aran_proves.c
+
+build/
+CMakeFiles/
+project2/app
+project2/Aran/app
+project2/app

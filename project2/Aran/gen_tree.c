@@ -131,16 +131,53 @@ void DFS(struct FamilyTreeNode *root){
 
 
 // BFS:
+void BFS(struct FamilyTreeNode *root){
+    printf("\nStarting DFS... ");
+                                                                                
+    // Create stack
+    struct stack c_stack;
+    c_stack.top = NULL;
 
+    struct FamilyTreeNode *currentNode = root, *new;
+    push(&c_stack, *root);
+
+    do{
+        // Pop stack
+        currentNode=pop(&c_stack);
+
+        // Create mother node
+        new = currentNode->mother_parents;
+        Def_Node(new, citiesInfo[currentNode->city_id].mother_parents_city_id);
+        New_Nodes(new);
+        push(&c_stack, *new);
+
+        // Create father node
+        new = currentNode->father_parents;
+        Def_Node(new, citiesInfo[currentNode->city_id].father_parents_city_id);
+        New_Nodes(new);
+        push(&c_stack, *new);
+    }while (currentNode != &end_loop);
+    printf("Done\n");
+}
 
 
 
 
 int main(){
-    struct FamilyTreeNode root;
-    Def_Node(&root, 0);
-    New_Nodes(&root);
-    DFS(&root);
-    Print_Tree(&root);
+    struct FamilyTreeNode root_dfs;
+    struct FamilyTreeNode root_bfs;
+
+    // DFS
+    Def_Node(&root_dfs, 0);
+    New_Nodes(&root_dfs);
+    DFS(&root_dfs);
+    Print_Tree(&root_dfs);
+
+    // BFS
+    Def_Node(&root_bfs, 0);
+    New_Nodes(&root_bfs);
+
+    BFS(&root_bfs);
+    Print_Tree(&root_bfs);
     return 0;
 }
