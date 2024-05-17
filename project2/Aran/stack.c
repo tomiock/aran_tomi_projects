@@ -1,5 +1,4 @@
 #include "stack.h"
-#include "globals.h" 
 
 // Definition of the global variable
 struct FamilyTreeNode end_loop;

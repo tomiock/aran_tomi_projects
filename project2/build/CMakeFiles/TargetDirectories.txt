@@ -1,0 +1,4 @@
+/mnt/c/Users/arano/OneDrive/Documents/GitHub/aran_tomi_projects/project2/build/CMakeFiles/graph.dir
+/mnt/c/Users/arano/OneDrive/Documents/GitHub/aran_tomi_projects/project2/build/CMakeFiles/app.dir
+/mnt/c/Users/arano/OneDrive/Documents/GitHub/aran_tomi_projects/project2/build/CMakeFiles/edit_cache.dir
+/mnt/c/Users/arano/OneDrive/Documents/GitHub/aran_tomi_projects/project2/build/CMakeFiles/rebuild_cache.dir

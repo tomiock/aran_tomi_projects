@@ -5,7 +5,6 @@
 #include <unistd.h> // Temp
 
 #include "stack.h"
-#include "globals.h"
 
 
 
@@ -75,7 +74,7 @@ void Print_Tree(struct FamilyTreeNode *root){
 // DFS:
 //--------------------------------
 void DFS(struct FamilyTreeNode *root){
-    
+    printf("\nStarting DFS... ");
     // Create stack
     struct stack c_stack;
     c_stack.top = NULL;
@@ -89,7 +88,7 @@ void DFS(struct FamilyTreeNode *root){
     while (currentNode != &end_loop){
         //printf("\nHey"); // Temp print
         //sleep(1);
-        printStack(&c_stack);
+        //printStack(&c_stack);
         //printf("IF: %d\n", (citiesInfo[currentNode->city_id].mother_parents_city_id)); // Temp print
         if ((citiesInfo[currentNode->city_id].mother_parents_city_id) != -1){
             int city = citiesInfo[currentNode->city_id].mother_parents_city_id;
@@ -126,7 +125,7 @@ void DFS(struct FamilyTreeNode *root){
         }
 
     }
-    printf("Out of the loop ;)\n");
+    printf("Done\n");
 }
 
 
