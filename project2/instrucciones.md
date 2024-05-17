@@ -46,3 +46,8 @@ Simplemente juntar todos los comandos, desde la carpeta `build`:
 ```shell
 cmake .. && make && ../app
 ```
+
+### Compilar con `debug` flags:
+```
+cmake -DCMAKE_BUILD_TYPE=DEBUG ..
+
