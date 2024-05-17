@@ -5,6 +5,7 @@
 #include <unistd.h> // Temp
 
 #include "stack.h"
+#include "globals.h"
 
 
 
