@@ -83,13 +83,18 @@ void Print_Tree_BFS(struct FamilyTreeNode *root){
     }
 
     addqueue(&c_queue, *root);
+    int num_items = 1, total_num_items = 1, arrows = 0;
     
     while (c_queue.top != NULL) {
         //printQueue(c_queue);
         // Dequeue
         currentNode = dequeue(&c_queue);
+        for(int i = 0; i<arrows; i++)
+            printf("->");
+        if(arrows>0) printf(" ");
+        printf("%s and %s (%s)\n", currentNode->motherName, currentNode->fatherName, citiesInfo[currentNode->city_id].city_name);
 
-        printf("\nCity: %d. Couple: %s and %s.\n", currentNode->city_id, currentNode->motherName, currentNode->fatherName);        
+        //printf("\nCity: %d. Couple: %s and %s.\n", currentNode->city_id, currentNode->motherName, currentNode->fatherName);        
 
         if (currentNode->mother_parents != NULL){
             //printf("Adding to queue: %d ", currentNode->city_id);
@@ -101,7 +106,13 @@ void Print_Tree_BFS(struct FamilyTreeNode *root){
             //printf("FAT: %d\n", currentNode->father_parents->city_id);
             addqueue(&c_queue, *currentNode->father_parents);
         }
-
+        num_items = num_items - 1;
+        if (num_items == 0){
+            total_num_items = total_num_items * 2;
+            num_items = total_num_items;
+            arrows ++;
+        }
+        
     }
     printf("\n");
 }
@@ -221,6 +232,7 @@ int main(){
     Def_Node(&root_bfs, 0);
     New_Nodes(&root_bfs);
     BFS(&root_bfs);
+    printf("BFS-> Names:\n");
     Print_Tree_BFS(&root_bfs);
     return 0;
 }
