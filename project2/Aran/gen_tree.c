@@ -50,23 +50,31 @@ void Print_Tree_DFS(struct FamilyTreeNode *root){
     struct stack c_stack;
     c_stack.top = NULL;
     push(&c_stack, *root);
+    c_stack.top->depth = 0;
+    int arrows;
 
     // Loop while the stack is not empty
     while (c_stack.top != NULL)
     {
         // Pop a node from the stack
+        arrows = c_stack.top->depth;
         currentNode = pop(&c_stack);
 
         // Print data
-        printf("\nCity: %d. Couple: %s and %s.\n", currentNode->city_id, currentNode->motherName, currentNode->fatherName);        
+        for(int i = 0; i<arrows; i++)
+            printf("->");
+        if(arrows>0) printf(" ");
+        printf("%s and %s (%s)\n", currentNode->motherName, currentNode->fatherName, citiesInfo[currentNode->city_id].city_name);        
 
         // Push the children of the current node onto the stack
         // Push right child first so the left child is processed first (if binary tree)
         if (currentNode->father_parents != NULL)
             push(&c_stack, *(currentNode->father_parents));
+            c_stack.top->depth = arrows + 1;
         
         if (currentNode->mother_parents != NULL)
             push(&c_stack, *(currentNode->mother_parents));
+            c_stack.top->depth = arrows + 1;
 
     }
 }
@@ -177,7 +185,9 @@ void DFS(struct FamilyTreeNode *root){
 
 
 
+//--------------------------------
 // BFS:
+//--------------------------------
 void BFS(struct FamilyTreeNode *root){
     printf("\nStarting BFS... ");
 
@@ -226,6 +236,7 @@ int main(){
     Def_Node(&root_dfs, 0);
     New_Nodes(&root_dfs);
     DFS(&root_dfs);
+    printf("DFS-> Names:\n");
     Print_Tree_DFS(&root_dfs);
 
     // BFS

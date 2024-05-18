@@ -10,6 +10,7 @@ extern struct FamilyTreeNode end_loop;
 struct istack {
     struct FamilyTreeNode value;
     struct istack* next;
+    int depth;
 };
 
 struct stack {
