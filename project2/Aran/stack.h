@@ -3,13 +3,14 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "small.h"
+#include "own_small.h"
 
 extern struct FamilyTreeNode end_loop;
 
 struct istack {
     struct FamilyTreeNode value;
     struct istack* next;
+    int depth;
 };
 
 struct stack {
