@@ -12,8 +12,8 @@ We've already declared and initialized both data structures:
 - cities info that contains information about civil registry for each city
 */
 
-#ifndef SMALL_H
-#define SMALL_H
+#ifndef OWN_SMALL_H
+#define OWN_SMALL_H
 
 #define NUMBER_CITIES 19
 #define MAX_NAME 10

@@ -36,9 +36,11 @@ void addqueue(struct queue* que, struct FamilyTreeNode val) {
     } else {
         // Traverse to the end of the queue
         struct iqueue *current = que->top;
+
         while (current->next != NULL) {
-            current = current->next;
+        current = current->next;
         }
+
         // Add the new node at the end of the queue
         current->next = newIqueue;
     }

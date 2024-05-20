@@ -228,7 +228,42 @@ void BFS(struct FamilyTreeNode *root){
 }
 
 
-int main(){
+// Finding the path
+void Travel_Frame(struct queue *que, struct FamilyTreeNode *root){
+    struct FamilyTreeNode *currentNode = root;
+
+    // Create an empty stack and push the root node onto it
+    struct stack c_stack;
+    c_stack.top = NULL;
+    push(&c_stack, *root);
+    c_stack.top->depth = 0;
+    int arrows;
+
+    // Loop while the stack is not empty
+    while (c_stack.top != NULL)
+    {
+        // Pop a node from the stack
+        arrows = c_stack.top->depth;
+        currentNode = pop(&c_stack);
+
+        // Print data
+        addqueue(&que, *currentNode);
+        
+        // Push the children of the current node onto the stack
+        // Push right child first so the left child is processed first (if binary tree)
+        if (currentNode->father_parents != NULL){
+            push(&c_stack, *(currentNode->father_parents));
+            c_stack.top->depth = arrows + 1;
+        }
+        if (currentNode->mother_parents != NULL){
+            push(&c_stack, *(currentNode->mother_parents));
+            c_stack.top->depth = arrows + 1;
+        }
+    }
+}
+
+
+int main(int argc, char *argv[]){
     struct FamilyTreeNode root_dfs;
     struct FamilyTreeNode root_bfs;
 
@@ -238,6 +273,15 @@ int main(){
     DFS(&root_dfs);
     printf("DFS-> Names:\n");
     Print_Tree_DFS(&root_dfs);
+
+    // Finding the best path
+    struct queue travel_frame;
+    travel_frame.top = NULL;
+    printf("TravelFrame:\n");
+    Travel_Frame(&travel_frame, &root_dfs);
+    printf("Print it:\n");
+    printQueue(&travel_frame);
+    
 
     // BFS
     Def_Node(&root_bfs, 0);
