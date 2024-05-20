@@ -68,14 +68,14 @@ void Print_Tree_DFS(struct FamilyTreeNode *root){
 
         // Push the children of the current node onto the stack
         // Push right child first so the left child is processed first (if binary tree)
-        if (currentNode->father_parents != NULL)
+        if (currentNode->father_parents != NULL){
             push(&c_stack, *(currentNode->father_parents));
             c_stack.top->depth = arrows + 1;
-        
-        if (currentNode->mother_parents != NULL)
+        }
+        if (currentNode->mother_parents != NULL){
             push(&c_stack, *(currentNode->mother_parents));
             c_stack.top->depth = arrows + 1;
-
+        }
     }
 }
 
