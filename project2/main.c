@@ -7,6 +7,10 @@
 #define MAX_NAME 10
 #define MAX_CITY_NAME 20
 
+#define ALGORITHM A_STAR
+
+enum {DIJKSTRAS = 0, A_STAR = 1 };
+
 int main (void) {
     print_adjacency_matrix(adjacency_matrix);
 
@@ -23,7 +27,16 @@ int main (void) {
 
     free_cities_list(cities_list);
 
-    dijkstra(adjacency_matrix, 0, 9); // 0 is the source, 9 is the destination
+    switch (ALGORITHM) {
+        case DIJKSTRAS:
+            printf("\nUsing Dijkstra's Algorithm\n");
+            dijkstra(adjacency_matrix, 0, 9); // 0 is the source, 9 is the destination
+            break;
+        case A_STAR:
+            printf("\nUsing A* Algorithm\n");
+            printf("ERROR Not implemented yet\n");
+            break;
+    }
 
     return 0;
 }
