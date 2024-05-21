@@ -6,15 +6,15 @@
 // Create the enum for choosing the algorithm
 enum {DIJKSTRAS = 0, A_STAR = 1 };
 
-void algorithm(int src, int dest, struct RoadMap *roadMap){
+void algorithm(int src, int dest, struct RoadMap *roadMap, int **total_path, int path_num, int *total_cost_t){
     switch (ALGORITHM) {
             case DIJKSTRAS:
-                printf("\nUsing Dijkstra's Algorithm\n");
+                // printf("\nUsing Dijkstra's Algorithm\n");
                 dijkstra(adjacency_matrix, src, dest, roadMap); // 0 is the source, 9 is the destination
                 break;
 
             case A_STAR:
-                printf("\nUsing A* Algorithm\n");
+                // printf("\nUsing A* Algorithm\n");
 
                 struct City *cities_list[NUMBER_CITIES] = {NULL};
                 matrix_to_list(adjacency_matrix, cities_list);
@@ -30,10 +30,20 @@ void algorithm(int src, int dest, struct RoadMap *roadMap){
                 free_cities_list(cities_list);
                 break;
         }
+        
 
-        printf("Total cost of the road map: %d\n", roadMap->total_cost); // check
+        int i = 0;
         while (roadMap->next != NULL) {
-            printf("Current Node: %d\n", roadMap->city_id);
+            printf("%s-", citiesInfo[roadMap->city_id].city_name);
+            total_path[path_num][i] = roadMap->city_id;
             roadMap = roadMap->next;
+            i++;
         }
+
+        for(i; i<=NUMBER_CITIES; i++)
+            total_path[path_num][i] = -1;
+
+        printf("%s", citiesInfo[roadMap->city_id].city_name);
+        printf(" %d\n", roadMap->total_cost);
+        *total_cost_t = *total_cost_t + roadMap->total_cost;
 }

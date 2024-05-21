@@ -123,6 +123,43 @@ void Print_Tree_DFS(struct FamilyTreeNode *root){
     }
 }
 
+int * Travel_Tree_DFS(struct FamilyTreeNode *root){
+    
+    struct FamilyTreeNode *currentNode = root;
+    int *arr = malloc(sizeof(int)*NUMBER_CITIES);
+    int i = 0;
+
+
+
+
+
+    // Create an empty stack and push the root node onto it
+    struct stack c_stack;
+    c_stack.top = NULL;
+    push(&c_stack, *root);
+    c_stack.top->depth = 0;
+
+    // Loop while the stack is not empty
+    while (c_stack.top != NULL)
+    {
+        // Pop a node from the stack
+        currentNode = pop(&c_stack);
+        arr[i] = currentNode->city_id;
+
+        // Push the children of the current node onto the stack
+        // Push right child first so the left child is processed first (if binary tree)
+        if (currentNode->father_parents != NULL){
+            push(&c_stack, *(currentNode->father_parents));
+        }
+        if (currentNode->mother_parents != NULL){
+            push(&c_stack, *(currentNode->mother_parents));
+        }
+    }
+    for(i; i<=NUMBER_CITIES; i++)
+        arr[i] = -1;
+    return arr;
+}
+
 
 // BFS FUNCTIONS:
 void BFS(struct FamilyTreeNode *root){
@@ -205,4 +242,36 @@ void Print_Tree_BFS(struct FamilyTreeNode *root){
         
     }
     printf("\n");
+}
+
+int *Travel_Tree_BFS(struct FamilyTreeNode *root){
+    // Create stack                                                                            
+    struct queue c_queue;
+    int *arr = malloc(sizeof(int)*NUMBER_CITIES);
+    c_queue.top = NULL;
+    int i = 0;
+
+    struct FamilyTreeNode *currentNode = root;
+
+    addqueue(&c_queue, *root);
+    
+    while (c_queue.top != NULL) {
+
+        // Dequeue
+        currentNode = dequeue(&c_queue);
+        arr[i] = currentNode->city_id;
+
+
+
+        if (currentNode->mother_parents != NULL){
+            addqueue(&c_queue, *currentNode->mother_parents);
+        }
+        if (currentNode->father_parents != NULL){
+            addqueue(&c_queue, *currentNode->father_parents);
+        }
+        i++;
+    }
+    for(i; i<=NUMBER_CITIES; i++)
+        arr[i] = -1;
+    return arr;
 }
