@@ -1,3 +1,6 @@
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "dijkstra.h"
 #include "graph.h"
 #include "stdio.h"
