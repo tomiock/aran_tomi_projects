@@ -46,7 +46,8 @@ void matrix_to_list(int matrix[NUMBER_CITIES][NUMBER_CITIES],
 }
 
 void free_cities_list(struct City *cities[NUMBER_CITIES]) {
-  // make sure to free all the memory of the dynamically allocated struct cities and neighbors
+  // make sure to free all the memory of the dynamically allocated struct cities
+  // and neighbors
   for (int i = 0; i < NUMBER_CITIES; i++) {
     if (cities[i] != NULL) {
 
@@ -58,4 +59,43 @@ void free_cities_list(struct City *cities[NUMBER_CITIES]) {
       free(cities[i]);
     }
   }
+}
+
+void a_star(struct City *cities[NUMBER_CITIES], void *start, void *end,
+            struct RoadMap *map) {
+  // init the search at id 0 : TODO figure out better strategy
+
+  unsigned int current_node;
+  // we are using pointers to detect error (NULL means error)
+  if (start == NULL) {
+    current_node = 0;
+    start = &current_node;
+  } else {
+    current_node = *((unsigned int *)start);
+  }
+
+  if (end == NULL) {
+    printf(
+        "End node is NULL. Provide a valid value (pointer to unsigned int).");
+    exit(1);
+  }
+
+  // early exit
+  if (current_node == *((unsigned int *)end)) {
+    map->next = NULL;
+    map->city_id = current_node;
+    // a map with total cost 0 means that the start and goal nodes are the same
+    // one
+    map->total_cost = 0;
+
+    return;
+  }
+
+  // we need a set of discovered nodes, we use a linked list
+  // define open node set
+  struct NodeOpenSet *open_set;
+  open_set = malloc(sizeof(struct NodeOpenSet));
+  open_set->city = cities[current_node];
+  open_set->next = NULL;
+  open_set->prev = NULL; // only node in the linked list
 }
