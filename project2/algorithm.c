@@ -31,9 +31,4 @@ void algorithm(int src, int dest, struct RoadMap *roadMap){
                 break;
         }
 
-        printf("Total cost of the road map: %d\n", roadMap->total_cost); // check
-        while (roadMap->next != NULL) {
-            printf("Current Node: %d\n", roadMap->city_id);
-            roadMap = roadMap->next;
-        }
 }
