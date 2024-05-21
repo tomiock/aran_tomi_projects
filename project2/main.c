@@ -1,13 +1,18 @@
-#include "small.h"
 #include "dijkstra.h"
 #include "graph.h"
 #include "stdio.h"
 
-#define NUMBER_CITIES 10
-#define MAX_NAME 10
-#define MAX_CITY_NAME 20
+#ifdef DATASET_SMALL
+    #include "small.h"
+#elif defined(DATASET_MEDIUM)
+    #include "medium.h"
+#elif defined(DATASET_LARGE)
+    #include "large.h"
+#else
+    #error "No dataset size defined"
+#endif
 
-#define ALGORITHM A_STAR
+#define ALGORITHM DIJKSTRAS
 
 enum {DIJKSTRAS = 0, A_STAR = 1 };
 
