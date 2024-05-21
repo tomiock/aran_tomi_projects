@@ -1,6 +1,6 @@
 ## Como hay que configurar esto?
 
-Depedencias:
+Dependencias:
 - `cmake`
 
 Instalar con:
@@ -11,43 +11,32 @@ La version deberia ser como minimo 3.10.
 
 ### Compilacion
 
-1. Crear una carpeta donde poner los archivos de configuration llamada `build`:
+1. Correr `cmake`:
 ```shell
-mkdir build
+cmake -S . -B build -DUSE_SMALL_DATASET=ON
 ```
+Usamos una flag para especificar que el dataset que tenemos que usar es `small.h`.
 
-2. Entrar a la carpeta `build`:
+2. Compilar el proyecto:
 ```shell
-cd build
+cmake --build build
 ```
-Aqui es donde vas a compilar el proyecto, pero el executable estara en la carpeta principal del proyecto.
-
-3. Correr `cmake`:
-```shell
-cmake ..
-```
-Tiene dos puntos porque el archivo de configuracion de `cmake` esta en la carpeta padre.
-
-4. Compilar el proyecto:
-```shell
-make
-```
-Tan solo hay que escribir esta palabra, no hace falta poner nada mas.
 
 ### Ejecucion
 
 Para ejecutar el programa, hay que correr el archivo `app` que se encuentra en la carpeta principal del proyecto:
 ```shell
-../app
+./app
 ```
 
 ### Hacer todo a la vez
-Simplemente juntar todos los comandos, desde la carpeta `build`:
+Simplemente juntar todos los comandos, desde la carpeta principal del proyecto:
 ```shell
-cmake .. && make && ../app
+cmake -S .. -B . -DUSE_SMALL_DATASET=ON && cmake --build build
 ```
 
 ### Compilar con `debug` flags:
 ```
-cmake -DCMAKE_BUILD_TYPE=DEBUG ..
+cmake -S . -B build -DUSE_SMALL_DATASET=ON -DCMAKE_BUILD_TYPE=DEBUG 
+```
 
