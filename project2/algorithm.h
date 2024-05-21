@@ -17,6 +17,6 @@
 #include "graph.h"
 #include "dijkstra.h"
 
-void algorithm(int src, int dest, struct RoadMap *roadMap);
+void algorithm(int src, int dest, struct RoadMap *roadMap, int **total_path, int path_num, int *total_cost);
 
 #endif // ALGORITHM_H
