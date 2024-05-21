@@ -3,7 +3,7 @@
 
     #include <stdlib.h>
     #include <stdio.h>
-    #include "dataset.h"
+    #include "small.h"
 
     extern struct FamilyTreeNode end_loop;
 
