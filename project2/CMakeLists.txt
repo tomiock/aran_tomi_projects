@@ -36,14 +36,19 @@ else()
     message(FATAL_ERROR "You must select exactly one dataset size (USE_SMALL_DATASET, USE_MEDIUM_DATASET, USE_LARGE_DATASET).")
 endif()
 
-set(SOURCES main.c graph.c dijkstra.c)
+set(SOURCES main.c graph.c dijkstra.c tree.c stack.c queue.c algorithm.c)
 
 add_library(graph SHARED graph.c)
 add_library(dijkstra SHARED dijkstra.c)
+add_library(tree SHARED tree.c)
+add_library(stack SHARED stack.c)
+add_library(queue SHARED queue.c)
+add_library(algorithm SHARED algorithm.c)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_executable(app main.c)
+target_link_libraries(algorithm PRIVATE dijkstra)
 
-target_link_libraries(app graph dijkstra)
+add_executable(app main.c)
+target_link_libraries(app graph dijkstra tree stack queue algorithm)

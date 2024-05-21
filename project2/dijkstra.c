@@ -28,8 +28,7 @@ int minDistance(int dist[], bool sptSet[]) {
   return min_index;
 }
 
-void dijkstra(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest,
-              struct RoadMap *roadMap) {
+void dijkstra(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest, struct RoadMap *roadMap) {
   int dist[V];
   bool sptSet[V];
   int path[V]; // used to store the path sequence
