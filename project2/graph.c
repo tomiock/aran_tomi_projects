@@ -2,7 +2,6 @@
 #include <stdlib.h>
 
 #include "graph.h"
-#include "small.h"
 
 void print_adjacency_matrix(int matrix[NUMBER_CITIES][NUMBER_CITIES]) {
   for (int i = 0; i < NUMBER_CITIES; i++) {

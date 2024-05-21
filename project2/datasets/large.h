@@ -12,6 +12,9 @@ We've already declared, but not initialized, both data structures:
 - cities info
 */
 
+#ifndef LARGE_H
+#define LARGE_H
+
 #define NUMBER_CITIES 100
 #define MAX_NAME 10
 #define MAX_CITY_NAME 20
@@ -51,3 +54,5 @@ struct RoadMap
     int total_cost;
     struct RoadMap * next;
 };
+
+#endif // LARGE_H
