@@ -1,10 +1,17 @@
+// Import the standard libraries:
 #include <stdio.h>
 #include <stdlib.h>
 
+// Import our headers:
 #include "dijkstra.h"
 #include "graph.h"
 #include "stdio.h"
+#include "stack.h"
+#include "queue.h"
+#include "tree.h"
+#include "algorithm.h"
 
+// Choose wich dataset to import depending on the compilation
 #ifdef DATASET_SMALL
     #include "datasets/small.h"
 #elif defined(DATASET_MEDIUM)
@@ -15,43 +22,37 @@
     #error "No dataset size defined"
 #endif
 
+// Define what algotihm to use **
 #define ALGORITHM DIJKSTRAS
 
-enum {DIJKSTRAS = 0, A_STAR = 1 };
-
 int main (void) {
-    print_adjacency_matrix(adjacency_matrix);
+    struct FamilyTreeNode root_dfs;
+    struct FamilyTreeNode root_bfs;
+
+    printf("Ancestors’ tree:\n\n");
+
+    // BFS
+    Def_Node(&root_bfs, 0);
+    New_Nodes(&root_bfs);
+    BFS(&root_bfs);
+    printf("BFS-> Names:\n");
+    Print_Tree_BFS(&root_bfs);
+
+
+    printf("\n----------------------------------\n");
+
+    // DFS
+    Def_Node(&root_dfs, 0);
+    New_Nodes(&root_dfs);
+    DFS(&root_dfs);
+    printf("DFS-> Names:\n");
+    Print_Tree_DFS(&root_dfs);
+    //return 0;
+    printf("\nTOMI:\n");
+
     struct RoadMap *roadMap = malloc(sizeof(struct RoadMap));
 
-    switch (ALGORITHM) {
-        case DIJKSTRAS:
-            printf("\nUsing Dijkstra's Algorithm\n");
-            dijkstra(adjacency_matrix, 0, 9, roadMap); // 0 is the source, 9 is the destination
-            break;
-
-        case A_STAR:
-            printf("\nUsing A* Algorithm\n");
-
-            struct City *cities_list[NUMBER_CITIES] = {NULL};
-            matrix_to_list(adjacency_matrix, cities_list);
-
-            for (int i = 0; i < NUMBER_CITIES; i++) {
-                printf("City %d:\n", cities_list[i]->id);
-                for (unsigned int j = 0; j < cities_list[i]->num_neighbors; j++) {
-                    printf("  Neighbor %d, Distance %d\n", cities_list[i]->neighbors[j]->id, cities_list[i]->neighbors[j]->distance);
-                }
-            }
-
-            printf("ERROR Not implemented yet\n");
-            free_cities_list(cities_list);
-            break;
-    }
-
-    printf("Total cost of the road map: %d\n", roadMap->total_cost); // check
-    while (roadMap->next != NULL) {
-        printf("Current Node: %d\n", roadMap->city_id);
-        roadMap = roadMap->next;
-    }
+    algorithm(0, 9, roadMap);    
 
     return 0;
 }
