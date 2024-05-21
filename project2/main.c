@@ -1,13 +1,21 @@
-#include "small.h"
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "dijkstra.h"
 #include "graph.h"
 #include "stdio.h"
 
-#define NUMBER_CITIES 10
-#define MAX_NAME 10
-#define MAX_CITY_NAME 20
+#ifdef DATASET_SMALL
+    #include "datasets/small.h"
+#elif defined(DATASET_MEDIUM)
+    #include "datasets/medium.h"
+#elif defined(DATASET_LARGE)
+    #include "datasets/large.h"
+#else
+    #error "No dataset size defined"
+#endif
 
-#define ALGORITHM A_STAR
+#define ALGORITHM DIJKSTRAS
 
 enum {DIJKSTRAS = 0, A_STAR = 1 };
 
@@ -27,10 +35,12 @@ int main (void) {
 
     free_cities_list(cities_list);
 
+    struct RoadMap *roadMap = malloc(sizeof(struct RoadMap));
+
     switch (ALGORITHM) {
         case DIJKSTRAS:
             printf("\nUsing Dijkstra's Algorithm\n");
-            dijkstra(adjacency_matrix, 0, 9); // 0 is the source, 9 is the destination
+            dijkstra(adjacency_matrix, 0, 9, roadMap); // 0 is the source, 9 is the destination
             break;
         case A_STAR:
             printf("\nUsing A* Algorithm\n");

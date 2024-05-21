@@ -7,6 +7,35 @@ project(
 )
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# set the default values
+option(USE_SMALL_DATASET "Use small dataset" OFF)
+option(USE_MEDIUM_DATASET "Use medium dataset" OFF)
+option(USE_LARGE_DATASET "Use large dataset" OFF)
+
+# ensure the only one macro is engaged at a time
+if(USE_SMALL_DATASET AND USE_MEDIUM_DATASET)
+    message(FATAL_ERROR "Select one dataset (selected: small and medium)")
+endif()
+if(USE_SMALL_DATASET AND USE_LARGE_DATASET)
+    message(FATAL_ERROR "Select one dataset (selected: small and large)")
+endif()
+if(USE_MEDIUM_DATASET AND USE_LARGE_DATASET)
+    message(FATAL_ERROR "Select one dataset (selected: medium and large)")
+endif()
+if(NOT USE_SMALL_DATASET AND NOT USE_MEDIUM_DATASET AND NOT USE_LARGE_DATASET)
+    message(FATAL_ERROR "Select one dataset (selected: none) e.g.`-DUSE_SMALL_DATASET=ON`")
+endif()
+
+if(USE_SMALL_DATASET)
+    add_definitions(-DDATASET_SMALL)
+elseif(USE_MEDIUM_DATASET)
+    add_definitions(-DDATASET_MEDIUM)
+elseif(USE_LARGE_DATASET)
+    add_definitions(-DDATASET_LARGE)
+else()
+    message(FATAL_ERROR "You must select exactly one dataset size (USE_SMALL_DATASET, USE_MEDIUM_DATASET, USE_LARGE_DATASET).")
+endif()
+
 set(SOURCES main.c graph.c dijkstra.c)
 
 add_library(graph SHARED graph.c)
