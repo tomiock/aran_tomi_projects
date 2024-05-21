@@ -3,11 +3,11 @@
 #include "stdio.h"
 
 #ifdef DATASET_SMALL
-    #include "small.h"
+    #include "datasets/small.h"
 #elif defined(DATASET_MEDIUM)
-    #include "medium.h"
+    #include "datasets/medium.h"
 #elif defined(DATASET_LARGE)
-    #include "large.h"
+    #include "datasets/large.h"
 #else
     #error "No dataset size defined"
 #endif
@@ -32,10 +32,12 @@ int main (void) {
 
     free_cities_list(cities_list);
 
+    struct RoadMap *roadMap = malloc(sizeof(struct RoadMap));
+
     switch (ALGORITHM) {
         case DIJKSTRAS:
             printf("\nUsing Dijkstra's Algorithm\n");
-            dijkstra(adjacency_matrix, 0, 9); // 0 is the source, 9 is the destination
+            dijkstra(adjacency_matrix, 0, 9, roadMap); // 0 is the source, 9 is the destination
             break;
         case A_STAR:
             printf("\nUsing A* Algorithm\n");

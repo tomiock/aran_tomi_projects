@@ -1,9 +1,9 @@
 #include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "dijkstra.h"
-#include "small.h"
 
 int minDistance(int dist[], bool sptSet[]) {
   // Initialize min value
@@ -31,7 +31,8 @@ void printPath(int parent[], int j) {
 
 #define V NUMBER_CITIES
 
-void dijkstra(int graph[V][V], int src, int dest) {
+void dijkstra(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest,
+              struct RoadMap *roadMap) {
   int dist[V];
   bool sptSet[V];
   int parent[V];
