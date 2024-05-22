@@ -3,7 +3,7 @@
 // Definition of the global variable
 struct FamilyTreeNode end_loop;
 
-struct FamilyTreeNode* dequeue(struct queue *que) {
+struct FamilyTreeNode *dequeue(struct queue *que) {
     end_loop.city_id = -2;
     if (que->top == NULL) {
         return &end_loop;
@@ -23,9 +23,9 @@ void printQueue(struct queue *que) {
     printf("\n");
 }
 
-void addqueue(struct queue* que, struct FamilyTreeNode val) {
+void addqueue(struct queue *que, struct FamilyTreeNode val) {
     // Allocate memory for a new node
-    struct iqueue *newIqueue = (struct iqueue*)malloc(sizeof(struct iqueue));
+    struct iqueue *newIqueue = (struct iqueue *)malloc(sizeof(struct iqueue));
 
     newIqueue->value = val;
     newIqueue->next = NULL;
@@ -38,7 +38,7 @@ void addqueue(struct queue* que, struct FamilyTreeNode val) {
         struct iqueue *current = que->top;
 
         while (current->next != NULL) {
-        current = current->next;
+            current = current->next;
         }
 
         // Add the new node at the end of the queue

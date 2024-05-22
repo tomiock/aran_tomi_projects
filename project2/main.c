@@ -3,30 +3,30 @@
 #include <stdlib.h>
 
 // Import our headers:
-#include "graph.h"
-#include "stdio.h"
-#include "stack.h"
-#include "queue.h"
-#include "tree.h"
 #include "algorithm.h"
+#include "graph.h"
+#include "queue.h"
+#include "stack.h"
+#include "stdio.h"
+#include "tree.h"
 
 // Define what algotihm to use **
 #define ALGORITHM DIJKSTRAS
 
-int main (void) {
-    // Choose which dataset to import depending on the compilation
-    #ifdef DATASET_SMALL
-        #include "datasets/small.h"
-        printf("This is a small case of the program\n\n");
-    #elif defined(DATASET_MEDIUM)
-        #include "datasets/medium.h"
-        printf("This is a medium case of the program\n\n");
-    #elif defined(DATASET_LARGE)
-        #include "datasets/large.h"
-        printf("This is a large case of the program\n\n");
-    #else
-        #error "No dataset size defined"
-    #endif
+int main(void) {
+// Choose which dataset to import depending on the compilation
+#ifdef DATASET_SMALL
+#include "datasets/small.h"
+    printf("This is a small case of the program\n\n");
+#elif defined(DATASET_MEDIUM)
+#include "datasets/medium.h"
+    printf("This is a medium case of the program\n\n");
+#elif defined(DATASET_LARGE)
+#include "datasets/large.h"
+    printf("This is a large case of the program\n\n");
+#else
+#error "No dataset size defined"
+#endif
 
     struct FamilyTreeNode root_dfs;
     struct FamilyTreeNode root_bfs;
@@ -67,7 +67,7 @@ int main (void) {
     struct RoadMap *total_roadMap_dfs = malloc(sizeof(struct RoadMap));
     printf("Partial road map:\n");
 
-    makeTrip(&total_roadMap_dfs, dfs_arr);  
+    makeTrip(&total_roadMap_dfs, dfs_arr);
 
     printf("\nTotal Road Map:\n");
     printTOTALRoadMap(total_roadMap_dfs);

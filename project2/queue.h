@@ -1,18 +1,18 @@
 #ifdef DATASET_SMALL
-    #include "datasets/small.h"
+#include "datasets/small.h"
 #elif defined(DATASET_MEDIUM)
-    #include "datasets/medium.h"
+#include "datasets/medium.h"
 #elif defined(DATASET_LARGE)
-    #include "datasets/large.h"
+#include "datasets/large.h"
 #else
-    #error "No dataset size defined"
+#error "No dataset size defined"
 #endif
 
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 extern struct FamilyTreeNode end_loop;
 
