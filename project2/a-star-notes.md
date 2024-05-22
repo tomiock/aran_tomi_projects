@@ -19,9 +19,11 @@ Assumptions that we need to make to create a heuristic function:
 - Generally for a node $n$ and a node $n_1$ and $n_2$:
 
 If $n > n_1$ and $n >> n_2$, then:
+
 $$
 d(n, n_1) << d(n, n_2)
 $$
+
 Where the nodes are indexes.
 
 ## Other algorithms
