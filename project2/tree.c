@@ -129,10 +129,6 @@ int * Travel_Tree_DFS(struct FamilyTreeNode *root){
     int *arr = malloc(sizeof(int)*NUMBER_CITIES);
     int i = 0;
 
-
-
-
-
     // Create an empty stack and push the root node onto it
     struct stack c_stack;
     c_stack.top = NULL;
@@ -154,6 +150,7 @@ int * Travel_Tree_DFS(struct FamilyTreeNode *root){
         if (currentNode->mother_parents != NULL){
             push(&c_stack, *(currentNode->mother_parents));
         }
+        i++;
     }
     for(i; i<=NUMBER_CITIES; i++)
         arr[i] = -1;

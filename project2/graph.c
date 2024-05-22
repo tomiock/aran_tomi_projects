@@ -40,8 +40,7 @@ void printTOTALRoadMap(struct RoadMap *roadMap) {
     cumulative_cost = current->total_cost;
     current = current->next;
   }
-  printf("\n");
-  printf("Total cost: %d\n", cumulative_cost);
+  printf("\n\nTotal cost: %d\n", cumulative_cost);
 }
 
 void addRoadMap(struct RoadMap *roadMap, int city_id, int total_cost) {

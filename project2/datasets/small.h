@@ -32,7 +32,6 @@ int adjacency_matrix[NUMBER_CITIES][NUMBER_CITIES] =
     {0, 0, 0, 80, 0, 0, 0, 30, 0, 90},
     {0, 0, 0, 0, 0, 0, 0, 100, 90, 0}
 };
-
 struct CivilRegistry
 {
     int city_id;
@@ -42,7 +41,6 @@ struct CivilRegistry
     int mother_parents_city_id;
     int father_parents_city_id;
 };
-
 struct CivilRegistry citiesInfo[NUMBER_CITIES] =
 {
     {0, "Barcelona", "Maria", "Jordi", 3, 5},
