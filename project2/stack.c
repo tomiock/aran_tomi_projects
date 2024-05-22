@@ -9,7 +9,8 @@ struct FamilyTreeNode* pop(struct stack* stk) {
         return &end_loop;
     }
     struct istack* temp = stk->top;
-    struct FamilyTreeNode* popValue = (struct FamilyTreeNode*)malloc(sizeof(struct FamilyTreeNode));
+    // TODO: check
+    struct FamilyTreeNode* popValue = (struct FamilyTreeNode*)malloc(sizeof(struct FamilyTreeNode)); // check if dynamically needed here
     *popValue = stk->top->value;
     stk->top = temp->next;
     free(temp);
@@ -27,7 +28,8 @@ void printStack(struct stack* stk) {
 }
 
 void push(struct stack* stk, struct FamilyTreeNode val) {
-    struct istack* newIstack = (struct istack*)malloc(sizeof(struct istack));
+    // TODO: check
+    struct istack* newIstack = (struct istack*)malloc(sizeof(struct istack)); // check if dynamically needed here
     newIstack->value = val;
     newIstack->next = stk->top;
     stk->top = newIstack;

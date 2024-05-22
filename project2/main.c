@@ -14,7 +14,7 @@
 #define ALGORITHM DIJKSTRAS
 
 int main (void) {
-    // Choose wich dataset to import depending on the compilation
+    // Choose which dataset to import depending on the compilation
     #ifdef DATASET_SMALL
         #include "datasets/small.h"
         printf("This is a small case of the program\n\n");

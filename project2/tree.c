@@ -268,7 +268,8 @@ int *Travel_Tree_BFS(struct FamilyTreeNode *root){
         }
         i++;
     }
-    for(i; i<=NUMBER_CITIES; i++)
+    // check the initialization of i (maybe it should be int i = 0)
+    for(i; i<=NUMBER_CITIES; i++) // TODO
         arr[i] = -1;
     return arr;
 }
