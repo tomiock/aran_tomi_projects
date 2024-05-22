@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "datasets/small.h"
 #include "graph.h"
 
 void print_adjacency_matrix(int matrix[NUMBER_CITIES][NUMBER_CITIES]) {
@@ -10,6 +11,56 @@ void print_adjacency_matrix(int matrix[NUMBER_CITIES][NUMBER_CITIES]) {
     }
     printf("\n");
   }
+}
+
+void printRoadMap(struct RoadMap *roadMap) {
+  struct RoadMap *current = roadMap;
+  int total_cost = 0;
+
+  while (current != NULL) {
+    printf("%s", citiesInfo[current->city_id].city_name);
+    if (current->next != NULL) {
+      printf("-");
+      total_cost += current->total_cost;
+    }
+    current = current->next;
+  }
+  printf(" %d\n", total_cost);
+}
+
+void printTOTALRoadMap(struct RoadMap *roadMap) {
+  struct RoadMap *current = roadMap;
+  int total_cost = 0;
+
+  while (current != NULL) {
+    printf("%s", citiesInfo[current->city_id].city_name);
+    if (current->next != NULL) {
+      printf("-");
+      total_cost += current->total_cost;
+    }
+    current = current->next;
+  }
+  printf("\n");
+  printf("Total cost: %d\n", total_cost);
+}
+
+void addRoadMap(struct RoadMap *roadMap, int city_id, int total_cost) {
+  struct RoadMap *current = roadMap;
+  while (current != NULL) {
+    current = current->next;
+  }
+  current = malloc(sizeof(struct RoadMap));
+  current->city_id = city_id;
+  current->total_cost = total_cost + current->total_cost;
+  current->next = NULL;
+}
+
+void appendRoadMap(struct RoadMap *roadMap, struct RoadMap *newRoadMap) {
+  struct RoadMap *current = roadMap;
+  while (current->next != NULL) {
+    current = current->next;
+  }
+  current->next = newRoadMap;
 }
 
 void matrix_to_list(int matrix[NUMBER_CITIES][NUMBER_CITIES],

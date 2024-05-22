@@ -22,12 +22,20 @@ struct Neighbor {
     unsigned int distance;
 };
 
+void printRoadMap(struct RoadMap *roadMap);
+
+void printTOTALRoadMap(struct RoadMap *roadMap);
+
+void addRoadMap(struct RoadMap *roadMap, int city_id, int total_cost);
+
+void appendRoadMap(struct RoadMap *roadMap, struct RoadMap *newRoadMap);
+
 void print_adjacency_matrix(int matrix[NUMBER_CITIES][NUMBER_CITIES]);
 
 void matrix_to_list(int matrix[NUMBER_CITIES][NUMBER_CITIES], struct City * list[NUMBER_CITIES]);
 
 void free_cities_list(struct City * list[NUMBER_CITIES]);
 
-void search_path(struct City *cities[NUMBER_CITIES], void *start, void *end, struct RoadMap * map);
+void a_star(struct City *cities[NUMBER_CITIES], void *start, void *end, struct RoadMap * map);
 
 #endif // GRAPH_H
