@@ -15,14 +15,14 @@ void print_adjacency_matrix(int matrix[NUMBER_CITIES][NUMBER_CITIES]) {
 
 void printRoadMap(struct RoadMap *roadMap) {
   struct RoadMap *current = roadMap;
-  int total_cost = 0;
+  int total_cost;
 
   while (current != NULL) {
     printf("%s", citiesInfo[current->city_id].city_name);
     if (current->next != NULL) {
       printf("-");
-      total_cost += current->total_cost;
     }
+    total_cost = current->total_cost;
     current = current->next;
   }
   printf(" %d\n", total_cost);
@@ -30,18 +30,18 @@ void printRoadMap(struct RoadMap *roadMap) {
 
 void printTOTALRoadMap(struct RoadMap *roadMap) {
   struct RoadMap *current = roadMap;
-  int total_cost = 0;
+  int cumulative_cost;
 
   while (current != NULL) {
     printf("%s", citiesInfo[current->city_id].city_name);
     if (current->next != NULL) {
       printf("-");
-      total_cost += current->total_cost;
     }
+    cumulative_cost = current->total_cost;
     current = current->next;
   }
   printf("\n");
-  printf("Total cost: %d\n", total_cost);
+  printf("Total cost: %d\n", cumulative_cost);
 }
 
 void addRoadMap(struct RoadMap *roadMap, int city_id, int total_cost) {
@@ -57,10 +57,21 @@ void addRoadMap(struct RoadMap *roadMap, int city_id, int total_cost) {
 
 void appendRoadMap(struct RoadMap *roadMap, struct RoadMap *newRoadMap) {
   struct RoadMap *current = roadMap;
+
   while (current->next != NULL) {
     current = current->next;
   }
-  current->next = newRoadMap;
+  int cumulative_cost = current->total_cost;
+
+  // we need to skip the first element of the newRoadMap since it would be repeated
+  current->next = newRoadMap->next;
+
+  // another loop to add the total cost of the first map to the second, since we want to express
+  // the cumulative cost of the whole path at each of its elements
+  while (newRoadMap != NULL) {
+    newRoadMap->total_cost += cumulative_cost;
+    newRoadMap = newRoadMap->next;
+  }
 }
 
 void matrix_to_list(int matrix[NUMBER_CITIES][NUMBER_CITIES],

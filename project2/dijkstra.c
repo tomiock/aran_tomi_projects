@@ -1,8 +1,3 @@
-#include <limits.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "dijkstra.h"
 
 void printSolution(int dist[], int parent[], int src, int dest) {
@@ -20,39 +15,39 @@ void printPath(int parent[], int j) {
 
 #define V NUMBER_CITIES
 
-int minDistance(int dist[], bool sptSet[]) {
+int min_distance(int distances[], bool visited_set[]) {
   int min = INT_MAX, min_index;
   for (int v = 0; v < V; v++)
-    if (!sptSet[v] && dist[v] <= min)
-      min = dist[v], min_index = v;
+    if (!visited_set[v] && distances[v] <= min)
+      min = distances[v], min_index = v;
   return min_index;
 }
 
 void dijkstra(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest, struct RoadMap *roadMap) {
-  int dist[V];
-  bool sptSet[V];
+  int distances[V];
+  bool visited_set[V];
   int path[V]; // used to store the path sequence
 
   // initialize the distances to the nodes at infinity and path at -1
   for (int i = 0; i < V; i++) {
-    dist[i] = INT_MAX;
-    sptSet[i] = false;
+    distances[i] = INT_MAX;
+    visited_set[i] = false;
     path[i] = -1;
   }
 
-  dist[src] = 0;
+  distances[src] = 0;
 
   for (int count = 0; count < V - 1; count++) {
-    int u = minDistance(dist, sptSet);
+    int u = min_distance(distances, visited_set);
     if (u == dest) {
       break; // stop if the destination is reached
     }
-    sptSet[u] = true;
+    visited_set[u] = true;
 
     for (int v = 0; v < V; v++) {
-      if (!sptSet[v] && graph[u][v] && dist[u] != INT_MAX &&
-          dist[u] + graph[u][v] < dist[v]) {
-        dist[v] = dist[u] + graph[u][v];
+      if (!visited_set[v] && graph[u][v] && distances[u] != INT_MAX &&
+          distances[u] + graph[u][v] < distances[v]) {
+        distances[v] = distances[u] + graph[u][v];
         path[v] = u;
       }
     }
@@ -79,11 +74,13 @@ void dijkstra(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest, struct
     }
 
     // populate the RoadMap structure
-    struct RoadMap *currentRoadMap = roadMap; // define a new variables to populate the struct
+    roadMap->total_cost = 0;
+    struct RoadMap *currentRoadMap = roadMap; // define a new variable to populate the struct
     // we need to keep the head of the struct to "return it"
     for (int i = 0; i < stack_index; i++) {
       currentRoadMap->city_id = stack[i];
-      currentRoadMap->total_cost = dist[dest];
+      currentRoadMap->total_cost = distances[stack[i]];
+
       if (i < stack_index - 1) {
         currentRoadMap->next = (struct RoadMap *)malloc(sizeof(struct RoadMap));
         currentRoadMap = currentRoadMap->next;
