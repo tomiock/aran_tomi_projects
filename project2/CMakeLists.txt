@@ -38,6 +38,8 @@ endif()
 
 set(SOURCES main.c graph.c dijkstra.c tree.c stack.c queue.c algorithm.c)
 
+set(CMAKE_C_FLAGS_RELEASE "-Ofast")
+
 add_library(graph SHARED graph.c)
 add_library(dijkstra SHARED dijkstra.c)
 add_library(tree SHARED tree.c)
