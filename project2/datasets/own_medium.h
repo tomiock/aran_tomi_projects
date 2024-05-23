@@ -15,11 +15,14 @@
  *  - Cities information
  */
 
-#define NUMBERofCITIES 50
-#define MAXofNAME 10
-#define MAXofCITYNAME 20
+#ifndef OWN_MEDIUM_H
+#define OWN_MEDIUM_H
 
-int adjacencyMatrix[NUMBERofCITIES][NUMBERofCITIES] =
+#define NUMBER_CITIES 50
+#define MAX_NAME 10
+#define MAX_CITY_NAME 20
+
+int adjacencyMatrix[NUMBER_CITIES][NUMBER_CITIES] =
     {
         {0, 100, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 75, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {100, 0, 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 165, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -76,14 +79,14 @@ int adjacencyMatrix[NUMBERofCITIES][NUMBERofCITIES] =
 struct CivilRegistry
 {
     int cityID;
-    char cityName[MAXofCITYNAME];
-    char motherName[MAXofNAME];
-    char fatherName[MAXofNAME];
+    char cityName[MAX_CITY_NAME];
+    char motherName[MAX_NAME];
+    char fatherName[MAX_NAME];
     int motherParentscityID;
     int fatherParentscityID;
 };
 
-struct CivilRegistry citiesInfo[NUMBERofCITIES] =
+struct CivilRegistry citiesInfo[NUMBER_CITIES] =
     {
         {0, "Barcelona", "Maria", "Jordi", 3, 5},
         {1, "Lisbon", "Madalena", "Lourenço", -1, -1},
@@ -139,8 +142,8 @@ struct CivilRegistry citiesInfo[NUMBERofCITIES] =
 
 struct FamilyTreeNode
 {
-    char motherName[MAXofNAME];
-    char fatherName[MAXofNAME];
+    char motherName[MAX_NAME];
+    char fatherName[MAX_NAME];
     int cityID;
     struct FamilyTreeNode *motherParents;
     struct FamilyTreeNode *fatherParents;
@@ -152,3 +155,5 @@ struct RoadMap
     int totalCost;
     struct RoadMap *next;
 };
+
+#endif // OWN_MEDIUM_H
