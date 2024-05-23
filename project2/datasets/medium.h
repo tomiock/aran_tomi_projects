@@ -156,6 +156,5 @@ struct RoadMap
     struct RoadMap * next;
 };
 
-#define NUMBER_CITIES 50
 
 #endif // MEDIUM_H

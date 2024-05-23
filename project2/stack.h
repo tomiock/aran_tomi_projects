@@ -29,5 +29,6 @@ struct stack {
 struct FamilyTreeNode *pop(struct stack *stk);
 void printStack(struct stack *stk);
 void push(struct stack *stk, struct FamilyTreeNode val);
+void freeStack(struct stack *stk);
 
 #endif // STACK_H

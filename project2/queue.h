@@ -28,5 +28,6 @@ struct queue {
 struct FamilyTreeNode *dequeue(struct queue *que);
 void printQueue(struct queue *que);
 void addqueue(struct queue *que, struct FamilyTreeNode val);
+void freequeue(struct queue *que);
 
 #endif // queue_H

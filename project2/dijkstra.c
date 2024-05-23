@@ -23,8 +23,7 @@ int min_distance(int distances[], bool visited_set[]) {
     return min_index;
 }
 
-void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest,
-                     struct RoadMap *roadMap) {
+void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest, struct RoadMap *roadMap) {
     int distances[V];
     bool visited_set[V];
     int path[V]; // used to store the path sequence
@@ -76,16 +75,14 @@ void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest,
 
         // populate the RoadMap structure
         roadMap->total_cost = 0;
-        struct RoadMap *currentRoadMap =
-            roadMap; // define a new variable to populate the struct
+        struct RoadMap *currentRoadMap = roadMap; // define a new variable to populate the struct
         // we need to keep the head of the struct to "return it"
         for (int i = 0; i < stack_index; i++) {
             currentRoadMap->city_id = stack[i];
             currentRoadMap->total_cost = distances[stack[i]];
 
             if (i < stack_index - 1) {
-                currentRoadMap->next =
-                    (struct RoadMap *)malloc(sizeof(struct RoadMap));
+                currentRoadMap->next = (struct RoadMap *)malloc(sizeof(struct RoadMap));
                 currentRoadMap = currentRoadMap->next;
             } else {
                 currentRoadMap->next = NULL; // final roadmap null

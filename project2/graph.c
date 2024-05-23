@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "datasets/small.h"
 #include "graph.h"
 
 void print_adjacency_matrix(int matrix[NUMBER_CITIES][NUMBER_CITIES]) {

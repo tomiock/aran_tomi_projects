@@ -4,14 +4,18 @@
 struct FamilyTreeNode end_loop;
 
 struct FamilyTreeNode *pop(struct stack *stk) {
-    end_loop.city_id = -2;
     if (stk->top == NULL) {
+        end_loop.city_id = -2;
         return &end_loop;
     }
+
     struct istack *temp = stk->top;
-    // TODO: check
-    struct FamilyTreeNode *popValue = (struct FamilyTreeNode *)malloc(
-        sizeof(struct FamilyTreeNode)); // check if dynamically needed here
+    struct FamilyTreeNode *popValue = (struct FamilyTreeNode *)malloc(sizeof(struct FamilyTreeNode));
+    if (popValue == NULL) {
+        perror("Failed to allocate memory for popValue");
+        exit(EXIT_FAILURE);
+    }
+    
     *popValue = stk->top->value;
     stk->top = temp->next;
     free(temp);
@@ -30,9 +34,20 @@ void printStack(struct stack *stk) {
 
 void push(struct stack *stk, struct FamilyTreeNode val) {
     // TODO: check
-    struct istack *newIstack = (struct istack *)malloc(
-        sizeof(struct istack)); // check if dynamically needed here
+    struct istack *newIstack = (struct istack *)malloc(sizeof(struct istack));
+    if (newIstack == NULL) {
+        perror("Failed to allocate memory for newIstack");
+        exit(EXIT_FAILURE);
+    }
     newIstack->value = val;
     newIstack->next = stk->top;
     stk->top = newIstack;
+}
+
+void freeStack(struct stack *stk) {
+    while (stk->top != NULL) {
+        struct istack *temp = stk->top;
+        stk->top = stk->top->next;
+        free(temp);
+    }
 }

@@ -14,19 +14,19 @@
 #define ALGORITHM DIJKSTRAS
 
 int main(void) {
-// Choose which dataset to import depending on the compilation
-#ifdef DATASET_SMALL
-#include "datasets/small.h"
-    printf("This is a small case of the program\n\n");
-#elif defined(DATASET_MEDIUM)
-#include "datasets/medium.h"
-    printf("This is a medium case of the program\n\n");
-#elif defined(DATASET_LARGE)
-#include "datasets/large.h"
-    printf("This is a large case of the program\n\n");
-#else
-#error "No dataset size defined"
-#endif
+    // Choose which dataset to import depending on the compilation
+    #ifdef DATASET_SMALL
+        #include "datasets/small.h"
+        printf("This is a small case of the program\n\n");
+    #elif defined(DATASET_MEDIUM)
+        #include "datasets/medium.h"
+        printf("This is a medium case of the program\n\n");
+    #elif defined(DATASET_LARGE)
+        #include "datasets/large.h"
+        printf("This is a large case of the program\n\n");
+    #else
+    #error "No dataset size defined"
+    #endif
 
     struct FamilyTreeNode root_dfs;
     struct FamilyTreeNode root_bfs;
@@ -44,14 +44,19 @@ int main(void) {
     Print_Tree_BFS(&root_bfs);
 
     // Calculating best trip
-    int *arr = Travel_Tree_BFS(&root_bfs);
+    int *bfs_arr = Travel_Tree_BFS(&root_bfs);
     struct RoadMap *total_roadMap_bfs = malloc(sizeof(struct RoadMap));
     printf("Partial road map:\n");
 
-    makeTrip(&total_roadMap_bfs, arr);
+    makeTrip(&total_roadMap_bfs, bfs_arr);
 
     printf("\nTotal Road Map:\n");
     printTOTALRoadMap(total_roadMap_bfs);
+    
+    // FREE
+    free(total_roadMap_bfs);
+    Free_Tree(&root_bfs);
+    FreeTravelTree(bfs_arr);
 
     printf("\n----------------------------------\n");
 
@@ -65,12 +70,17 @@ int main(void) {
     // Calculating best trip
     int *dfs_arr = Travel_Tree_DFS(&root_dfs);
     struct RoadMap *total_roadMap_dfs = malloc(sizeof(struct RoadMap));
-    printf("Partial road map:\n");
+    printf("\nPartial road map:\n");
 
     makeTrip(&total_roadMap_dfs, dfs_arr);
 
     printf("\nTotal Road Map:\n");
     printTOTALRoadMap(total_roadMap_dfs);
+    
+    // FREE
+    free(total_roadMap_dfs);
+    Free_Tree(&root_dfs);
+    FreeTravelTree(dfs_arr);
 
     return 0;
 }
