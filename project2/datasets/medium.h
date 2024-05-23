@@ -94,7 +94,7 @@ struct CivilRegistry citiesInfo[NUMBER_CITIES] =
         {3, "Paris", "Louise", "Paul", 9, 4},
         {4, "Rome", "Agnese", "Leonardo", -1, -1},
         {5, "Zurich", "Eva", "Albert", 1, 6},
-        {6, "Amsterdam", "Amber", "Finn", -1, -1},
+        {6, "Amsterdam", "Amber", "Finn", 10, 16},
         {7, "Viena", "", "", -1, -1},
         {8, "Berlin", "", "", -1, -1},
         {9, "Varsovia", "", "", -1, -1},
@@ -102,7 +102,7 @@ struct CivilRegistry citiesInfo[NUMBER_CITIES] =
         {11, "New York", "Patricia", "John", 3, 8},
         {12, "Tokyo", "", "", -1, -1},
         {13, "Sydney", "Olivia", "Liam", 5, 10},
-        {14, "Moscow", "", "", -1, -1},
+        {14, "Moscow", "Petrov", "Ludji", 19, 27},
         {15, "Beijing", "", "", -1, -1},
         {16, "Mumbai", "Aisha", "Raj", 12, 14},
         {17, "Cairo", "", "", -1, -1},
@@ -119,7 +119,7 @@ struct CivilRegistry citiesInfo[NUMBER_CITIES] =
         {28, "Dallas", "", "", -1, -1},
         {29, "San Jose", "", "", -1, -1},
         {30, "Austin", "", "", -1, -1},
-        {31, "Jacksonville", "", "", -1, -1},
+        {31, "Jacksonville", "John", "Barbara", 41, 48},
         {32, "Fort Worth", "", "", -1, -1},
         {33, "Columbus", "Victoria", "Jackson", 4, 34},
         {34, "Charlotte", "", "", -1, -1},
@@ -155,5 +155,7 @@ struct RoadMap
     int total_cost;
     struct RoadMap * next;
 };
+
+#define NUMBER_CITIES 50
 
 #endif // MEDIUM_H
