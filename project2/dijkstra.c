@@ -87,8 +87,7 @@ void dijkstra_matrix(const unsigned short graph[NUMBER_CITIES][NUMBER_CITIES],
             currentRoadMap->total_cost = distances[stack[i]];
 
             if (i < stack_index - 1) {
-                currentRoadMap->next =
-                    (struct RoadMap *)malloc(sizeof(struct RoadMap));
+                currentRoadMap->next = (struct RoadMap *)malloc(sizeof(struct RoadMap));
                 currentRoadMap = currentRoadMap->next;
             } else {
                 currentRoadMap->next = NULL; // final roadmap null

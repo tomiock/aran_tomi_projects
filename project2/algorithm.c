@@ -32,7 +32,8 @@ void makeTrip(struct RoadMap * total_roadMap, short *arr) {
         if (i == 0) {
             *total_roadMap = *partial_roadMap;
         } else {
-            appendRoadMap(total_roadMap, partial_roadMap);
-        }
-    }
+            appendRoadMap(*total_roadMap, partial_roadMap);
+            free(partial_roadMap);
+        }  
+    } 
 }

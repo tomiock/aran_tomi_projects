@@ -19,6 +19,7 @@ void New_Nodes(struct FamilyTreeNode *prev_node) {
     prev_node->mother_parents = new_mot;
 }
 
+<<<<<<< HEAD
 void Free_Tree(struct FamilyTreeNode *root) { return; }; // TODO
 
 void Def_Node(struct FamilyTreeNode *node, int city_n) {

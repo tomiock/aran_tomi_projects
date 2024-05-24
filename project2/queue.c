@@ -45,3 +45,18 @@ void addqueue(struct queue *que, struct FamilyTreeNode val) {
         current->next = newIqueue;
     }
 }
+
+void freequeue(struct queue *que) {
+    // Pointer to keep track of the current node
+    struct iqueue *current = que->top;
+
+    // Traverse the queue and free each node
+    while (current != NULL) {
+        struct iqueue *temp = current; // Temporary pointer to the current node
+        current = current->next;       // Move to the next node
+        free(temp);                    // Free the current node
+    }
+
+    // Set the top of the queue to NULL since it's now empty
+    que->top = NULL;
+}
