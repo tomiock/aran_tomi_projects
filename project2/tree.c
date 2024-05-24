@@ -1,4 +1,5 @@
 #include "tree.h"
+#include "datasets/small.h"
 #include <string.h>
 
 // GENERAL TREE FUNCTIONS:
@@ -58,17 +59,14 @@ void Free_Tree(struct FamilyTreeNode *root) {
     freeStack(&c_stack);
 }
 
-
-void Def_Node(struct FamilyTreeNode *node, int city_n) {
+void Def_Node(struct FamilyTreeNode *node, short city_n) {
     node->city_id = city_n;
     strcpy(node->fatherName, citiesInfo[city_n].father_name);
     strcpy(node->motherName, citiesInfo[city_n].mother_name);
 }
 
-void FreeTravelTree(int *arr){
-    if(arr != NULL)
-        free(arr);
-    arr = NULL;
+void FreeTravelTree(short *arr){
+    free(arr);
 }
 
 
@@ -84,12 +82,10 @@ void DFS(struct FamilyTreeNode *root) {
     push(&c_stack, currentNode);
 
     // Condition if currentNode is not stopped by a pop action to a void stack
-    // (see stack.h)
     while (currentNode != &end_loop) {
-
         if ((citiesInfo[currentNode->city_id].mother_parents_city_id) != -1) {
-            int city = citiesInfo[currentNode->city_id].mother_parents_city_id;
-
+            short city =
+                citiesInfo[currentNode->city_id].mother_parents_city_id;
             currentNode = currentNode->mother_parents;
             if (currentNode != NULL) {
                 Def_Node(currentNode, city);
@@ -97,7 +93,7 @@ void DFS(struct FamilyTreeNode *root) {
                 push(&c_stack, currentNode);
             }
         } else {
-            int city;
+            short city;
             do {
                 currentNode = pop(&c_stack);
                 city = citiesInfo[currentNode->city_id].father_parents_city_id;
@@ -162,10 +158,10 @@ void Print_Tree_DFS(struct FamilyTreeNode *root) {
     freeStack(&c_stack);
 }
 
-int *Travel_Tree_DFS(struct FamilyTreeNode *root) {
+short *Travel_Tree_DFS(struct FamilyTreeNode *root) {
 
     struct FamilyTreeNode *currentNode = root;
-    int *arr = malloc(sizeof(int) * NUMBER_CITIES);
+    short *arr = malloc(sizeof(short) * NUMBER_CITIES);
     int i = 0;
 
     // Create an empty stack and push the root node onto it
@@ -270,13 +266,9 @@ void Print_Tree_BFS(struct FamilyTreeNode *root) {
         // currentNode->motherName, currentNode->fatherName);
 
         if (currentNode->mother_parents != NULL) {
-            // printf("Adding to queue: %d ", currentNode->city_id);
-            // printf("MOM: %d\n", currentNode->mother_parents->city_id);
             addqueue(&c_queue, *currentNode->mother_parents);
         }
         if (currentNode->father_parents != NULL) {
-            // printf("Adding to queue: %d ", currentNode->city_id);
-            // printf("FAT: %d\n", currentNode->father_parents->city_id);
             addqueue(&c_queue, *currentNode->father_parents);
         }
         num_items = num_items - 1;
@@ -291,10 +283,9 @@ void Print_Tree_BFS(struct FamilyTreeNode *root) {
     freequeue(&c_queue);
 }
 
-int *Travel_Tree_BFS(struct FamilyTreeNode *root) {
+void Travel_Tree_BFS(struct FamilyTreeNode *root, short arr[NUMBER_CITIES]) {
     // Create stack
     struct queue c_queue;
-    int *arr = malloc(sizeof(int) * NUMBER_CITIES);
     c_queue.top = NULL;
     int i = 0;
 
@@ -322,5 +313,4 @@ int *Travel_Tree_BFS(struct FamilyTreeNode *root) {
     // check the initialization of i (maybe it should be int i = 0)
     for (i; i < NUMBER_CITIES; i++) // TODO
         arr[i] = -1;
-    return arr;
 }

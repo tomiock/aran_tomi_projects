@@ -6,7 +6,7 @@
 // Create the enum for choosing the algorithm
 enum { DIJKSTRAS = 0, A_STAR = 1 };
 
-void algorithm(int src, int dest, struct RoadMap *roadMap) {
+void algorithm(short src, short dest, struct RoadMap *roadMap) {
     switch (ALGORITHM) {
     case DIJKSTRAS:
         dijkstra_matrix(adjacency_matrix, src, dest, roadMap);
@@ -27,7 +27,8 @@ void makeTrip(struct RoadMap **total_roadMap, int *arr) {
         struct RoadMap *partial_roadMap = malloc(sizeof(struct RoadMap));
         partial_roadMap->next = NULL;
         if (arr[i + 1] != (-1)) {
-            searchTrip(arr[i], arr[i + 1], partial_roadMap);
+            algorithm(arr[i], arr[i + 1], partial_roadMap);
+            printRoadMap(partial_roadMap);
         }
 
         if (i == 0) {
