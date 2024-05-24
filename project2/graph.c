@@ -44,6 +44,17 @@ void printTOTALRoadMap(struct RoadMap *roadMap) {
     printf("\n\nTotal cost: %d\n", cumulative_cost);
 }
 
+void FreeRoadMap(struct RoadMap *roadMap){
+    struct RoadMap *current = roadMap, *temp;
+    while (current != NULL) {
+        temp = current->next;
+        free(current);
+        current = temp;
+    }
+    free(temp);
+    free(current);
+}
+
 void addRoadMap(struct RoadMap *roadMap, int city_id, int total_cost) {
     struct RoadMap *current = roadMap;
     while (current != NULL) {

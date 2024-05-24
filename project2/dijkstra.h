@@ -25,4 +25,6 @@ int min_distance(int distances[], bool visited_set[]);
 void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest,
                      struct RoadMap *roadMap);
 
+void freeDijkstra();
+
 #endif // DIJKSTRA_H

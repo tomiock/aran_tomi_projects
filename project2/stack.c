@@ -10,15 +10,10 @@ struct FamilyTreeNode *pop(struct stack *stk) {
     }
 
     struct istack *temp = stk->top;
-    struct FamilyTreeNode *popValue = (struct FamilyTreeNode *)malloc(sizeof(struct FamilyTreeNode));
-    if (popValue == NULL) {
-        perror("Failed to allocate memory for popValue");
-        exit(EXIT_FAILURE);
-    }
+    struct FamilyTreeNode *popValue;
     
-    *popValue = stk->top->value;
+    popValue = &(stk->top->value);
     stk->top = temp->next;
-    free(temp);
     return popValue;
 }
 

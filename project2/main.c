@@ -55,10 +55,10 @@ int main(void) {
     printTOTALRoadMap(total_roadMap_bfs);
     
     // FREE
-    free(total_roadMap_bfs);
+    FreeRoadMap(total_roadMap_bfs);
     Free_Tree(&root_bfs);
     FreeTravelTree(bfs_arr);
-
+    
     printf("\n----------------------------------\n");
 
     // DFS

@@ -92,3 +92,7 @@ void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest,
         printf("No path found from src to dest\n");
     }
 }
+
+void freeDijkstra(){
+
+};
