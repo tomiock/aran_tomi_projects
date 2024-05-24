@@ -1,7 +1,3 @@
-// Import the standard libraries:
-#include <stdio.h>
-#include <stdlib.h>
-
 // Import our headers:
 #include "algorithm.h"
 #include "graph.h"
