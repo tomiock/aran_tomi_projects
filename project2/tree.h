@@ -15,6 +15,7 @@
 #include "stack.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // GENERAL TREE FUNCTIONS:
 void New_Nodes(struct FamilyTreeNode *prev_node);
@@ -24,11 +25,11 @@ void Def_Node(struct FamilyTreeNode *node, int city_n);
 // DFS FUNCTIONS:
 void DFS(struct FamilyTreeNode *root);
 void Print_Tree_DFS(struct FamilyTreeNode *root);
-int *Travel_Tree_DFS(struct FamilyTreeNode *root);
+short *Travel_Tree_DFS(struct FamilyTreeNode *root);
 
 // BFS FUNCTIONS:
 void BFS(struct FamilyTreeNode *root);
 void Print_Tree_BFS(struct FamilyTreeNode *root);
-int *Travel_Tree_BFS(struct FamilyTreeNode *root);
+short *Travel_Tree_BFS(struct FamilyTreeNode *root);
 
 #endif // TREE_H

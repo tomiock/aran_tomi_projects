@@ -30,6 +30,8 @@ void addRoadMap(struct RoadMap *roadMap, int city_id, int total_cost);
 
 void appendRoadMap(struct RoadMap *roadMap, struct RoadMap *newRoadMap);
 
+void freeRoadMap(struct RoadMap *roadMap);
+
 void print_adjacency_matrix(int matrix[NUMBER_CITIES][NUMBER_CITIES]);
 
 void matrix_to_list(int matrix[NUMBER_CITIES][NUMBER_CITIES],

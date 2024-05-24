@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "datasets/small.h"
 #include "graph.h"
 
 void print_adjacency_matrix(int matrix[NUMBER_CITIES][NUMBER_CITIES]) {
@@ -68,7 +67,9 @@ void appendRoadMap(struct RoadMap *roadMap, struct RoadMap *newRoadMap) {
 
     // we need to skip the first element of the newRoadMap since it would be
     // repeated
-    current->next = newRoadMap->next;
+    struct RoadMap *tempRoad = newRoadMap;
+    newRoadMap = newRoadMap->next;
+    free(tempRoad);
 
     // another loop to add the total cost of the first map to the second, since
     // we want to express the cumulative cost of the whole path at each of its
@@ -76,6 +77,17 @@ void appendRoadMap(struct RoadMap *roadMap, struct RoadMap *newRoadMap) {
     while (newRoadMap != NULL) {
         newRoadMap->total_cost += cumulative_cost;
         newRoadMap = newRoadMap->next;
+    }
+}
+
+void freeRoadMap(struct RoadMap *roadMap) {
+    struct RoadMap *current = roadMap;
+    struct RoadMap *next;
+
+    while (current != NULL) {
+        next = current->next;
+        free(current);
+        current = next;
     }
 }
 

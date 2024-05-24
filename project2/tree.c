@@ -20,7 +20,6 @@ void New_Nodes(struct FamilyTreeNode *prev_node) {
 }
 
 void Free_Tree(struct FamilyTreeNode *root) { return; }; // TODO
-//=TODO;
 
 void Def_Node(struct FamilyTreeNode *node, int city_n) {
     node->city_id = city_n;
@@ -40,17 +39,10 @@ void DFS(struct FamilyTreeNode *root) {
     push(&c_stack, *currentNode);
 
     // Condition if currentNode is not stopped by a pop action to a void stack
-    // (see stack.h)
     while (currentNode != &end_loop) {
-        // printf("\nHey"); // Temp print
-        // sleep(1);
-        // printStack(&c_stack);
-        // printf("IF: %d\n",
-        // (citiesInfo[currentNode->city_id].mother_parents_city_id)); // Temp
-        // print
         if ((citiesInfo[currentNode->city_id].mother_parents_city_id) != -1) {
-            int city = citiesInfo[currentNode->city_id].mother_parents_city_id;
-            // printf("Mum: %d\n", city); // Temp print
+            short city =
+                citiesInfo[currentNode->city_id].mother_parents_city_id;
             currentNode = currentNode->mother_parents;
             if (currentNode != NULL) {
                 Def_Node(currentNode, city);
@@ -58,26 +50,17 @@ void DFS(struct FamilyTreeNode *root) {
                 push(&c_stack, *currentNode);
             }
         } else {
-            int city;
+            short city;
             do {
                 currentNode = pop(&c_stack);
                 city = citiesInfo[currentNode->city_id].father_parents_city_id;
 
                 if (currentNode == &end_loop)
                     ;
-                // printf("end_loop\n"); // Temp print
                 else
                     currentNode = currentNode->father_parents;
 
-                // if (currentNode == NULL)
-                //     printf("NULL\n"); // Temp print
-                // else printf("NOT NULL\n"); // Temp print
-                // sleep(1);
             } while (currentNode == NULL);
-            // printf("currentNode->city_id: %d\n", currentNode->city_id); //
-            // Temp print
-
-            // printf("Dad: %d\n", city); // Temp print
             if (currentNode != NULL) {
                 Def_Node(currentNode, city);
                 New_Nodes(currentNode);
@@ -127,10 +110,10 @@ void Print_Tree_DFS(struct FamilyTreeNode *root) {
     }
 }
 
-int *Travel_Tree_DFS(struct FamilyTreeNode *root) {
+short *Travel_Tree_DFS(struct FamilyTreeNode *root) {
 
     struct FamilyTreeNode *currentNode = root;
-    int *arr = malloc(sizeof(int) * NUMBER_CITIES);
+    short *arr = malloc(sizeof(int) * NUMBER_CITIES);
     int i = 0;
 
     // Create an empty stack and push the root node onto it
@@ -230,13 +213,9 @@ void Print_Tree_BFS(struct FamilyTreeNode *root) {
         // currentNode->motherName, currentNode->fatherName);
 
         if (currentNode->mother_parents != NULL) {
-            // printf("Adding to queue: %d ", currentNode->city_id);
-            // printf("MOM: %d\n", currentNode->mother_parents->city_id);
             addqueue(&c_queue, *currentNode->mother_parents);
         }
         if (currentNode->father_parents != NULL) {
-            // printf("Adding to queue: %d ", currentNode->city_id);
-            // printf("FAT: %d\n", currentNode->father_parents->city_id);
             addqueue(&c_queue, *currentNode->father_parents);
         }
         num_items = num_items - 1;
@@ -249,10 +228,10 @@ void Print_Tree_BFS(struct FamilyTreeNode *root) {
     printf("\n");
 }
 
-int *Travel_Tree_BFS(struct FamilyTreeNode *root) {
+short *Travel_Tree_BFS(struct FamilyTreeNode *root) {
     // Create stack
     struct queue c_queue;
-    int *arr = malloc(sizeof(int) * NUMBER_CITIES);
+    short *arr = malloc(sizeof(int) * NUMBER_CITIES);
     c_queue.top = NULL;
     int i = 0;
 

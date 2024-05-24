@@ -13,40 +13,43 @@ void printPath(int parent[], int j) {
     printf("%d ", j);
 }
 
-#define V NUMBER_CITIES
+short min_distance(short distances[], bool visited_set[]) {
+    short min = SHRT_MAX;
+    short min_index;
 
-int min_distance(int distances[], bool visited_set[]) {
-    int min = INT_MAX, min_index;
-    for (int v = 0; v < V; v++)
-        if (!visited_set[v] && distances[v] <= min)
-            min = distances[v], min_index = v;
+    for (int v = 0; v < NUMBER_CITIES; v++)
+        if (!visited_set[v] && distances[v] <= min) {
+            min = distances[v];
+            min_index = v;
+        }
     return min_index;
 }
 
-void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest,
+void dijkstra_matrix(const unsigned short graph[NUMBER_CITIES][NUMBER_CITIES],
+                     unsigned short src, unsigned short dest,
                      struct RoadMap *roadMap) {
-    int distances[V];
-    bool visited_set[V];
-    int path[V]; // used to store the path sequence
+    short distances[NUMBER_CITIES];
+    bool visited_set[NUMBER_CITIES];
+    short path[NUMBER_CITIES]; // used to store the path sequence
 
-    // initialize the distances to the nodes at infinity and path at -1
-    for (int i = 0; i < V; i++) {
-        distances[i] = INT_MAX;
+    // initialize the distances to the nodes at infinity and the path at all -1
+    for (int i = 0; i < NUMBER_CITIES; i++) {
+        distances[i] = SHRT_MAX;
         visited_set[i] = false;
         path[i] = -1;
     }
 
     distances[src] = 0;
 
-    for (int count = 0; count < V - 1; count++) {
-        int u = min_distance(distances, visited_set);
+    for (int count = 0; count < NUMBER_CITIES - 1; count++) {
+        short u = min_distance(distances, visited_set);
         if (u == dest) {
             break; // stop if the destination is reached
         }
         visited_set[u] = true;
 
-        for (int v = 0; v < V; v++) {
-            if (!visited_set[v] && graph[u][v] && distances[u] != INT_MAX &&
+        for (int v = 0; v < NUMBER_CITIES; v++) {
+            if (!visited_set[v] && graph[u][v] && distances[u] != SHRT_MAX &&
                 distances[u] + graph[u][v] < distances[v]) {
                 distances[v] = distances[u] + graph[u][v];
                 path[v] = u;
@@ -55,9 +58,9 @@ void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest,
     }
 
     // construct the path from src to dest using the path array
-    int stack[V];
-    int stack_index = 0;
-    int current = dest;
+    short stack[NUMBER_CITIES];
+    short stack_index = 0;
+    short current = dest;
 
     while (current != -1 && current != src) {
         stack[stack_index++] = current;
@@ -67,19 +70,19 @@ void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest,
     if (current == src) {
         stack[stack_index++] = src;
 
-        // reverse the stack to get the path from src to dest
-        for (int i = 0; i < stack_index / 2; i++) {
-            int temp = stack[i];
+        // reverse the stack
+        for (short i = 0; i < stack_index / 2; i++) {
+            short temp = stack[i];
             stack[i] = stack[stack_index - i - 1];
             stack[stack_index - i - 1] = temp;
         }
 
-        // populate the RoadMap structure
+        // populate the roadMap struct given as arg
         roadMap->total_cost = 0;
-        struct RoadMap *currentRoadMap =
-            roadMap; // define a new variable to populate the struct
-        // we need to keep the head of the struct to "return it"
-        for (int i = 0; i < stack_index; i++) {
+        struct RoadMap *currentRoadMap = malloc(sizeof(struct RoadMap));
+        roadMap = currentRoadMap;
+
+        for (short i = 0; i < stack_index; i++) {
             currentRoadMap->city_id = stack[i];
             currentRoadMap->total_cost = distances[stack[i]];
 
@@ -94,4 +97,20 @@ void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest,
     } else {
         printf("No path found from src to dest\n");
     }
+}
+
+void dijikstra_list(struct City **cities_list, unsigned short src,
+                    unsigned short dest) {
+    unsigned short distances[NUMBER_CITIES];
+    bool visited_set[NUMBER_CITIES];
+    short path[NUMBER_CITIES]; // used to store the path sequence
+
+    // initialize the distances to the nodes at infinity and path at -1
+    for (short i = 0; i < NUMBER_CITIES; i++) {
+        distances[i] = SHRT_MAX;
+        visited_set[i] = false;
+        path[i] = -1;
+    }
+
+    distances[src] = 0;
 }
