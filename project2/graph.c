@@ -59,7 +59,7 @@ void addRoadMap(struct RoadMap *roadMap, int city_id, int total_cost) {
 // element of another road map
 void appendRoadMap(struct RoadMap *roadMap, struct RoadMap *newRoadMap) {
     struct RoadMap *current = roadMap;
-
+    
     while (current->next != NULL) {
         current = current->next;
     }
@@ -72,7 +72,8 @@ void appendRoadMap(struct RoadMap *roadMap, struct RoadMap *newRoadMap) {
     // another loop to add the total cost of the first map to the second, since
     // we want to express the cumulative cost of the whole path at each of its
     // elements
-    while (newRoadMap != NULL) {
+    struct RoadMap *iterator = newRoadMap->next;
+    while (newRoadMap != NULL) { // Here
         newRoadMap->total_cost += cumulative_cost;
         newRoadMap = newRoadMap->next;
     }

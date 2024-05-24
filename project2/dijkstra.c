@@ -76,6 +76,7 @@ void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest,
         // populate the RoadMap structure
         roadMap->total_cost = 0;
         struct RoadMap *currentRoadMap = roadMap; // define a new variable to populate the struct
+        currentRoadMap->next = NULL;
         // we need to keep the head of the struct to "return it"
         for (int i = 0; i < stack_index; i++) {
             currentRoadMap->city_id = stack[i];
@@ -84,8 +85,7 @@ void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest,
             if (i < stack_index - 1) {
                 currentRoadMap->next = (struct RoadMap *)malloc(sizeof(struct RoadMap));
                 currentRoadMap = currentRoadMap->next;
-            } else {
-                currentRoadMap->next = NULL; // final roadmap null
+                currentRoadMap->next = NULL;
             }
         }
     } else {

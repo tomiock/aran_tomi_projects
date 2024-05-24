@@ -46,6 +46,7 @@ int main(void) {
     // Calculating best trip
     int *bfs_arr = Travel_Tree_BFS(&root_bfs);
     struct RoadMap *total_roadMap_bfs = malloc(sizeof(struct RoadMap));
+    total_roadMap_bfs->next = NULL;
     printf("Partial road map:\n");
 
     makeTrip(&total_roadMap_bfs, bfs_arr);
@@ -70,6 +71,7 @@ int main(void) {
     // Calculating best trip
     int *dfs_arr = Travel_Tree_DFS(&root_dfs);
     struct RoadMap *total_roadMap_dfs = malloc(sizeof(struct RoadMap));
+    total_roadMap_dfs->next = NULL;
     printf("\nPartial road map:\n");
 
     makeTrip(&total_roadMap_dfs, dfs_arr);

@@ -23,8 +23,9 @@ void searchTrip(int src, int dest, struct RoadMap *partial_roadMap) {
 }
 
 void makeTrip(struct RoadMap **total_roadMap, int *arr) {
-    for (int i = 0; i < NUMBER_CITIES; i++) {
+    for (int i = 0; i < NUMBER_CITIES-1; i++) {
         struct RoadMap *partial_roadMap = malloc(sizeof(struct RoadMap));
+        partial_roadMap->next = NULL;
         if (arr[i + 1] != (-1)) {
             searchTrip(arr[i], arr[i + 1], partial_roadMap);
         }
