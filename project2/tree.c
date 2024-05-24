@@ -1,4 +1,5 @@
 #include "tree.h"
+#include "datasets/small.h"
 #include <string.h>
 
 // GENERAL TREE FUNCTIONS:
@@ -268,10 +269,9 @@ void Print_Tree_BFS(struct FamilyTreeNode *root) {
     freequeue(&c_queue);
 }
 
-short *Travel_Tree_BFS(struct FamilyTreeNode *root) {
+void Travel_Tree_BFS(struct FamilyTreeNode *root, short arr[NUMBER_CITIES]) {
     // Create stack
     struct queue c_queue;
-    short *arr = malloc(sizeof(short) * NUMBER_CITIES);
     c_queue.top = NULL;
     int i = 0;
 
@@ -296,5 +296,4 @@ short *Travel_Tree_BFS(struct FamilyTreeNode *root) {
     // check the initialization of i (maybe it should be int i = 0)
     for (i; i <= NUMBER_CITIES; i++) // TODO
         arr[i] = -1;
-    return arr;
 }

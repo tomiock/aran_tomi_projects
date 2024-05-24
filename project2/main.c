@@ -1,5 +1,6 @@
 // Import our headers:
 #include "algorithm.h"
+#include "datasets/small.h"
 #include "graph.h"
 #include "queue.h"
 #include "stack.h"
@@ -27,20 +28,20 @@ int main(void) {
     Print_Tree_BFS(root_bfs);
 
     // Calculating best trip
-    short *arr = Travel_Tree_BFS(root_bfs);
-    free(root_bfs);
+    short arr[NUMBER_CITIES];
+    Travel_Tree_BFS(root_bfs, arr);
+    Free_Tree(root_bfs);
+
     struct RoadMap *total_roadMap_bfs = malloc(sizeof(struct RoadMap));
     printf("Partial road map:\n");
 
     makeTrip(total_roadMap_bfs, arr);
-    free(arr);
 
     printf("\nTotal Road Map:\n");
     printTOTALRoadMap(total_roadMap_bfs);
     
     // FREE
     freeRoadMap(total_roadMap_bfs);
-    Free_Tree(root_bfs);
 
     printf("\n----------------------------------\n");
 
@@ -53,7 +54,7 @@ int main(void) {
 
     // Calculating best trip
     short *dfs_arr = Travel_Tree_DFS(root_dfs);
-    free(root_dfs);
+    Free_Tree(root_dfs);
 
     struct RoadMap *total_roadMap_dfs = malloc(sizeof(struct RoadMap));
     printf("\nPartial road map:\n");

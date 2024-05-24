@@ -67,8 +67,8 @@ void appendRoadMap(struct RoadMap *roadMap, struct RoadMap *newRoadMap) {
 
     // we need to skip the first element of the newRoadMap since it would be
     // repeated
-    struct RoadMap *tempRoad = newRoadMap;
     newRoadMap = newRoadMap->next;
+    current->next = newRoadMap;
 
     // another loop to add the total cost of the first map to the second, since
     // we want to express the cumulative cost of the whole path at each of its
