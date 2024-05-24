@@ -20,8 +20,8 @@
 // GENERAL TREE FUNCTIONS:
 void New_Nodes(struct FamilyTreeNode *prev_node);
 void Free_Tree(struct FamilyTreeNode *root);
-void Def_Node(struct FamilyTreeNode *node, int city_n);
-void FreeTravelTree(int *arr);
+void Def_Node(struct FamilyTreeNode *node, short city_n);
+void FreeTravelTree(short *arr);
 
 // DFS FUNCTIONS:
 void DFS(struct FamilyTreeNode *root);

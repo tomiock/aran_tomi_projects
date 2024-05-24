@@ -10,22 +10,9 @@
 #define ALGORITHM DIJKSTRAS
 
 int main(void) {
-    // Choose which dataset to import depending on the compilation
-    #ifdef DATASET_SMALL
-        #include "datasets/small.h"
-        printf("This is a small case of the program\n\n");
-    #elif defined(DATASET_MEDIUM)
-        #include "datasets/medium.h"
-        printf("This is a medium case of the program\n\n");
-    #elif defined(DATASET_LARGE)
-        #include "datasets/large.h"
-        printf("This is a large case of the program\n\n");
-    #else
-    #error "No dataset size defined"
-    #endif
 
-    struct FamilyTreeNode root_dfs;
-    struct FamilyTreeNode root_bfs;
+    struct FamilyTreeNode * root_dfs = malloc(sizeof(struct FamilyTreeNode));
+    struct FamilyTreeNode * root_bfs = malloc(sizeof(struct FamilyTreeNode));
 
     printf("Ancestors’ tree:\n\n");
 
@@ -53,12 +40,8 @@ int main(void) {
     
     // FREE
     freeRoadMap(total_roadMap_bfs);
-    Free_Tree(&root_bfs);
-    FreeTravelTree(bfs_arr);
-        struct RoadMap *currentRoadMap = malloc(sizeof(struct RoadMap));
-        roadMap = currentRoadMap;
-
-        for (short i = 0; i < stack_index; i++) {
+    Free_Tree(root_bfs);
+    FreeTravelTree(arr);
 
     printf("\n----------------------------------\n");
 
@@ -84,7 +67,7 @@ int main(void) {
     
     // FREE
     freeRoadMap(total_roadMap_dfs);
-    Free_Tree(&root_dfs);
+    Free_Tree(root_dfs);
     FreeTravelTree(dfs_arr);
 
     return 0;

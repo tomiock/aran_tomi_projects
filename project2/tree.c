@@ -20,9 +20,6 @@ void New_Nodes(struct FamilyTreeNode *prev_node) {
     prev_node->mother_parents = new_mot;
 }
 
-<<<<<<< HEAD
-void Free_Tree(struct FamilyTreeNode *root) { return; }; // TODO
-=======
 void Free_Tree(struct FamilyTreeNode *root) {
     struct FamilyTreeNode *currentNode = root, *tempf, *tempm;
     // Create an empty stack and push the root node onto it
@@ -56,15 +53,14 @@ void Free_Tree(struct FamilyTreeNode *root) {
     free(tempf);
     free(tempm);
 }
->>>>>>> d1299ced9ce51ad88e2c8782e43ab38c4d2c7041
 
-void Def_Node(struct FamilyTreeNode *node, int city_n) {
+void Def_Node(struct FamilyTreeNode *node, short city_n) {
     node->city_id = city_n;
     strcpy(node->fatherName, citiesInfo[city_n].father_name);
     strcpy(node->motherName, citiesInfo[city_n].mother_name);
 }
 
-void FreeTravelTree(int *arr){
+void FreeTravelTree(short *arr){
     free(arr);
 }
 
@@ -82,16 +78,9 @@ void DFS(struct FamilyTreeNode *root) {
 
     // Condition if currentNode is not stopped by a pop action to a void stack
     while (currentNode != &end_loop) {
-<<<<<<< HEAD
         if ((citiesInfo[currentNode->city_id].mother_parents_city_id) != -1) {
             short city =
                 citiesInfo[currentNode->city_id].mother_parents_city_id;
-=======
-
-        if ((citiesInfo[currentNode->city_id].mother_parents_city_id) != -1) {
-            int city = citiesInfo[currentNode->city_id].mother_parents_city_id;
-
->>>>>>> d1299ced9ce51ad88e2c8782e43ab38c4d2c7041
             currentNode = currentNode->mother_parents;
             if (currentNode != NULL) {
                 Def_Node(currentNode, city);
@@ -104,20 +93,11 @@ void DFS(struct FamilyTreeNode *root) {
                 currentNode = pop(&c_stack);
                 city = citiesInfo[currentNode->city_id].father_parents_city_id;
 
-<<<<<<< HEAD
-                if (currentNode == &end_loop)
-                    ;
-                else
-                    currentNode = currentNode->father_parents;
-
-            } while (currentNode == NULL);
-=======
                 if (currentNode != &end_loop)
                     currentNode = currentNode->father_parents;
 
             } while (currentNode == NULL);
 
->>>>>>> d1299ced9ce51ad88e2c8782e43ab38c4d2c7041
             if (currentNode != NULL) {
                 Def_Node(currentNode, city);
                 New_Nodes(currentNode);
@@ -171,7 +151,7 @@ void Print_Tree_DFS(struct FamilyTreeNode *root) {
 short *Travel_Tree_DFS(struct FamilyTreeNode *root) {
 
     struct FamilyTreeNode *currentNode = root;
-    short *arr = malloc(sizeof(int) * NUMBER_CITIES);
+    short *arr = malloc(sizeof(short) * NUMBER_CITIES);
     int i = 0;
 
     // Create an empty stack and push the root node onto it
@@ -291,7 +271,7 @@ void Print_Tree_BFS(struct FamilyTreeNode *root) {
 short *Travel_Tree_BFS(struct FamilyTreeNode *root) {
     // Create stack
     struct queue c_queue;
-    short *arr = malloc(sizeof(int) * NUMBER_CITIES);
+    short *arr = malloc(sizeof(short) * NUMBER_CITIES);
     c_queue.top = NULL;
     int i = 0;
 
