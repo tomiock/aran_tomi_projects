@@ -16,15 +16,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "graph.h"
+
 void printSolution(int dist[], int parent[], int src, int dest);
 
 void printPath(int parent[], int j);
 
-int min_distance(int distances[], bool visited_set[]);
+short min_distance(short distances[], bool visited_set[]);
 
-void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES], int src, int dest,
+void dijkstra_matrix(const unsigned short graph[NUMBER_CITIES][NUMBER_CITIES], unsigned short src, unsigned short dest,
                      struct RoadMap *roadMap);
-
 void freeDijkstra();
+
+void dijikstra_list(struct City * cities_list[NUMBER_CITIES], unsigned short src, unsigned short dest);
 
 #endif // DIJKSTRA_H

@@ -22,7 +22,7 @@
 #define MAX_NAME 10
 #define MAX_CITY_NAME 20
 
-int adjacency_matrix[NUMBER_CITIES][NUMBER_CITIES] =
+const int adjacency_matrix[NUMBER_CITIES][NUMBER_CITIES] =
     {
         {0, 100, 50, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 75, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {100, 0, 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 165, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
