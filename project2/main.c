@@ -66,7 +66,6 @@ int main(void) {
     
     // FREE
     freeRoadMap(total_roadMap_dfs);
-    // Free_Tree(root_dfs);
 
     return 0;
 }
