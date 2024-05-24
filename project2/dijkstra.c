@@ -26,7 +26,8 @@ short min_distance(short distances[], bool visited_set[]) {
 }
 
 void dijkstra_matrix(const unsigned short graph[NUMBER_CITIES][NUMBER_CITIES],
-                     unsigned short src, unsigned short dest,
+                     unsigned short src, 
+                     unsigned short dest,
                      struct RoadMap *roadMap) {
     short distances[NUMBER_CITIES];
     bool visited_set[NUMBER_CITIES];
@@ -80,7 +81,7 @@ void dijkstra_matrix(const unsigned short graph[NUMBER_CITIES][NUMBER_CITIES],
         // populate the roadMap struct given as arg
         roadMap->total_cost = 0;
         struct RoadMap *currentRoadMap = malloc(sizeof(struct RoadMap));
-        roadMap = currentRoadMap;
+        currentRoadMap = roadMap;
 
         for (short i = 0; i < stack_index; i++) {
             currentRoadMap->city_id = stack[i];

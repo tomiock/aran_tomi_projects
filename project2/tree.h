@@ -31,6 +31,6 @@ short *Travel_Tree_DFS(struct FamilyTreeNode *root);
 // BFS FUNCTIONS:
 void BFS(struct FamilyTreeNode *root);
 void Print_Tree_BFS(struct FamilyTreeNode *root);
-short *Travel_Tree_BFS(struct FamilyTreeNode *root);
+void Travel_Tree_BFS(struct FamilyTreeNode *root, short *arr);
 
 #endif // TREE_H
