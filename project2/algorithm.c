@@ -9,6 +9,7 @@ enum { DIJKSTRAS = 0, A_STAR = 1 };
 void algorithm(short src, short dest, struct RoadMap *roadMap) {
     switch (ALGORITHM) {
     case DIJKSTRAS:
+        printf("src = %d, dest = %d\n", src, dest);
         dijkstra_matrix(adjacency_matrix, src, dest, roadMap);
         break;
 
