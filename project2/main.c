@@ -40,8 +40,7 @@ int main(void) {
     
     // FREE
     freeRoadMap(total_roadMap_bfs);
-    // Free_Tree(root_bfs);
-    // FreeTravelTree(arr);
+    Free_Tree(root_bfs);
 
     printf("\n----------------------------------\n");
 
@@ -68,7 +67,6 @@ int main(void) {
     // FREE
     freeRoadMap(total_roadMap_dfs);
     // Free_Tree(root_dfs);
-    // FreeTravelTree(dfs_arr);
 
     return 0;
 }
