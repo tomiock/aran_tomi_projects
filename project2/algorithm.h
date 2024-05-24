@@ -17,9 +17,7 @@
 #include "dijkstra.h"
 #include "graph.h"
 
-void algorithm(unsigned short src, unsigned short dest, struct RoadMap *roadMap);
-
-void searchTrip(unsigned short src, unsigned short dest, struct RoadMap *partial_roadMap);
+void algorithm(short src, short dest, struct RoadMap *roadMap);
 
 void makeTrip(struct RoadMap * total_roadMap, short *arr);
 
