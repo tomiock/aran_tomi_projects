@@ -54,7 +54,9 @@ void freequeue(struct queue *que) {
     while (current != NULL) {
         struct iqueue *temp = current; // Temporary pointer to the current node
         current = current->next;       // Move to the next node
-        free(temp);                    // Free the current node
+        if(temp != NULL)
+            free(temp);                    // Free the current node
+        temp = NULL;
     }
 
     // Set the top of the queue to NULL since it's now empty

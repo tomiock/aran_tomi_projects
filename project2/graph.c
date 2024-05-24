@@ -48,11 +48,17 @@ void FreeRoadMap(struct RoadMap *roadMap){
     struct RoadMap *current = roadMap, *temp;
     while (current != NULL) {
         temp = current->next;
-        free(current);
+        if(current != NULL)
+            free(current);
+        current = NULL;
         current = temp;
     }
-    free(temp);
-    free(current);
+    if(temp != NULL)
+        free(temp);
+    temp = NULL;
+    if(current != NULL)
+        free(current);
+    current = NULL;
 }
 
 void addRoadMap(struct RoadMap *roadMap, int city_id, int total_cost) {
@@ -133,11 +139,17 @@ void free_cities_list(struct City *cities[NUMBER_CITIES]) {
         if (cities[i] != NULL) {
 
             for (unsigned int j = 0; j < cities[i]->num_neighbors; j++) {
-                free(cities[i]->neighbors[j]);
+                if(cities[i]->neighbors[j] != NULL)
+                    free(cities[i]->neighbors[j]);
+                cities[i]->neighbors[j] = NULL;
             }
 
-            free(cities[i]->neighbors);
-            free(cities[i]);
+            if(cities[i]->neighbors != NULL)
+                free(cities[i]->neighbors);
+            cities[i]->neighbors = NULL;
+            if(cities[i] != NULL)
+                free(cities[i]);
+            cities[i] = NULL;
         }
     }
 }
