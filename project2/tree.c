@@ -1,4 +1,5 @@
 #include "tree.h"
+#include <string.h>
 
 // GENERAL TREE FUNCTIONS:
 void New_Nodes(struct FamilyTreeNode *prev_node) {
@@ -21,12 +22,52 @@ void New_Nodes(struct FamilyTreeNode *prev_node) {
 
 <<<<<<< HEAD
 void Free_Tree(struct FamilyTreeNode *root) { return; }; // TODO
+=======
+void Free_Tree(struct FamilyTreeNode *root) {
+    struct FamilyTreeNode *currentNode = root, *tempf, *tempm;
+    // Create an empty stack and push the root node onto it
+    struct stack c_stack;
+    c_stack.top = NULL;
+    push(&c_stack, *root);
+    c_stack.top->depth = 0;
+    int arrows;
+    // Loop while the stack is not empty
+    while (c_stack.top != NULL) {
+        // Pop a node from the stack
+        arrows = c_stack.top->depth;
+        currentNode = pop(&c_stack);
+        // Print data
+        tempf = currentNode->father_parents;
+        tempm = currentNode->mother_parents;
+        free(currentNode);
+
+        // Push the children of the current node onto the stack
+        // Push right child first so the left child is processed first (if
+        // binary tree)
+        if (tempf != NULL) {
+            push(&c_stack, *(tempf));
+            c_stack.top->depth = arrows + 1;
+        }
+        if (tempm != NULL) {
+            push(&c_stack, *(tempm));
+            c_stack.top->depth = arrows + 1;
+        }
+    }
+    free(tempf);
+    free(tempm);
+}
+>>>>>>> d1299ced9ce51ad88e2c8782e43ab38c4d2c7041
 
 void Def_Node(struct FamilyTreeNode *node, int city_n) {
     node->city_id = city_n;
     strcpy(node->fatherName, citiesInfo[city_n].father_name);
     strcpy(node->motherName, citiesInfo[city_n].mother_name);
 }
+
+void FreeTravelTree(int *arr){
+    free(arr);
+}
+
 
 // DFS FUNCTIONS:
 void DFS(struct FamilyTreeNode *root) {
@@ -41,9 +82,16 @@ void DFS(struct FamilyTreeNode *root) {
 
     // Condition if currentNode is not stopped by a pop action to a void stack
     while (currentNode != &end_loop) {
+<<<<<<< HEAD
         if ((citiesInfo[currentNode->city_id].mother_parents_city_id) != -1) {
             short city =
                 citiesInfo[currentNode->city_id].mother_parents_city_id;
+=======
+
+        if ((citiesInfo[currentNode->city_id].mother_parents_city_id) != -1) {
+            int city = citiesInfo[currentNode->city_id].mother_parents_city_id;
+
+>>>>>>> d1299ced9ce51ad88e2c8782e43ab38c4d2c7041
             currentNode = currentNode->mother_parents;
             if (currentNode != NULL) {
                 Def_Node(currentNode, city);
@@ -56,12 +104,20 @@ void DFS(struct FamilyTreeNode *root) {
                 currentNode = pop(&c_stack);
                 city = citiesInfo[currentNode->city_id].father_parents_city_id;
 
+<<<<<<< HEAD
                 if (currentNode == &end_loop)
                     ;
                 else
                     currentNode = currentNode->father_parents;
 
             } while (currentNode == NULL);
+=======
+                if (currentNode != &end_loop)
+                    currentNode = currentNode->father_parents;
+
+            } while (currentNode == NULL);
+
+>>>>>>> d1299ced9ce51ad88e2c8782e43ab38c4d2c7041
             if (currentNode != NULL) {
                 Def_Node(currentNode, city);
                 New_Nodes(currentNode);
@@ -69,6 +125,7 @@ void DFS(struct FamilyTreeNode *root) {
             }
         }
     }
+    freeStack(&c_stack);
 }
 
 void Print_Tree_DFS(struct FamilyTreeNode *root) {
@@ -144,6 +201,7 @@ short *Travel_Tree_DFS(struct FamilyTreeNode *root) {
         arr[i] = -1;
     return arr;
 }
+
 
 // BFS FUNCTIONS:
 void BFS(struct FamilyTreeNode *root) {
@@ -227,6 +285,7 @@ void Print_Tree_BFS(struct FamilyTreeNode *root) {
         }
     }
     printf("\n");
+    freequeue(&c_queue);
 }
 
 short *Travel_Tree_BFS(struct FamilyTreeNode *root) {

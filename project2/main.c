@@ -50,12 +50,15 @@ int main(void) {
 
     printf("\nTotal Road Map:\n");
     printTOTALRoadMap(total_roadMap_bfs);
-    free(total_roadMap_bfs);
     
     // FREE
-    free(total_roadMap_bfs);
+    freeRoadMap(total_roadMap_bfs);
     Free_Tree(&root_bfs);
     FreeTravelTree(bfs_arr);
+        struct RoadMap *currentRoadMap = malloc(sizeof(struct RoadMap));
+        roadMap = currentRoadMap;
+
+        for (short i = 0; i < stack_index; i++) {
 
     printf("\n----------------------------------\n");
 
@@ -80,7 +83,7 @@ int main(void) {
     printTOTALRoadMap(total_roadMap_dfs);
     
     // FREE
-    free(total_roadMap_dfs);
+    freeRoadMap(total_roadMap_dfs);
     Free_Tree(&root_dfs);
     FreeTravelTree(dfs_arr);
 
