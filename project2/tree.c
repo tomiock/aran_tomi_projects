@@ -65,7 +65,9 @@ void Def_Node(struct FamilyTreeNode *node, short city_n) {
 }
 
 void FreeTravelTree(short *arr){
-    free(arr);
+    if(arr!=NULL)
+        free(arr);
+    arr = NULL;
 }
 
 
@@ -274,7 +276,9 @@ void Print_Tree_BFS(struct FamilyTreeNode *root) {
             num_items = total_num_items;
             arrows++;
         }
-        free(currentNode);
+        if(currentNode!=NULL)
+            free(currentNode);
+        currentNode = NULL;
     }
     printf("\n");
     freequeue(&c_queue);

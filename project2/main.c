@@ -36,9 +36,6 @@ int main(void) {
 
     makeTrip(total_roadMap_bfs, bfs_arr);
 
-    printf("\nTotal Road Map:\n");
-    printTOTALRoadMap(total_roadMap_bfs);
-
     freeRoadMap(total_roadMap_bfs);
 
     printf("\n----------------------------------\n");
@@ -61,8 +58,6 @@ int main(void) {
 
     makeTrip(total_roadMap_dfs, dfs_arr);
 
-    printf("\nTotal Road Map:\n");
-    printTOTALRoadMap(total_roadMap_dfs);
     // FREE
     freeRoadMap(total_roadMap_dfs);
 
