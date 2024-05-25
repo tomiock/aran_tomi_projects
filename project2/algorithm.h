@@ -19,6 +19,6 @@
 
 void algorithm(short src, short dest, struct RoadMap *roadMap);
 
-void makeTrip(struct RoadMap * total_roadMap, short *arr);
+void makeTrip(struct RoadMap *total_roadMap, short *arr);
 
 #endif // ALGORITHM_H

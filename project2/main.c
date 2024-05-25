@@ -39,12 +39,12 @@ int main(void) {
     makeTrip(total_roadMap_bfs, bfs_arr);
 
     printf("\nTotal Road Map:\n");
-    printTOTALRoadMap(total_roadMap_bfs);
+    //printTOTALRoadMap(total_roadMap_bfs);
     
     // FREE
     FreeRoadMap(total_roadMap_bfs);
-    Free_Tree(root_bfs);
-    FreeTravelTree(bfs_arr);
+    //Free_Tree(root_bfs);
+    //FreeTravelTree(bfs_arr);
 
     printf("\n----------------------------------\n");
 
@@ -67,12 +67,12 @@ int main(void) {
     free(dfs_arr);
 
     printf("\nTotal Road Map:\n");
-    printTOTALRoadMap(total_roadMap_dfs);
+    //printTOTALRoadMap(total_roadMap_dfs);
     Print_Tree_DFS(root_dfs);
     // FREE
     FreeRoadMap(total_roadMap_dfs);
-    Free_Tree(root_dfs);
-    FreeTravelTree(dfs_arr);
+    //Free_Tree(root_dfs);
+    //FreeTravelTree(dfs_arr);
 
     return 0;
 }

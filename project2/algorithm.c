@@ -22,7 +22,7 @@ void searchTrip(int src, int dest, struct RoadMap *partial_roadMap) {
     printRoadMap(partial_roadMap);
 }
 
-void makeTrip(struct RoadMap **total_roadMap, int *arr) {
+void makeTrip(struct RoadMap *total_roadMap, short *arr) {
     for (int i = 0; i < NUMBER_CITIES-1; i++) {
         struct RoadMap *partial_roadMap = malloc(sizeof(struct RoadMap));
         partial_roadMap->next = NULL;
@@ -32,9 +32,9 @@ void makeTrip(struct RoadMap **total_roadMap, int *arr) {
         }
 
         if (i == 0) {
-            *total_roadMap = partial_roadMap;
+            total_roadMap = partial_roadMap;
         } else {
-            appendRoadMap(*total_roadMap, partial_roadMap);
+            appendRoadMap(total_roadMap, partial_roadMap);
             if(partial_roadMap != NULL)
                 free(partial_roadMap);
             partial_roadMap = NULL;
