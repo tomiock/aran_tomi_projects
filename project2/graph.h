@@ -26,8 +26,6 @@ void printRoadMap(struct RoadMap *roadMap);
 
 void printTOTALRoadMap(struct RoadMap *roadMap);
 
-void FreeRoadMap(struct RoadMap *roadMap);
-
 void addRoadMap(struct RoadMap *roadMap, int city_id, int total_cost);
 
 void appendRoadMap(struct RoadMap *roadMap, struct RoadMap *newRoadMap);
