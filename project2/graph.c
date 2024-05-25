@@ -14,17 +14,19 @@ void print_adjacency_matrix(int matrix[NUMBER_CITIES][NUMBER_CITIES]) {
 
 void printRoadMap(struct RoadMap *roadMap) {
     struct RoadMap *current = roadMap;
-    int total_cost;
+    short cumulative_cost = 0;
 
     while (current != NULL) {
         printf("%s", citiesInfo[current->city_id].city_name);
+        cumulative_cost = current->total_cost;
+
+        // if it is the last element, we do not add the -
         if (current->next != NULL) {
             printf("-");
         }
-        total_cost = current->total_cost;
         current = current->next;
     }
-    printf(" %d\n", total_cost);
+    printf(" %d\n", cumulative_cost);
 }
 
 // there is a difference between printing the total road map and the partial
