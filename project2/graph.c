@@ -94,7 +94,8 @@ void freeRoadMap(struct RoadMap *roadMap) {
 
     while (current != NULL) {
         next = current->next;
-        free(current);
+        if(current!=NULL)
+            free(current);
         current = next;
     }
 }
