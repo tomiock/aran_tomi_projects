@@ -33,13 +33,12 @@ int main(void) {
     Free_Tree(root_bfs); // Freeing tree
 
     struct RoadMap *total_roadMap_bfs = malloc(sizeof(struct RoadMap));
-    total_roadMap_bfs->next = NULL;
     printf("Partial road map:\n");
 
     makeTrip(total_roadMap_bfs, bfs_arr);
 
     printf("\nTotal Road Map:\n");
-    //printTOTALRoadMap(total_roadMap_bfs);
+    printTOTALRoadMap(total_roadMap_bfs);
     
     FreeRoadMap(total_roadMap_bfs);
 
@@ -64,7 +63,7 @@ int main(void) {
     //FreeTravelTree(dfs_arr);
 
     printf("\nTotal Road Map:\n");
-    //printTOTALRoadMap(total_roadMap_dfs);
+    printTOTALRoadMap(total_roadMap_dfs);
     // FREE
     FreeRoadMap(total_roadMap_dfs);
 
