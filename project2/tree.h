@@ -26,7 +26,7 @@ void FreeTravelTree(short *arr);
 // DFS FUNCTIONS:
 void DFS(struct FamilyTreeNode *root);
 void Print_Tree_DFS(struct FamilyTreeNode *root);
-short *Travel_Tree_DFS(struct FamilyTreeNode *root);
+void Travel_Tree_DFS(struct FamilyTreeNode *root, short *arr);
 
 // BFS FUNCTIONS:
 void BFS(struct FamilyTreeNode *root);

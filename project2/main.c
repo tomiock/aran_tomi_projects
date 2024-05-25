@@ -52,7 +52,8 @@ int main(void) {
     Print_Tree_DFS(root_dfs);
 
     // Calculating best trip
-    short *dfs_arr = Travel_Tree_DFS(root_dfs);
+    short dfs_arr[NUMBER_CITIES];
+    Travel_Tree_DFS(root_dfs, dfs_arr);
     Free_Tree(root_dfs);
 
     struct RoadMap *total_roadMap_dfs = malloc(sizeof(struct RoadMap));
@@ -60,7 +61,6 @@ int main(void) {
     printf("\nPartial road map:\n");
 
     makeTrip(total_roadMap_dfs, dfs_arr);
-    //FreeTravelTree(dfs_arr);
 
     printf("\nTotal Road Map:\n");
     printTOTALRoadMap(total_roadMap_dfs);

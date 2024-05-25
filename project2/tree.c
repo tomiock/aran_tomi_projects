@@ -158,10 +158,9 @@ void Print_Tree_DFS(struct FamilyTreeNode *root) {
     freeStack(&c_stack);
 }
 
-short *Travel_Tree_DFS(struct FamilyTreeNode *root) {
+void Travel_Tree_DFS(struct FamilyTreeNode *root, short arr[NUMBER_CITIES]) {
 
     struct FamilyTreeNode *currentNode = root;
-    short *arr = malloc(sizeof(short) * NUMBER_CITIES);
     int i = 0;
 
     // Create an empty stack and push the root node onto it
@@ -191,7 +190,6 @@ short *Travel_Tree_DFS(struct FamilyTreeNode *root) {
     freeStack(&c_stack);
     for (i; i < NUMBER_CITIES; i++)
         arr[i] = -1;
-    return arr;
 }
 
 
