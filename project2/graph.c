@@ -82,24 +82,14 @@ void appendRoadMap(struct RoadMap *roadMap, struct RoadMap *newRoadMap) {
     while (current->next != NULL) {
         current = current->next;
     }
-    //printf("current->city_id: %d\n", current->city_id);
-    //printf("current->next: %p\n", current->next);
-    //printf("current: %p\n", current);
 
     int cumulative_cost = current->total_cost;
-    //printf("cumulative_cost first: %d\n", cumulative_cost);
 
-    /*
     // we need to skip the first element of the newRoadMap since it would be
     // repeated
-    printf("newRoadMap: %p\n", newRoadMap);
 
-    current->next = newRoadMap->next;
-    struct RoadMap *temp = newRoadMap;
     newRoadMap = newRoadMap->next;
-
-    printf("current->next: %p\n", current->next);
-    */
+    current->next = newRoadMap;
 
     // another loop to add the total cost of the first map to the second, since
     // we want to express the cumulative cost of the whole path at each of its

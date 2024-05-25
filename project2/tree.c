@@ -37,8 +37,8 @@ void Free_Tree(struct FamilyTreeNode *root) {
         // Pop a node from the stack
         currentNode = pop(&c_stack);
         
-        printf("Freeing node: %p\n", (void *)currentNode);
-        printf("With id: %d and a name: %s\n", currentNode->city_id, currentNode->motherName);
+        //printf("Freeing node: %p\n", (void *)currentNode);
+        //printf("With id: %d and a name: %s\n", currentNode->city_id, currentNode->motherName);
 
         // Push the children of the current node onto the stack
         // Push right child first so the left child is processed first (if binary tree)
