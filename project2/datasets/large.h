@@ -107,7 +107,7 @@ struct CivilRegistry citiesInfo[NUMBER_CITIES] =
         {16, "Mumbai", "Aisha", "Raj", 12, 14},
         {17, "Cairo", "", "", -1, -1},
         {18, "Buenos Aires", "", "", -1, -1},
-        {19, "Cape Town", "Zara", "Ethan", 16, 17},
+        {19, "Cape Town", "Zara", "Ethan", 38, 40},
         {20, "Rio de Janeiro", "", "", -1, -1},
         {21, "Los Angeles", "Amy", "Carl", 23, 33},
         {22, "Chicago", "", "", -1, -1},
@@ -136,7 +136,7 @@ struct CivilRegistry citiesInfo[NUMBER_CITIES] =
         {45, "Las Vegas", "", "", -1, -1},
         {46, "Memphis", "Addison", "Julian", 43, 44},
         {47, "Detroit", "", "", -1, -1},
-        {48, "Baltimore", "Stella", "Lincoln", 47, 47},
+        {48, "Baltimore", "Stella", "Lincoln", -1, -1},
         {49, "Milwaukee", "Paisley", "Ezra", -1, -1}
     };
 
