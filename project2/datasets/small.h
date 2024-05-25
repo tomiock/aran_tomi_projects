@@ -19,7 +19,7 @@ We've already declared and initialized both data structures:
 #define MAX_NAME 10
 #define MAX_CITY_NAME 20
 
-const unsigned short adjacency_matrix[NUMBER_CITIES][NUMBER_CITIES] = 
+int adjacency_matrix[NUMBER_CITIES][NUMBER_CITIES] = 
 {
     {0, 100, 50, 0, 0, 0, 0, 0, 0, 0},
     {100, 0, 0, 120, 0, 0, 0, 0, 0, 0},
@@ -34,12 +34,12 @@ const unsigned short adjacency_matrix[NUMBER_CITIES][NUMBER_CITIES] =
 };
 struct CivilRegistry
 {
-    unsigned short city_id;
+    int city_id;
     char city_name[MAX_CITY_NAME];
     char mother_name[MAX_NAME];
     char father_name[MAX_NAME];
-    short mother_parents_city_id;
-    short father_parents_city_id;
+    int mother_parents_city_id;
+    int father_parents_city_id;
 };
 struct CivilRegistry citiesInfo[NUMBER_CITIES] =
 {
@@ -59,15 +59,15 @@ struct FamilyTreeNode
 {
     char motherName[MAX_NAME];
     char fatherName[MAX_NAME];
-    short city_id;
+    int city_id;
     struct FamilyTreeNode * mother_parents;
     struct FamilyTreeNode * father_parents;
 };
 
 struct RoadMap
 {
-    short city_id;
-    short total_cost;
+    int city_id;
+    int total_cost;
     struct RoadMap * next;
 };
 
