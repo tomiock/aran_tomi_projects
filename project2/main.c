@@ -1,6 +1,5 @@
 // Import our headers:
 #include "algorithm.h"
-#include "datasets/small.h"
 #include "graph.h"
 #include "queue.h"
 #include "stack.h"
@@ -12,8 +11,8 @@
 
 int main(void) {
 
-    struct FamilyTreeNode * root_dfs = malloc(sizeof(struct FamilyTreeNode));
-    struct FamilyTreeNode * root_bfs = malloc(sizeof(struct FamilyTreeNode));
+    struct FamilyTreeNode *root_dfs = malloc(sizeof(struct FamilyTreeNode));
+    struct FamilyTreeNode *root_bfs = malloc(sizeof(struct FamilyTreeNode));
 
     printf("Ancestors’ tree:\n\n");
 
@@ -28,19 +27,18 @@ int main(void) {
     Print_Tree_BFS(root_bfs);
 
     // Calculating best trip
-    short arr[NUMBER_CITIES];
-    Travel_Tree_BFS(root_bfs, arr);
-    Free_Tree(root_bfs);
+    short bfs_arr[NUMBER_CITIES];
+    Travel_Tree_BFS(root_bfs, bfs_arr);
+    Free_Tree(root_bfs); // Freeing tree
 
     struct RoadMap *total_roadMap_bfs = malloc(sizeof(struct RoadMap));
     printf("Partial road map:\n");
 
-    makeTrip(total_roadMap_bfs, arr);
+    makeTrip(total_roadMap_bfs, bfs_arr);
 
     printf("\nTotal Road Map:\n");
     printTOTALRoadMap(total_roadMap_bfs);
-    
-    // FREE
+
     freeRoadMap(total_roadMap_bfs);
 
     printf("\n----------------------------------\n");
@@ -53,18 +51,18 @@ int main(void) {
     Print_Tree_DFS(root_dfs);
 
     // Calculating best trip
-    short *dfs_arr = Travel_Tree_DFS(root_dfs);
+    short dfs_arr[NUMBER_CITIES];
+    Travel_Tree_DFS(root_dfs, dfs_arr);
     Free_Tree(root_dfs);
 
     struct RoadMap *total_roadMap_dfs = malloc(sizeof(struct RoadMap));
+    total_roadMap_dfs->next = NULL;
     printf("\nPartial road map:\n");
 
     makeTrip(total_roadMap_dfs, dfs_arr);
-    free(dfs_arr);
 
     printf("\nTotal Road Map:\n");
     printTOTALRoadMap(total_roadMap_dfs);
-    
     // FREE
     freeRoadMap(total_roadMap_dfs);
 

@@ -66,8 +66,8 @@ struct FamilyTreeNode
 
 struct RoadMap
 {
-    unsigned short city_id;
-    unsigned short total_cost;
+    short city_id;
+    short total_cost;
     struct RoadMap * next;
 };
 

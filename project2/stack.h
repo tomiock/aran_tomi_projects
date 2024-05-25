@@ -17,7 +17,7 @@
 extern struct FamilyTreeNode end_loop;
 
 struct istack {
-    struct FamilyTreeNode value;
+    struct FamilyTreeNode *value;
     struct istack *next;
     int depth;
 };
@@ -28,7 +28,7 @@ struct stack {
 
 struct FamilyTreeNode *pop(struct stack *stk);
 void printStack(struct stack *stk);
-void push(struct stack *stk, struct FamilyTreeNode val);
+void push(struct stack *stk, struct FamilyTreeNode *val);
 void freeStack(struct stack *stk);
 
 #endif // STACK_H

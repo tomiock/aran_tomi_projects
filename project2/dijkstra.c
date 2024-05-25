@@ -80,8 +80,8 @@ void dijkstra_matrix(const unsigned short graph[NUMBER_CITIES][NUMBER_CITIES],
 
         // populate the roadMap struct given as arg
         roadMap->total_cost = 0;
-        struct RoadMap *currentRoadMap = malloc(sizeof(struct RoadMap));
-        currentRoadMap = roadMap;
+        struct RoadMap *currentRoadMap = roadMap; // define a new variable to populate the struct
+        currentRoadMap->next = NULL;
 
         for (short i = 0; i < stack_index; i++) {
             currentRoadMap->city_id = stack[i];
@@ -90,14 +90,17 @@ void dijkstra_matrix(const unsigned short graph[NUMBER_CITIES][NUMBER_CITIES],
             if (i < stack_index - 1) {
                 currentRoadMap->next = (struct RoadMap *)malloc(sizeof(struct RoadMap));
                 currentRoadMap = currentRoadMap->next;
-            } else {
-                currentRoadMap->next = NULL; // final roadmap null
+                currentRoadMap->next = NULL;
             }
         }
     } else {
         printf("No path found from src to dest\n");
     }
 }
+
+void freeDijkstra(){
+
+};
 
 void dijikstra_list(struct City **cities_list, unsigned short src,
                     unsigned short dest) {
