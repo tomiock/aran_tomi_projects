@@ -1,5 +1,4 @@
 #include "tree.h"
-#include "datasets/small.h"
 #include <string.h>
 
 // GENERAL TREE FUNCTIONS:
