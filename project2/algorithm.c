@@ -32,5 +32,9 @@ void makeTrip(struct RoadMap *total_roadMap, short *arr) {
         } else {
             appendRoadMap(total_roadMap, partial_roadMap);
         }
+        
     }
+    printf("\nTotal Road Map:\n");
+    printTOTALRoadMap(total_roadMap);
+    printf("\n");
 }
