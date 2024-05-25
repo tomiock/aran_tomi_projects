@@ -31,17 +31,15 @@ void printRoadMap(struct RoadMap *roadMap) {
 // road map therefore we made two different functions
 void printTOTALRoadMap(struct RoadMap *roadMap) {
     struct RoadMap *current = roadMap;
-    int cumulative_cost;
 
     while (current != NULL) {
         printf("%s", citiesInfo[current->city_id].city_name);
         if (current->next != NULL) {
             printf("-");
         }
-        cumulative_cost = current->total_cost;
         current = current->next;
     }
-    printf("\n\nTotal cost: %d\n", cumulative_cost);
+    printf("\n\nTotal cost: %d\n", current->total_cost);
 }
 
 void FreeRoadMap(struct RoadMap *roadMap){
@@ -76,21 +74,36 @@ void addRoadMap(struct RoadMap *roadMap, int city_id, int total_cost) {
 // element of another road map
 void appendRoadMap(struct RoadMap *roadMap, struct RoadMap *newRoadMap) {
     struct RoadMap *current = roadMap;
+
+    if (current == NULL || newRoadMap == NULL) {
+        return;
+    }
     
     while (current->next != NULL) {
         current = current->next;
     }
-    int cumulative_cost = current->total_cost;
+    //printf("current->city_id: %d\n", current->city_id);
+    //printf("current->next: %p\n", current->next);
+    //printf("current: %p\n", current);
 
+    int cumulative_cost = current->total_cost;
+    //printf("cumulative_cost first: %d\n", cumulative_cost);
+
+    /*
     // we need to skip the first element of the newRoadMap since it would be
     // repeated
+    printf("newRoadMap: %p\n", newRoadMap);
+
+    current->next = newRoadMap->next;
+    struct RoadMap *temp = newRoadMap;
     newRoadMap = newRoadMap->next;
-    current->next = newRoadMap;
+
+    printf("current->next: %p\n", current->next);
+    */
 
     // another loop to add the total cost of the first map to the second, since
     // we want to express the cumulative cost of the whole path at each of its
     // elements
-    struct RoadMap *iterator = newRoadMap->next;
     while (newRoadMap != NULL) { // Here
         newRoadMap->total_cost += cumulative_cost;
         newRoadMap = newRoadMap->next;
