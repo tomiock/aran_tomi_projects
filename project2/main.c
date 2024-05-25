@@ -1,6 +1,5 @@
 // Import our headers:
 #include "algorithm.h"
-#include "datasets/small.h"
 #include "graph.h"
 #include "queue.h"
 #include "stack.h"
@@ -39,7 +38,7 @@ int main(void) {
 
     printf("\nTotal Road Map:\n");
     printTOTALRoadMap(total_roadMap_bfs);
-    
+
     freeRoadMap(total_roadMap_bfs);
 
     printf("\n----------------------------------\n");
@@ -65,7 +64,7 @@ int main(void) {
     printf("\nTotal Road Map:\n");
     printTOTALRoadMap(total_roadMap_dfs);
     // FREE
-    //FreeRoadMap(total_roadMap_dfs);
+    freeRoadMap(total_roadMap_dfs);
 
     return 0;
 }
