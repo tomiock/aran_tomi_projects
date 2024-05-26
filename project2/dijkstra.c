@@ -105,7 +105,6 @@ void decreaseKey(struct MinHeap *min_heap, int vertex, int distance) {
             swapMinHeapNode(&min_heap->array[i], &min_heap->array[(i - 1) / 2]);
             // if this two nodes are not in the right order, swap them
             // this can be seem similar to the bubble sort
-
         i = (i - 1) / 2;
     }
 }
@@ -128,6 +127,10 @@ void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES],
 
     // the heap used along the algorithm
     struct MinHeap *min_heap = init_MinHeap(NUMBER_CITIES);
+    if (min_heap == NULL) {
+        printf("Memory allocation failed\n");
+        return;
+    }
 
     // initialize distances and min heap
     for (int i = 0; i < NUMBER_CITIES; i++) {
@@ -144,8 +147,7 @@ void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES],
 
     while (min_heap->size > 0) {
         struct MinHeapNode *minHeapNode = pop_heap(min_heap);
-        int u =
-            minHeapNode->vertex; // take the vertex with the minimum distance
+        int u = minHeapNode->vertex; // take the vertex with the minimum distance
         visited_set[u] = true;
 
         if (u == dest) {
@@ -162,7 +164,18 @@ void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES],
                     decreaseKey(min_heap, v, distances[v]);
             }
         }
+        free(minHeapNode);
     }
+
+    // Free memory
+    while (min_heap->size > 0) {
+        free(min_heap->array[min_heap->size - 1]);
+        min_heap->size--;
+    }
+
+    free(min_heap->array);
+    free(min_heap->pos);
+    free(min_heap);
 
     // construct the path from src to dest using the path array
     short stack[NUMBER_CITIES];
@@ -205,16 +218,6 @@ void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES],
         printf("No path found from src to dest\n");
     }
 
-    // Free memory
-
-    while (min_heap->size > 0) {
-        free(min_heap->array[min_heap->size - 1]);
-        min_heap->size--;
-    }
-
-    free(min_heap->array);
-    free(min_heap->pos);
-    free(min_heap);
 }
 
 void dijikstra_list(struct City **cities_list, unsigned short src,

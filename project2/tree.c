@@ -58,6 +58,7 @@ void Free_Tree(struct FamilyTreeNode *root) {
     freeStack(&c_stack);
 }
 
+// define a node with the city number and the parents names
 void Def_Node(struct FamilyTreeNode *node, short city_n) {
     node->city_id = city_n;
     strcpy(node->fatherName, citiesInfo[city_n].father_name);
@@ -101,7 +102,6 @@ void DFS(struct FamilyTreeNode *root) {
 
                 if (currentNode != &end_loop){
                     temp = currentNode->father_parents;
-                    //free(currentNode);
                     currentNode = temp;
                 }
 
@@ -186,7 +186,6 @@ void Travel_Tree_DFS(struct FamilyTreeNode *root, short arr[NUMBER_CITIES]) {
             push(&c_stack, (currentNode->mother_parents));
         }
         i++;
-        //free(currentNode);
     }
     freeStack(&c_stack);
     for (i; i < NUMBER_CITIES; i++)

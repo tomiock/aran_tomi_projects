@@ -39,4 +39,6 @@ void makeTrip(struct RoadMap *total_roadMap, short *arr) {
     printf("\nTotal Road Map:\n");
     printTOTALRoadMap(total_roadMap);
     printf("\n");
+
+    freeRoadMap(total_roadMap);
 }

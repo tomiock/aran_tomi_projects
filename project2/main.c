@@ -36,12 +36,10 @@ int main(void) {
 
     makeTrip(total_roadMap_bfs, bfs_arr);
 
-    freeRoadMap(total_roadMap_bfs);
-
     printf("\n----------------------------------\n");
 
     // DFS
-    Def_Node(root_dfs, 0);
+    Def_Node(root_dfs, 0); // we asume that the root is the city 0
     New_Nodes(root_dfs);
     DFS(root_dfs);
     printf("DFS -> Names:\n");
@@ -57,9 +55,6 @@ int main(void) {
     printf("\nPartial road map:\n");
 
     makeTrip(total_roadMap_dfs, dfs_arr);
-
-    // FREE
-    freeRoadMap(total_roadMap_dfs);
 
     return 0;
 }
