@@ -9,10 +9,10 @@ struct MinHeap {
     int size;
     int capacity;
     int *pos;
-    struct MinHeapNode **array;
+    struct MinHeapNode **array; // 2D array
 };
 
-// Function to create a new MinHeap node
+// allocate a new MinHeap node
 struct MinHeapNode *new_MinHeapNode(int vertex, int distance) {
     struct MinHeapNode *new_min_heap_node = malloc(sizeof(struct MinHeapNode));
     new_min_heap_node->vertex = vertex;
@@ -20,7 +20,7 @@ struct MinHeapNode *new_MinHeapNode(int vertex, int distance) {
     return new_min_heap_node;
 }
 
-// Function to create a MinHeap
+// allocate a new MinHeap
 struct MinHeap *init_MinHeap(int capacity) {
     struct MinHeap *min_heap = malloc(sizeof(struct MinHeap));
     min_heap->pos = (int *)malloc(capacity * sizeof(int));
@@ -30,14 +30,14 @@ struct MinHeap *init_MinHeap(int capacity) {
     return min_heap;
 }
 
-// Function to swap two nodes of min heap
+// swap two nodes of min heap
 void swapMinHeapNode(struct MinHeapNode **a, struct MinHeapNode **b) {
     struct MinHeapNode *t = *a;
     *a = *b;
     *b = t;
 }
 
-// Heapify at given index
+// heapify at given index (used to maintain the heap property)
 void heapify(struct MinHeap *min_heap, int idx) {
     int smallest, left, right;
     smallest = idx; // parent
@@ -117,7 +117,8 @@ bool isInMinHeap(struct MinHeap *min_heap, int vertex) {
     return false;
 }
 
-// function to implement Dijkstra's algorithm using a min-heap
+// Dijkstra's algorithm using a min-heap
+// returns pointer to the roadMap struct
 void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES],
                      unsigned short src, unsigned short dest,
                      struct RoadMap *roadMap) {
