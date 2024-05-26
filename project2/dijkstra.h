@@ -24,7 +24,7 @@ void printPath(int parent[], int j);
 
 short min_distance(short distances[], bool visited_set[]);
 
-void dijkstra_matrix(const unsigned short graph[NUMBER_CITIES][NUMBER_CITIES], unsigned short src, unsigned short dest,
+void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES], unsigned short src, unsigned short dest,
                      struct RoadMap *roadMap);
 void freeDijkstra();
 
