@@ -1,10 +1,10 @@
 #include "algorithm.h"
 
 // Define what algotihm to use **
-#define ALGORITHM DIJKSTRAS
+#define ALGORITHM DIJKSTRAS_MATRIX
 
 // Create the enum for choosing the algorithm
-enum { DIJKSTRAS = 0, A_STAR = 1 };
+enum { DIJKSTRAS_MATRIX = 0, DIJKSTRAS_LIST = 1 };
 
 void makeTrip(struct RoadMap *total_roadMap, short *arr) {
     for (int i = 0; i < NUMBER_CITIES - 1; i++) {
@@ -14,11 +14,11 @@ void makeTrip(struct RoadMap *total_roadMap, short *arr) {
         if (arr[i + 1] != (-1)) {
 
             switch (ALGORITHM) {
-            case DIJKSTRAS:
+            case DIJKSTRAS_MATRIX:
                 dijkstra_matrix(adjacency_matrix, arr[i], arr[i + 1],
                                 partial_roadMap);
                 break;
-            case A_STAR:
+            case DIJKSTRAS_LIST:
                 break;
             }
 

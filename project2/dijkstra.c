@@ -1,17 +1,5 @@
 #include "dijkstra.h"
 
-struct MinHeapNode {
-    int vertex;
-    int distance;
-} MinHeapNode;
-
-struct MinHeap {
-    int size;
-    int capacity;
-    int *pos;
-    struct MinHeapNode **array; // 2D array
-};
-
 // allocate a new MinHeap node
 struct MinHeapNode *alloc_MinHeapNode(int vertex, int distance) {
     struct MinHeapNode *new_min_heap_node = malloc(sizeof(struct MinHeapNode));
