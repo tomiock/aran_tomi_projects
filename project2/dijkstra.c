@@ -13,7 +13,7 @@ struct MinHeap {
 };
 
 // allocate a new MinHeap node
-struct MinHeapNode *new_MinHeapNode(int vertex, int distance) {
+struct MinHeapNode *alloc_MinHeapNode(int vertex, int distance) {
     struct MinHeapNode *new_min_heap_node = malloc(sizeof(struct MinHeapNode));
     new_min_heap_node->vertex = vertex;
     new_min_heap_node->distance = distance;
@@ -21,7 +21,7 @@ struct MinHeapNode *new_MinHeapNode(int vertex, int distance) {
 }
 
 // allocate a new MinHeap
-struct MinHeap *init_MinHeap(int capacity) {
+struct MinHeap *alloc_MinHeap(int capacity) {
     struct MinHeap *min_heap = malloc(sizeof(struct MinHeap));
     min_heap->pos = (int *)malloc(capacity * sizeof(int));
     min_heap->size = 0;
@@ -90,11 +90,11 @@ struct MinHeapNode *pop_heap(struct MinHeap *min_heap) {
 }
 
 // decrease the distance value of a given vertex
-void decreaseKey(struct MinHeap *min_heap, int vertex, int distance) {
+void updateDistance(struct MinHeap *min_heap, int vertex, int distance) {
     int i = min_heap->pos[vertex];
     min_heap->array[i]->distance = distance;
 
-    // the condition int the loop checks the two adjacent nodes to ensure
+    // the condition that defines loop checks the two adjacent nodes to ensure
     // that the proper order (minimum distance) is maintained
     
     while (i &&  // this index is used to check if the node is the root
@@ -126,7 +126,7 @@ void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES],
     short path[NUMBER_CITIES]; // used to store the path sequence
 
     // the heap used along the algorithm
-    struct MinHeap *min_heap = init_MinHeap(NUMBER_CITIES);
+    struct MinHeap *min_heap = alloc_MinHeap(NUMBER_CITIES);
     if (min_heap == NULL) {
         printf("Memory allocation failed\n");
         return;
@@ -137,12 +137,12 @@ void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES],
         distances[i] = SHRT_MAX;
         visited_set[i] = false;
         path[i] = -1;
-        min_heap->array[i] = new_MinHeapNode(i, distances[i]);
+        min_heap->array[i] = alloc_MinHeapNode(i, distances[i]);
         min_heap->pos[i] = i;
     }
 
     distances[src] = 0;
-    decreaseKey(min_heap, src, distances[src]);
+    updateDistance(min_heap, src, distances[src]);
     min_heap->size = NUMBER_CITIES;
 
     while (min_heap->size > 0) {
@@ -161,7 +161,7 @@ void dijkstra_matrix(int graph[NUMBER_CITIES][NUMBER_CITIES],
                 path[v] = u;
 
                 if (isInMinHeap(min_heap, v))
-                    decreaseKey(min_heap, v, distances[v]);
+                    updateDistance(min_heap, v, distances[v]);
             }
         }
         free(minHeapNode);
