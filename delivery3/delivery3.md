@@ -3,9 +3,6 @@
 Degree: Artificial Intelligence
 Subject: Fundamentals of Programming 2
 
-Authors:
-    Name: Ockier Poblet, Tomas      NIU: 1707185
-    Name: Oliveras Sanchez, Aran    NIU: 1708069
 ```
 
 ## Exercise 1

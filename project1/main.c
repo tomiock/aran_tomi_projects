@@ -5,9 +5,6 @@ Practical project: 1
 
 Simulator - main program
 
-Authors:
-	Name: Ockier Poblet, Tomas      NIU: 1707185
-	Name: Oliveras Sanchez, Aran    NIU: 1708069
 */
 
 #include <stdio.h>
